@@ -1,0 +1,4 @@
+.settings/
+target/
+# file config database
+db.properties
