@@ -1,0 +1,130 @@
+package com.tomcat.entity;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * The persistent class for the flight database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Flight.findAll", query="SELECT f FROM Flight f")
+public class Flight implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int flight_Id;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date arrivalDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deparutreDate;
+
+	private double flight_Price;
+
+	//bi-directional many-to-one association to Airport
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="From_Airport_Id")
+	private Airport airport1;
+
+	//bi-directional many-to-one association to Airport
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="To_Airport_Id")
+	private Airport airport2;
+
+	//bi-directional many-to-one association to Airplane
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Airplane_Id")
+	private Airplane airplane;
+
+	//bi-directional many-to-one association to Ticket
+	@OneToMany(mappedBy="flight")
+	private List<Ticket> tickets;
+
+	public Flight() {
+	}
+
+	public int getFlight_Id() {
+		return this.flight_Id;
+	}
+
+	public void setFlight_Id(int flight_Id) {
+		this.flight_Id = flight_Id;
+	}
+
+	public Date getArrivalDate() {
+		return this.arrivalDate;
+	}
+
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public Date getDeparutreDate() {
+		return this.deparutreDate;
+	}
+
+	public void setDeparutreDate(Date deparutreDate) {
+		this.deparutreDate = deparutreDate;
+	}
+
+	public double getFlight_Price() {
+		return this.flight_Price;
+	}
+
+	public void setFlight_Price(double flight_Price) {
+		this.flight_Price = flight_Price;
+	}
+
+	public Airport getAirport1() {
+		return this.airport1;
+	}
+
+	public void setAirport1(Airport airport1) {
+		this.airport1 = airport1;
+	}
+
+	public Airport getAirport2() {
+		return this.airport2;
+	}
+
+	public void setAirport2(Airport airport2) {
+		this.airport2 = airport2;
+	}
+
+	public Airplane getAirplane() {
+		return this.airplane;
+	}
+
+	public void setAirplane(Airplane airplane) {
+		this.airplane = airplane;
+	}
+
+	public List<Ticket> getTickets() {
+		return this.tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public Ticket addTicket(Ticket ticket) {
+		getTickets().add(ticket);
+		ticket.setFlight(this);
+
+		return ticket;
+	}
+
+	public Ticket removeTicket(Ticket ticket) {
+		getTickets().remove(ticket);
+		ticket.setFlight(null);
+
+		return ticket;
+	}
+
+}
