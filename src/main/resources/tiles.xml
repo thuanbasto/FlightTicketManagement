@@ -2,23 +2,31 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
 <tiles-definitions>
-  <definition name="base-difinition" template="/WEB-INF/views/layouts/defaultLayout.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/layouts/header.jsp" />
+  <definition name="home-difinition" template="/WEB-INF/views/layouts/Layout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
+    <put-attribute name="body" value="" />
+  </definition>
+  <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
     <put-attribute name="body" value="" />
   </definition>
   
   <!-- home page -->
-  <definition name="home" extends="base-difinition">
-  	<put-attribute name="body" value="/WEB-INF/views/home/home.jsp"/>
+  <definition name="Home" extends="home-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/home/Home.jsp"/>
   </definition>
-  <definition name="signin" extends="base-difinition">
-  	<put-attribute name="body" value="/WEB-INF/views/home/signin.jsp"/>
+  <definition name="Signin" extends="home-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
   </definition>
   
   <!-- user-difinition -->
   
   <!-- admin-difinition -->
-  
+  <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/layouts/admin/Singup.jsp" />
+    <put-attribute name="body" value="" />
+  </definition>
   
 </tiles-definitions>
