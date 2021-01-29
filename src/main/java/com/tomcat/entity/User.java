@@ -35,6 +35,8 @@ public class User implements Serializable {
 	private String username;
 	
 	private String password;
+	
+	private Byte enabled;
 
 	private int role_Id;
 
@@ -47,6 +49,14 @@ public class User implements Serializable {
 	private List<Role> roles;
 
 	public User() {
+	}
+
+	public Byte getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Byte enabled) {
+		this.enabled = enabled;
 	}
 
 	public int getUser_Id() {
