@@ -13,6 +13,9 @@
   	<put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
   </definition>
   
+    <definition name="booking" extends="base-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/Booking.jsp"/>
+  </definition>
   <!-- user-difinition -->
   
   <!-- admin-difinition -->
