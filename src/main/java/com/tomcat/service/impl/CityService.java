@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tomcat.dto.CityDTO;
 import com.tomcat.entity.City;
 import com.tomcat.repository.CityRepository;
 import com.tomcat.service.ICityService;
@@ -21,30 +20,6 @@ public class CityService implements ICityService{
 	@Override
 	public List<City> getList() {
 		return cityRepository.findAll();
-	}
-
-	@Override
-	public void add(CityDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void save(CityDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(CityDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(CityDTO t) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

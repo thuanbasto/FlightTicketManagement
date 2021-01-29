@@ -25,31 +25,15 @@ public class UserService implements IUserService{
 	@Override
 	public void add(UserDTO t) {
 		User user = userConverter.toUser(t);
+		
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(new Role(2, "ROLE_USER"));
+		user.setRoles(roles);
+		user.setEnable((byte) 1);
+		
+		
 		user.setRoles(roles);
 		userRepository.save(user);
 	}
 
-
-	@Override
-	public void save(UserDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void update(UserDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void delete(UserDTO t) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
