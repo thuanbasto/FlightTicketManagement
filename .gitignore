@@ -1,4 +1,6 @@
 .settings/
 target/
 # file config database
+src/main/resources/db.properties
 db.properties
+pom.xml

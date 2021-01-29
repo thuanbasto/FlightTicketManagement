@@ -15,7 +15,6 @@ public class Seat implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String seat_Id;
 
 	//bi-directional many-to-one association to Travelclass
