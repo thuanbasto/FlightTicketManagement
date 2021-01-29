@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<c:url value="/signup" var="url"/>
+<c:url value="/admin/signup" var="url"/>
 <h1>Sign up</h1>
 <div>
 	<div>

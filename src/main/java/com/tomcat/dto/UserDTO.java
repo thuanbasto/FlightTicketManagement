@@ -26,6 +26,8 @@ public class UserDTO implements Serializable {
 	
 	private String password;
 	
+	private String confirmPassword;
+	
 	private Byte enable;
 
 	private List<BookingDTO> bookings;
@@ -41,6 +43,14 @@ public class UserDTO implements Serializable {
 
 	public void setEnable(Byte enabled) {
 		this.enable = enabled;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public int getUser_Id() {
