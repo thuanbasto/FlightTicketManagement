@@ -36,9 +36,7 @@ public class User implements Serializable {
 	
 	private String password;
 	
-	private Byte enabled;
-
-	private int role_Id;
+	private Byte enable;
 
 	//bi-directional many-to-one association to Booking
 	@OneToMany(mappedBy="user")
@@ -51,12 +49,12 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public Byte getEnabled() {
-		return enabled;
+	public Byte getEnable() {
+		return enable;
 	}
 
-	public void setEnabled(Byte enabled) {
-		this.enabled = enabled;
+	public void setEnable(Byte enabled) {
+		this.enable = enabled;
 	}
 
 	public int getUser_Id() {
@@ -113,14 +111,6 @@ public class User implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public int getRole_Id() {
-		return this.role_Id;
-	}
-
-	public void setRole_Id(int role_Id) {
-		this.role_Id = role_Id;
 	}
 
 	public List<Booking> getBookings() {

@@ -12,6 +12,9 @@
   <definition name="home" extends="base-difinition">
   	<put-attribute name="body" value="/WEB-INF/views/home/home.jsp"/>
   </definition>
+  <definition name="signin" extends="base-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/home/signin.jsp"/>
+  </definition>
   
   <!-- user-difinition -->
   
