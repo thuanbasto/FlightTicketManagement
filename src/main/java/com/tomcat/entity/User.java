@@ -31,6 +31,10 @@ public class User implements Serializable {
 	private String lastName;
 
 	private String phone;
+	
+	private String username;
+	
+	private String password;
 
 	private int role_Id;
 
@@ -137,6 +141,26 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

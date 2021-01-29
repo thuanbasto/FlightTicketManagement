@@ -8,9 +8,9 @@
     <put-attribute name="body" value="" />
   </definition>
   
-  <!-- basic page -->
+  <!-- home page -->
   <definition name="home" extends="base-difinition">
-  	<put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
+  	<put-attribute name="body" value="/WEB-INF/views/home/home.jsp"/>
   </definition>
   
   <!-- user-difinition -->
