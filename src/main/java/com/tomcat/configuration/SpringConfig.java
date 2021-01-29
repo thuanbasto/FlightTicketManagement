@@ -1,5 +1,6 @@
 package com.tomcat.configuration;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
 	public ViewResolver tilesViewResolver() {
 		TilesViewResolver resolver = new TilesViewResolver();
 		return resolver;
+	}
+	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 	
 	@Override

@@ -4,17 +4,17 @@
 
 <c:url value="/signin" var="url"/>
 
-<div class="mx-auto">
-	<h1 class="mx-auto">Sign In</h1>
-	<div style="width: 70%;">
+<div>
+	<h1>Sign In</h1>
+	<div>
 	<form action="${url}" method="POST">
-	  <div class="form-group">
+	  <div>
 	    <label>Username</label>
-	    <input name="username" class="form-control" placeholder="Enter username" autofocus required/>
+	    <input name="username" placeholder="Enter username" autofocus required/>
 	  </div>
-	  <div class="form-group">
+	  <div>
 	    <label>Password</label>
-	    <input name="password" type="password" class="form-control" placeholder="Password" required/>
+	    <input name="password" type="password" placeholder="Password" required/>
 	  </div>
 	  <p style="color:red">${msg}</p>
 	  <button id="submit" type="submit" class="btn btn-primary">Sign in</button>

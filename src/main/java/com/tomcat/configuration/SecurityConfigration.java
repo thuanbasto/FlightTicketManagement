@@ -28,17 +28,21 @@ public class SecurityConfigration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
-			.usersByUsernameQuery("SELECT USERNAME, PASSWORD, ENABLED, NAME FROM USER WHERE USERNAME = ?")
-			.authoritiesByUsernameQuery("SELECT USERNAME, ROLE FROM USER WHERE USERNAME = ?")
-			.passwordEncoder(passwordEncoder());
+			.usersByUsernameQuery("SELECT username, password, enable FROM user WHERE username = ?")
+			.authoritiesByUsernameQuery("SELECT username, r.name FROM flightticketmanagement.user u " + 
+					"RIGHT JOIN role_user ru ON ru.User_Id = u.User_Id " + 
+					"RIGHT JOIN flightticketmanagement.role r ON r.Role_Id = ru.Role_Id " + 
+					"WHERE username = ?");
+//			.passwordEncoder(passwordEncoder());
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
-		http.csrf().disable().authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll()
-			.and().authorizeRequests().antMatchers("/user/**").hasRole("USER")
-			.anyRequest().permitAll().and().formLogin().loginPage("/signin").loginProcessingUrl("/signin")
+		http.csrf().disable()
+			.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll()
+			.and().authorizeRequests().antMatchers("/user/**").hasRole("USER").anyRequest().permitAll()
+			.and().formLogin().loginPage("/signin").loginProcessingUrl("/signin")
 			.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/home").failureUrl("/signin?error=failed")
 			.and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout").logoutSuccessUrl("/home")
 			.and().exceptionHandling().accessDeniedPage("/signin?error=deny");

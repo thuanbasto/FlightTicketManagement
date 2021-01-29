@@ -84,8 +84,7 @@ CREATE TABLE `User` (
   `Email` nvarchar(200),
   `Username` varchar(200),
   `Password` varchar(200),
-  `Enable` tinyint(1),
-  `Role_Id` int(10)
+  `Enable` tinyint(1)
 );
 
 CREATE TABLE `Tax` (
