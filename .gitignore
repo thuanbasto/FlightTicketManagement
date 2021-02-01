@@ -2,3 +2,6 @@
 target/
 # file config database
 db.properties
+pom.xml
+
+
