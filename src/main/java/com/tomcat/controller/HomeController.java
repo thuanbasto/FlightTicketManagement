@@ -24,11 +24,5 @@ public class HomeController {
 		request.setAttribute("listCity", cityService.getList());
 		return "booking";
 	}
-	
-	@GetMapping(value= {"/admin"})
-	public String adminPage(HttpServletRequest request) {
-		request.setAttribute("listCity", cityService.getList());
-		return "admin";
-	}
-	
+		
 }
