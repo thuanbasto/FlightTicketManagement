@@ -2,8 +2,9 @@ package com.tomcat.service;
 
 import java.util.List;
 
-import com.tomcat.entity.City;
+import com.tomcat.dto.CityDTO;
 
-public interface ICityService {
-	public List<City> getList();
+public interface ICityService{
+	public List<CityDTO> getList();
+	public CityDTO getCityDTO(String id);
 }

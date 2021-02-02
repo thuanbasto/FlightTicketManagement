@@ -27,6 +27,11 @@ public class Flight implements Serializable {
 
 	private double flight_Price;
 
+	//bi-directional many-to-one association to Airplane
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Airplane_Id")
+	private Airplane airplane;
+
 	//bi-directional many-to-one association to Airport
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="From_Airport_Id")
@@ -36,11 +41,6 @@ public class Flight implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="To_Airport_Id")
 	private Airport airport2;
-
-	//bi-directional many-to-one association to Airplane
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Airplane_Id")
-	private Airplane airplane;
 
 	//bi-directional many-to-one association to Ticket
 	@OneToMany(mappedBy="flight")
@@ -81,6 +81,14 @@ public class Flight implements Serializable {
 		this.flight_Price = flight_Price;
 	}
 
+	public Airplane getAirplane() {
+		return this.airplane;
+	}
+
+	public void setAirplane(Airplane airplane) {
+		this.airplane = airplane;
+	}
+
 	public Airport getAirport1() {
 		return this.airport1;
 	}
@@ -95,14 +103,6 @@ public class Flight implements Serializable {
 
 	public void setAirport2(Airport airport2) {
 		this.airport2 = airport2;
-	}
-
-	public Airplane getAirplane() {
-		return this.airplane;
-	}
-
-	public void setAirplane(Airplane airplane) {
-		this.airplane = airplane;
 	}
 
 	public List<Ticket> getTickets() {

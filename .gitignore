@@ -1,6 +1,7 @@
 .settings/
 target/
 # file config database
+<<<<<<< HEAD
 db.properties
 pom.xml
 <<<<<<< HEAD
@@ -8,3 +9,8 @@ pom.xml
 
 =======
 >>>>>>> 17c083bda615c99a5f9fc4d44439b5dc5cf056f2
+=======
+src/main/resources/db.properties
+db.properties
+pom.xml
+>>>>>>> main

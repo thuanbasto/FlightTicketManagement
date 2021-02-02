@@ -1,17 +1,11 @@
-package com.tomcat.entity;
+package com.tomcat.dto;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Id;
 
-/**
- * The persistent class for the airplane database table.
- * 
- */
-@Entity
-@NamedQuery(name="Airplane.findAll", query="SELECT a FROM Airplane a")
-public class Airplane implements Serializable {
+public class AirplaneDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,11 +13,9 @@ public class Airplane implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airplane")
-	private List<Flight> flights;
+	private List<FlightDTO> flights;
 
-	public Airplane() {
+	public AirplaneDTO() {
 	}
 
 	public String getAirplane_Id() {
@@ -42,22 +34,22 @@ public class Airplane implements Serializable {
 		this.name = name;
 	}
 
-	public List<Flight> getFlights() {
+	public List<FlightDTO> getFlights() {
 		return this.flights;
 	}
 
-	public void setFlights(List<Flight> flights) {
+	public void setFlights(List<FlightDTO> flights) {
 		this.flights = flights;
 	}
 
-	public Flight addFlight(Flight flight) {
+	public FlightDTO addFlight(FlightDTO flight) {
 		getFlights().add(flight);
 		flight.setAirplane(this);
 
 		return flight;
 	}
 
-	public Flight removeFlight(Flight flight) {
+	public FlightDTO removeFlight(FlightDTO flight) {
 		getFlights().remove(flight);
 		flight.setAirplane(null);
 

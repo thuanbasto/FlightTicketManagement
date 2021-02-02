@@ -82,7 +82,9 @@ CREATE TABLE `User` (
   `Address` nvarchar(200),
   `Phone` nvarchar(10),
   `Email` nvarchar(200),
-  `Role_Id` int(10)
+  `Username` varchar(200),
+  `Password` varchar(200),
+  `Enable` tinyint(1)
 );
 
 CREATE TABLE `Tax` (

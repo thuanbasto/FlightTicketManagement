@@ -24,6 +24,7 @@
 		<rest.json.version>2.9.2</rest.json.version>
 		<apache.tile.version>3.0.7</apache.tile.version> <!-- Manage file JSP -->
 		<spring.security.version>4.2.3.RELEASE</spring.security.version>
+		<model.mapper.version>2.3.5</model.mapper.version>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -140,6 +141,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- Model mapper -->
+		<dependency>
+		  <groupId>org.modelmapper</groupId>
+		  <artifactId>modelmapper</artifactId>
+		  <version>${model.mapper.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

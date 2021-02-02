@@ -25,25 +25,25 @@ public class Ticket implements Serializable {
 	@JoinColumn(name="Booking_Id")
 	private Booking booking;
 
+	//bi-directional many-to-one association to Customer
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Customer_Id")
+	private Customer customer;
+
 	//bi-directional many-to-one association to Flight
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Flight_Id")
 	private Flight flight;
-
-	//bi-directional many-to-one association to Signedluggage
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="SignedLuggage_Id")
-	private Signedluggage signedluggage;
 
 	//bi-directional many-to-one association to Seat
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Seat_Id")
 	private Seat seat;
 
-	//bi-directional many-to-one association to Customer
+	//bi-directional many-to-one association to Signedluggage
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Customer_Id")
-	private Customer customer;
+	@JoinColumn(name="SignedLuggage_Id")
+	private Signedluggage signedluggage;
 
 	//bi-directional many-to-many association to Tax
 	@ManyToMany
@@ -85,20 +85,20 @@ public class Ticket implements Serializable {
 		this.booking = booking;
 	}
 
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public Flight getFlight() {
 		return this.flight;
 	}
 
 	public void setFlight(Flight flight) {
 		this.flight = flight;
-	}
-
-	public Signedluggage getSignedluggage() {
-		return this.signedluggage;
-	}
-
-	public void setSignedluggage(Signedluggage signedluggage) {
-		this.signedluggage = signedluggage;
 	}
 
 	public Seat getSeat() {
@@ -109,12 +109,12 @@ public class Ticket implements Serializable {
 		this.seat = seat;
 	}
 
-	public Customer getCustomer() {
-		return this.customer;
+	public Signedluggage getSignedluggage() {
+		return this.signedluggage;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setSignedluggage(Signedluggage signedluggage) {
+		this.signedluggage = signedluggage;
 	}
 
 	public List<Tax> getTaxs() {

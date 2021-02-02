@@ -16,7 +16,13 @@ public class HomeController {
 	@GetMapping(value= {"/home","/"})
 	public String homePage(HttpServletRequest request) {
 		request.setAttribute("listCity", cityService.getList());
-		return "home";
+		
+		return "Home";
+	}
+	
+	@GetMapping("/signin")
+	public String signPage() {
+		return "Signin";
 	}
 	
 	@GetMapping(value= {"/booking"})

@@ -1,29 +1,19 @@
-package com.tomcat.entity;
+package com.tomcat.dto;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
 
-/**
- * The persistent class for the city database table.
- * 
- */
-@Entity
-@NamedQuery(name="City.findAll", query="SELECT c FROM City c")
-public class City implements Serializable {
+public class CityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private String city_Id;
 
 	private String name;
 
-	//bi-directional many-to-one association to Airport
-	@OneToMany(mappedBy="city")
-	private List<Airport> airports;
+	private List<AirportDTO> airports;
 
-	public City() {
+	public CityDTO() {
 	}
 
 	public String getCity_Id() {
@@ -42,22 +32,22 @@ public class City implements Serializable {
 		this.name = name;
 	}
 
-	public List<Airport> getAirports() {
+	public List<AirportDTO> getAirports() {
 		return this.airports;
 	}
 
-	public void setAirports(List<Airport> airports) {
+	public void setAirports(List<AirportDTO> airports) {
 		this.airports = airports;
 	}
 
-	public Airport addAirport(Airport airport) {
+	public AirportDTO addAirport(AirportDTO airport) {
 		getAirports().add(airport);
 		airport.setCity(this);
 
 		return airport;
 	}
 
-	public Airport removeAirport(Airport airport) {
+	public AirportDTO removeAirport(AirportDTO airport) {
 		getAirports().remove(airport);
 		airport.setCity(null);
 

@@ -1,27 +1,17 @@
-package com.tomcat.entity;
+package com.tomcat.dto;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 
-/**
- * The persistent class for the user database table.
- * 
- */
-@Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-public class User implements Serializable {
+public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int user_Id;
 
 	private String address;
 
-	@Temporal(TemporalType.DATE)
 	private Date birthDay;
 
 	private String email;
@@ -36,17 +26,15 @@ public class User implements Serializable {
 	
 	private String password;
 	
+	private String confirmPassword;
+	
 	private Byte enable;
 
-	//bi-directional many-to-one association to Booking
-	@OneToMany(mappedBy="user")
-	private List<Booking> bookings;
+	private List<BookingDTO> bookings;
 
-	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="users")
-	private List<Role> roles;
+	private List<RoleDTO> roles;
 
-	public User() {
+	public UserDTO() {
 	}
 
 	public Byte getEnable() {
@@ -55,6 +43,14 @@ public class User implements Serializable {
 
 	public void setEnable(Byte enabled) {
 		this.enable = enabled;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public int getUser_Id() {
@@ -113,33 +109,33 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public List<Booking> getBookings() {
+	public List<BookingDTO> getBookings() {
 		return this.bookings;
 	}
 
-	public void setBookings(List<Booking> bookings) {
+	public void setBookings(List<BookingDTO> bookings) {
 		this.bookings = bookings;
 	}
 
-	public Booking addBooking(Booking booking) {
+	public BookingDTO addBooking(BookingDTO booking) {
 		getBookings().add(booking);
 		booking.setUser(this);
 
 		return booking;
 	}
 
-	public Booking removeBooking(Booking booking) {
+	public BookingDTO removeBooking(BookingDTO booking) {
 		getBookings().remove(booking);
 		booking.setUser(null);
 
 		return booking;
 	}
 
-	public List<Role> getRoles() {
+	public List<RoleDTO> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(List<RoleDTO> roles) {
 		this.roles = roles;
 	}
 
