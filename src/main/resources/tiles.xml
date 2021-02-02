@@ -21,7 +21,7 @@
   	<put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
   </definition>
   <definition name="Booking" extends="home-difinition">
-		<put-attribute name="body" value="/WEB-INF/views/Booking.jsp" />
+	<put-attribute name="body" value="/WEB-INF/views/home/Booking.jsp"/>
   </definition>
   <!-- user-difinition -->
   
