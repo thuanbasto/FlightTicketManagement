@@ -12,7 +12,7 @@
 	<properties>
 		<spring.version>4.3.13.RELEASE</spring.version>
 
-		<mysql.connector.version>8.0.18</mysql.connector.version>
+		<mysql.connector.version>8.0.23</mysql.connector.version>
 		<hibernate.version>4.3.6.Final</hibernate.version>
 		<hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
 		<spring.data.jpa.version>1.11.5.RELEASE</spring.data.jpa.version>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<div class="container"><h1 style="text-align: center;color: teal;">Home Page</h1></div>
+
 <%-- <div class="container" style="margin-top: 50px">
 	<h2>Customer Manager</h2>
 	<form method="get" action="search">
@@ -28,7 +30,7 @@
 	</table>
 </div> --%>
 
-  <div class="container ">
+ <!--  <div class="container ">
     <div class="row" style="margin-top:70px;">
       <div class="col-sm-7">
 
@@ -159,12 +161,12 @@
                 </div>
               </div>
 
-              <!-- <div class="search"> -->
+              <div class="search">
               <div class="form-group mb-4">
                 <button class="btn float-right"
                   style="background-image: linear-gradient(to right top, #eca9ff, #c4b1ff, #95b8ff, #5fbeff, #00c1ff);border-color: white;">Search</button>
               </div>
-              <!-- </div> -->
+              </div>
 
             </div>
           </div>
@@ -180,7 +182,7 @@
 
       </div>
 
-      <!-- <div class="col-sm-5" style="background-color:orange;">50%</div> -->
+      <div class="col-sm-5" style="background-color:orange;">50%</div>
 
     </div>
-  </div>
+  </div> -->

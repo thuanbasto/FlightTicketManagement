@@ -24,4 +24,10 @@ public class HomeController {
 	public String signPage() {
 		return "Signin";
 	}
+	
+	@GetMapping(value= {"/booking"})
+	public String bookingPage(HttpServletRequest request) {
+		request.setAttribute("listCity", cityService.getList());
+		return "Booking";
+	}
 }
