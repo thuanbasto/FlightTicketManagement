@@ -24,5 +24,4 @@ public class HomeController {
 		request.setAttribute("listCity", cityService.getList());
 		return "booking";
 	}
-		
 }

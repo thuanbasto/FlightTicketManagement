@@ -3,7 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="base-difinition"
+		<definition name="base-difinition"
 		template="/WEB-INF/views/layouts/defaultLayout.jsp">
 		<put-attribute name="header"
 			value="/WEB-INF/views/layouts/header.jsp" />
@@ -23,6 +23,4 @@
 	<!-- user-difinition -->
 
 	<!-- admin-difinition -->
-
-
 </tiles-definitions>

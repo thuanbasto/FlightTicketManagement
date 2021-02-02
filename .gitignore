@@ -3,5 +3,8 @@ target/
 # file config database
 db.properties
 pom.xml
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 17c083bda615c99a5f9fc4d44439b5dc5cf056f2
