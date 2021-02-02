@@ -21,7 +21,11 @@ public class Role implements Serializable {
 	private String name;
 
 	//bi-directional many-to-many association to User
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+            		CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
 	@JoinTable(
 		name="role_user"
 		, joinColumns={

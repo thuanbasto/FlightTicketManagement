@@ -43,7 +43,11 @@ public class User implements Serializable {
 	private List<Booking> bookings;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="users")
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+            	CascadeType.MERGE
+            },
+			mappedBy="users")
 	private List<Role> roles;
 
 	public User() {
