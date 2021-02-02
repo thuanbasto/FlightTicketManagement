@@ -7,7 +7,7 @@ import java.util.List;
 public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int role_Id;
+	private Integer role_Id;
 
 	private String name;
 
@@ -16,11 +16,11 @@ public class RoleDTO implements Serializable {
 	public RoleDTO() {
 	}
 
-	public int getRole_Id() {
+	public Integer getRole_Id() {
 		return this.role_Id;
 	}
 
-	public void setRole_Id(int role_Id) {
+	public void setRole_Id(Integer role_Id) {
 		this.role_Id = role_Id;
 	}
 

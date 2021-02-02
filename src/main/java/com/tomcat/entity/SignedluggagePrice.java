@@ -17,7 +17,7 @@ public class SignedluggagePrice implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int price_Id;
+	private Integer price_Id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
@@ -32,11 +32,11 @@ public class SignedluggagePrice implements Serializable {
 	public SignedluggagePrice() {
 	}
 
-	public int getPrice_Id() {
+	public Integer getPrice_Id() {
 		return this.price_Id;
 	}
 
-	public void setPrice_Id(int price_Id) {
+	public void setPrice_Id(Integer price_Id) {
 		this.price_Id = price_Id;
 	}
 

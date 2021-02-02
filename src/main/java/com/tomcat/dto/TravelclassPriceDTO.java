@@ -7,7 +7,7 @@ import java.util.Date;
 public class TravelclassPriceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int price_Id;
+	private Integer price_Id;
 
 	private Date modifiedDate;
 
@@ -18,11 +18,11 @@ public class TravelclassPriceDTO implements Serializable {
 	public TravelclassPriceDTO() {
 	}
 
-	public int getPrice_Id() {
+	public Integer getPrice_Id() {
 		return this.price_Id;
 	}
 
-	public void setPrice_Id(int price_Id) {
+	public void setPrice_Id(Integer price_Id) {
 		this.price_Id = price_Id;
 	}
 

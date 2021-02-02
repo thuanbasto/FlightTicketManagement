@@ -6,7 +6,7 @@ import java.util.List;
 public class TaxDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int tax_Id;
+	private Integer tax_Id;
 
 	private String taxName;
 
@@ -17,11 +17,11 @@ public class TaxDTO implements Serializable {
 	public TaxDTO() {
 	}
 
-	public int getTax_Id() {
+	public Integer getTax_Id() {
 		return this.tax_Id;
 	}
 
-	public void setTax_Id(int tax_Id) {
+	public void setTax_Id(Integer tax_Id) {
 		this.tax_Id = tax_Id;
 	}
 

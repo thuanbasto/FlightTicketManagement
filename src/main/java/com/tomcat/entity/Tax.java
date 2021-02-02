@@ -16,7 +16,7 @@ public class Tax implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int tax_Id;
+	private Integer tax_Id;
 
 	private String taxName;
 
@@ -31,11 +31,11 @@ public class Tax implements Serializable {
 	public Tax() {
 	}
 
-	public int getTax_Id() {
+	public Integer getTax_Id() {
 		return this.tax_Id;
 	}
 
-	public void setTax_Id(int tax_Id) {
+	public void setTax_Id(Integer tax_Id) {
 		this.tax_Id = tax_Id;
 	}
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int user_Id;
+	private Integer user_Id;
 
 	private String address;
 
@@ -53,11 +53,11 @@ public class UserDTO implements Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public int getUser_Id() {
+	public Integer getUser_Id() {
 		return this.user_Id;
 	}
 
-	public void setUser_Id(int user_Id) {
+	public void setUser_Id(Integer user_Id) {
 		this.user_Id = user_Id;
 	}
 

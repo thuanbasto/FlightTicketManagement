@@ -6,7 +6,7 @@ import java.util.List;
 public class SignedluggageDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int signedLuggage_Id;
+	private Integer signedLuggage_Id;
 
 	private String name;
 
@@ -19,11 +19,11 @@ public class SignedluggageDTO implements Serializable {
 	public SignedluggageDTO() {
 	}
 
-	public int getSignedLuggage_Id() {
+	public Integer getSignedLuggage_Id() {
 		return this.signedLuggage_Id;
 	}
 
-	public void setSignedLuggage_Id(int signedLuggage_Id) {
+	public void setSignedLuggage_Id(Integer signedLuggage_Id) {
 		this.signedLuggage_Id = signedLuggage_Id;
 	}
 

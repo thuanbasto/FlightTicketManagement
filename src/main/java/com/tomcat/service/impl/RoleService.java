@@ -19,7 +19,7 @@ public class RoleService implements IRoleService{
 	RoleConverter roleConverter;
 	
 	@Override
-	public RoleDTO getRoleDTO(Long id) {
+	public RoleDTO getRoleDTO(Integer id) {
 		Role role = roleRepository.findOne(id);
 		RoleDTO roleDTO = roleConverter.toRoleDTO(role);
 		return roleDTO;

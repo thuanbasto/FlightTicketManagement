@@ -1,6 +1,7 @@
 package com.tomcat.service.impl;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class UserService implements IUserService{
 	public void add(UserDTO userDTO) {
 		User user = userConverter.toUser(userDTO);
 		
-		List<Role> roles = roleRepository.findAll();
+		Set<Role> roles = new HashSet<Role>(roleRepository.findAll());
 		
 		user.setRoles(roles);
 		user.setEnable((byte) 1);
