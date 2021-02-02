@@ -8,8 +8,9 @@
     <put-attribute name="body" value="" />
   </definition>
   <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
+    <put-attribute name="header" value="/WEB-INF/views/layouts/AdminHeader.jsp" />
     <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/views/layouts/AdminFooter.jsp" />
   </definition>
   
   <!-- home page -->
@@ -19,15 +20,16 @@
   <definition name="Signin" extends="home-difinition">
   	<put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
   </definition>
-  <definition name="booking" extends="base-difinition">
-		<put-attribute name="body"
-			value="/WEB-INF/views/Booking.jsp" />
+  <definition name="booking" extends="home-difinition">
+		<put-attribute name="body" value="/WEB-INF/views/Booking.jsp" />
   </definition>
   <!-- user-difinition -->
   
   <!-- admin-difinition -->
   <definition name="Signup" extends="admin-difinition">
+  	<put-attribute name="header" value=""/>
   	<put-attribute name="body" value="/WEB-INF/views/admin/Signup.jsp"/>
+  	<!-- <put-attribute name="footer" value=""/> -->
   </definition>
   
 </tiles-definitions>

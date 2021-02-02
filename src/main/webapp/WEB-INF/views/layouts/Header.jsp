@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+	
 <c:url value="/storage/img/logo.png" var="imgUrl"/>
+<c:url value="/storage/css/Header.css" var="cssUrl"/>
 
 <link rel="stylesheet" href='<c:url value="/storage/css/Booking.css"></c:url>'>
 

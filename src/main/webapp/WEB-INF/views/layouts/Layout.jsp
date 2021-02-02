@@ -9,13 +9,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<title>Flight Ticket</title>
-	<link rel="stylesheet" href="<c:url value="/static/vendor/bootstrap/css/bootstrap.min.css"/>">
+	<link rel="stylesheet" href="<c:url value="/storage/vendor/bootstrap/css/bootstrap.min.css"/>">
+	<script src="<c:url value="/storage/vendor/jquery/jquery.slim.min.js"/>"></script>
+	<script src="<c:url value="/storage/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
 	<tiles:insertAttribute name="body"/>
 	
-	<script src="<c:url value="/static/vendor/jquery/jquery.slim.min.js"/>"></script>
-	<script src="<c:url value="/static/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
 </body>
 </html>
