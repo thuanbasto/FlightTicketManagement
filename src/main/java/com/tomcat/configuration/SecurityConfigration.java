@@ -43,7 +43,7 @@ public class SecurityConfigration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll()
 			.and().authorizeRequests().antMatchers("/user/**").hasRole("USER").anyRequest().permitAll()
 			.and().formLogin().loginPage("/signin").loginProcessingUrl("/signin")
-			.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/home").failureUrl("/signin?error=failed")
+			.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin/dashboard").failureUrl("/signin?error=failed")
 			.and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout").logoutSuccessUrl("/home")
 			.and().exceptionHandling().accessDeniedPage("/signin?error=deny");
 	}

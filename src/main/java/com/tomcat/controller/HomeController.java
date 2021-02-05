@@ -27,7 +27,8 @@ public class HomeController {
 	
 	@GetMapping(value= {"/booking"})
 	public String bookingPage(HttpServletRequest request) {
-		request.setAttribute("listCity", cityService.getList());
-		return "booking";
+//		request.setAttribute("listCity", cityService.getList());
+		return "Booking";
 	}
+	
 }
