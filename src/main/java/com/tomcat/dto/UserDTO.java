@@ -3,6 +3,12 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class UserDTO implements Serializable {
@@ -12,6 +18,8 @@ public class UserDTO implements Serializable {
 
 	private String address;
 
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDay;
 
 	private String email;
@@ -32,11 +40,13 @@ public class UserDTO implements Serializable {
 
 	private List<BookingDTO> bookings;
 
-	private List<RoleDTO> roles;
+	private Set<RoleDTO> roles;
 
+	private List<String> roleIdList;
+	
 	public UserDTO() {
 	}
-
+	
 	public Byte getEnable() {
 		return enable;
 	}
@@ -131,11 +141,11 @@ public class UserDTO implements Serializable {
 		return booking;
 	}
 
-	public List<RoleDTO> getRoles() {
-		return this.roles;
+	public Set<RoleDTO> getRoles() {
+		return roles;
 	}
 
-	public void setRoles(List<RoleDTO> roles) {
+	public void setRoles(Set<RoleDTO> roles) {
 		this.roles = roles;
 	}
 
@@ -157,6 +167,14 @@ public class UserDTO implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<String> getRoleIdList() {
+		return roleIdList;
+	}
+
+	public void setRoleIdList(List<String> roleIdList) {
+		this.roleIdList = roleIdList;
 	}
 
 }

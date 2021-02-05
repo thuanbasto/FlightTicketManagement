@@ -1,5 +1,8 @@
 package com.tomcat.service.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +27,12 @@ public class RoleService implements IRoleService{
 		RoleDTO roleDTO = roleConverter.toRoleDTO(role);
 		return roleDTO;
 	}
+
+	@Override
+	public Set<RoleDTO> getRoleDTOList() {
+		List<Role> listRole = roleRepository.findAll();
+		Set<RoleDTO> listRoleDTO = roleConverter.toRoleDTO(listRole);
+		return listRoleDTO;
+	}
+	
 }

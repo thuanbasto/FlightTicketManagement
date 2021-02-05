@@ -1,0 +1,49 @@
+.boxSignup{
+	max-width: 100%;
+	padding: 20px
+}
+
+.boxSignup h1{
+	text-align: center;
+	font-style: oblique;
+}
+
+.boxSignup form{
+	width: 50%;
+	margin: auto;
+}
+
+.boxSignup #next{
+	float: right;
+}
+
+.boxSignup #submit{
+	float: right;
+}
+
+.name {
+	display: grid;
+	grid-template-columns: auto auto;
+}
+
+.error{
+	color: red; 
+}
+
+.required{
+	color: red; 
+}
+
+.role .form-check{
+	margin: 4px;
+	margin-top: 0;
+}
+
+.enable {
+	margin-bottom: 15px;
+}
+
+.enable .form-check{
+	margin: 4px;
+	margin-top: 0;
+}

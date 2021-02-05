@@ -7,6 +7,7 @@
 <c:url value="/storage/img/logo.png" var="imgUrl"/>
 <c:url value="/storage/css/Header.css" var="cssUrl"/>
 
+<!-- Can fix lai cho nay -->
 <link rel="stylesheet" href='<c:url value="/storage/css/Booking.css"></c:url>'>
 
 <nav class="navbar navbar-expand-sm bg-light">

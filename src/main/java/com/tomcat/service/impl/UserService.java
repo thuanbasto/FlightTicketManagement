@@ -1,14 +1,10 @@
 package com.tomcat.service.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tomcat.converter.UserConverter;
 import com.tomcat.dto.UserDTO;
-import com.tomcat.entity.Role;
 import com.tomcat.entity.User;
 import com.tomcat.repository.RoleRepository;
 import com.tomcat.repository.UserRepository;
@@ -30,12 +26,13 @@ public class UserService implements IUserService{
 	public void add(UserDTO userDTO) {
 		User user = userConverter.toUser(userDTO);
 		
-		Set<Role> roles = new HashSet<Role>(roleRepository.findAll());
-		
-		user.setRoles(roles);
-		user.setEnable((byte) 1);
-		
 		userRepository.save(user);
+	}
+
+	@Override
+	public boolean checkExist(String username) {
+		if (userRepository.findOneByUsername(username) == null) return false;
+		return true;
 	}
 
 }

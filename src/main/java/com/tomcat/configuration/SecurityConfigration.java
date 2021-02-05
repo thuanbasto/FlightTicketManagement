@@ -41,7 +41,7 @@ public class SecurityConfigration extends WebSecurityConfigurerAdapter{
 		http.headers().frameOptions().disable();
 		http.csrf().disable()
 			.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll()
-			.and().authorizeRequests().antMatchers("/user/**").hasRole("USER").anyRequest().permitAll()
+			.and().authorizeRequests().antMatchers("/staff/**").hasRole("STAFF").anyRequest().permitAll()
 			.and().formLogin().loginPage("/signin").loginProcessingUrl("/signin")
 			.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/home").failureUrl("/signin?error=failed")
 			.and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout").logoutSuccessUrl("/home")
