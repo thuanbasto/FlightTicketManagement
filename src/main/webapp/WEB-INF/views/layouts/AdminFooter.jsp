@@ -1,29 +1,30 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- End of Main Content -->
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy;Airplane Ticket Management 2021</span>
-        </div>
     </div>
-</footer>
-<!-- End of Footer -->
+    <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
 
-</div>
-<!-- End of Content Wrapper -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy;Airplane Ticket Management 2021</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 
-</div>
-<!-- End of Page Wrapper -->
+    </div>
+    <!-- End of Content Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
