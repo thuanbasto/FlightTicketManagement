@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.tomcat.dto.UserDTO;
@@ -19,11 +20,19 @@ public class UserConverter {
 	ModelMapper mapper;
 	
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	RoleRepository roleRepository;
 	
 	public User toUser(UserDTO userDTO) {
+		// lock account
 		if (userDTO.getEnable() == null) userDTO.setEnable((byte) 0);
-		
+		// encoder password
+		userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		// lowercase for username
+		userDTO.setUsername(userDTO.getUsername().toLowerCase());
+		// set roles 
 		Set<Role> roles = new HashSet<Role>();
 		if (userDTO.getRoleIdList() != null && userDTO.getRoleIdList().size() > 0) {
 			userDTO.getRoleIdList().forEach(
@@ -32,11 +41,8 @@ public class UserConverter {
 			// if null set role default for user is ROLE_STAFF
 			roles.add(roleRepository.findOne(RoleEnum.ROLE_STAFF.getId()));
 		}
-		roles.forEach(a -> System.out.println(a.getName()));
 		
 		User user = mapper.map(userDTO, User.class);
-		
-		
 		user.setRoles(roles);
 		
 		return user;

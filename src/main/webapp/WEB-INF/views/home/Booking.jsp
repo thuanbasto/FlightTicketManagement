@@ -18,11 +18,7 @@
                         bookings</a>
                 </li>
             </ul>
-            <script>
-                $(document).ready(function() {
-                    $('#ftab').trigger('click');
-                });
-            </script>
+
             <div class="tab-content" style="border: 1px solid #F7F7F7;border-radius: 0 4px 4px 4px;padding: 40px 10px 60px 10px;background-color:#f7c4ff;padding-bottom: 20px;">
                 <div id="home" class="tab-pane fade in active">
                     <div class="form-group">

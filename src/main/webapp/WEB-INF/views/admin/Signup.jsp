@@ -15,10 +15,10 @@
 	<div class="username form-group">
 		<label>Username<span class="required"> *</span></label>
 		<form:input path="username" class="form-control" placeholder="Enter username" required="true"/>
-		<p class="error"><form:errors path="username"></form:errors></p>
-		<p id="usernameErrorExist" class="error">- This username has already been taken. Try another.</p>
-		<p id="usernameErrorLength" class="error">- Length must be more than or equal to 6.</p>
-		<p id="usernameErrorRegex" class="error">- Only characters A-Z, a-z and 0-9.</p>
+		<p class="errorSignup"><form:errors path="username"></form:errors></p>
+		<p id="usernameErrorExist" class="errorSignup">- This username has already been taken. Try another.</p>
+		<p id="usernameErrorLength" class="errorSignup">- Length must be more than or equal to 6.</p>
+		<p id="usernameErrorRegex" class="errorSignup">- Only characters A-Z, a-z and 0-9.</p>
 	</div>
 	<div class="password form-group">
 		<label>Password<span class="required"> *</span></label>
@@ -27,7 +27,7 @@
 	<div class="confirmPassword form-group">
 		<label>Confirm password<span class="required"> *</span></label>
 		<form:input path="confirmPassword" class="form-control" type="password" placeholder="Confirm password" required="true"/>
-		<p class="error"><form:errors path="password"></form:errors></p>
+		<p class="errorSignup"><form:errors path="password"></form:errors></p>
 		<p id="passwordErrorMatch" class="error">- Passwords do not match</p>
 	</div>
 	<div class="name form-group">

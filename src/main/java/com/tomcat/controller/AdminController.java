@@ -1,5 +1,7 @@
 package com.tomcat.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -45,4 +47,15 @@ public class AdminController {
 		userService.add(userDTO);
 		return "redirect:/home?signup=success";
 	}
+	
+	@GetMapping(value= {"/dashboard","/"})
+	public String adminPage(HttpServletRequest request) {
+		return "Dashboard";
+	}
+	
+	@GetMapping(value= {"/city-management"})
+	public String cityManagement(HttpServletRequest request) {
+		return "City";
+	}
+	
 }
