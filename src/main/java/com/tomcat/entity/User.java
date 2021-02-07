@@ -1,9 +1,23 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -17,7 +31,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int user_Id;
+	private Integer user_Id;
 
 	private String address;
 
@@ -43,8 +57,15 @@ public class User implements Serializable {
 	private List<Booking> bookings;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="users")
-	private List<Role> roles;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.MERGE })
+	@JoinTable(
+			name="role_user"
+			, joinColumns={
+				@JoinColumn(name="User_Id", referencedColumnName="user_Id")
+				}
+			, inverseJoinColumns={
+				@JoinColumn(name="Role_Id", referencedColumnName="role_Id")})
+	private Set<Role> roles;
 
 	public User() {
 	}
@@ -57,11 +78,11 @@ public class User implements Serializable {
 		this.enable = enabled;
 	}
 
-	public int getUser_Id() {
+	public Integer getUser_Id() {
 		return this.user_Id;
 	}
 
-	public void setUser_Id(int user_Id) {
+	public void setUser_Id(Integer user_Id) {
 		this.user_Id = user_Id;
 	}
 
@@ -135,11 +156,11 @@ public class User implements Serializable {
 		return booking;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.dto.CityDTO;
-import com.tomcat.entity.City;
 import com.tomcat.repository.CityRepository;
 import com.tomcat.service.ICityService;
 
@@ -19,13 +18,13 @@ public class CityService implements ICityService{
 	CityRepository cityRepository;
 
 	@Override
-	public List<CityDTO> getList() {
+	public CityDTO getCityDTO(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CityDTO getCityDTO(String id) {
+	public List<CityDTO> getList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

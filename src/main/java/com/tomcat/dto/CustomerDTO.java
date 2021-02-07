@@ -7,7 +7,7 @@ import java.util.List;
 public class CustomerDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int customer_Id;
+	private Integer customer_Id;
 
 	private String address;
 
@@ -24,11 +24,11 @@ public class CustomerDTO implements Serializable {
 	public CustomerDTO() {
 	}
 
-	public int getCustomer_Id() {
+	public Integer getCustomer_Id() {
 		return this.customer_Id;
 	}
 
-	public void setCustomer_Id(int customer_Id) {
+	public void setCustomer_Id(Integer customer_Id) {
 		this.customer_Id = customer_Id;
 	}
 

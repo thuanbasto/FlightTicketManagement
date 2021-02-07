@@ -8,7 +8,7 @@ import java.util.List;
 public class FlightDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int flight_Id;
+	private Integer flight_Id;
 
 	private Date arrivalDate;
 
@@ -27,11 +27,11 @@ public class FlightDTO implements Serializable {
 	public FlightDTO() {
 	}
 
-	public int getFlight_Id() {
+	public Integer getFlight_Id() {
 		return this.flight_Id;
 	}
 
-	public void setFlight_Id(int flight_Id) {
+	public void setFlight_Id(Integer flight_Id) {
 		this.flight_Id = flight_Id;
 	}
 

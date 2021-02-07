@@ -6,7 +6,7 @@ import java.util.List;
 public class TravelclassDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int travelClass_Id;
+	private Integer travelClass_Id;
 
 	private String name;
 
@@ -19,11 +19,11 @@ public class TravelclassDTO implements Serializable {
 	public TravelclassDTO() {
 	}
 
-	public int getTravelClass_Id() {
+	public Integer getTravelClass_Id() {
 		return this.travelClass_Id;
 	}
 
-	public void setTravelClass_Id(int travelClass_Id) {
+	public void setTravelClass_Id(Integer travelClass_Id) {
 		this.travelClass_Id = travelClass_Id;
 	}
 
@@ -35,11 +35,11 @@ public class TravelclassDTO implements Serializable {
 		this.name = name;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return this.quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 

@@ -3,6 +3,7 @@
 "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+<<<<<<< HEAD
 
     <definition name="home-difinition" template="/WEB-INF/views/layouts/Layout.jsp">
         <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
@@ -45,5 +46,52 @@
        <definition name="Tax" extends="admin-difinition">
         <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp" />
     </definition>
+=======
+  <definition name="home-difinition" template="/WEB-INF/views/layouts/Layout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
+    <put-attribute name="body" value="" />
+  </definition>
+  <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/layouts/AdminHeader.jsp" />
+    <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/views/layouts/AdminFooter.jsp" />
+  </definition>
+
+  <!-- home page -->
+  <definition name="Home" extends="home-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/home/Home.jsp"/>
+  </definition>
+  <definition name="Deny" extends="home-difinition">
+    <put-attribute name="header" value=""/>
+    <put-attribute name="body" value="/WEB-INF/views/home/Deny.jsp"/>
+  </definition>
+  <definition name="NotFound" extends="home-difinition">
+    <put-attribute name="header" value=""/>
+    <put-attribute name="body" value="/WEB-INF/views/home/NotFound.jsp"/>
+  </definition>
+  <definition name="Signin" extends="admin-difinition">
+    <put-attribute name="header" value="" />
+    <put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
+    <put-attribute name="footer" value="" />
+  </definition>
+  <definition name="Booking" extends="home-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/home/Booking.jsp" />
+  </definition>
+  <definition name="GenerateAccountAdmin" extends="home-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/home/GenerateAccountAdmin.jsp" />
+  </definition>
+  <!-- staff-difinition -->
+
+  <!-- admin-difinition -->
+  <definition name="Dashboard" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/Dashboard.jsp"/>
+  </definition>
+  <definition name="Signup" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/Signup.jsp"/>
+  </definition>
+  <definition name="City" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/CityManagement.jsp"/>
+  </definition>
+>>>>>>> main
 
 </tiles-definitions>

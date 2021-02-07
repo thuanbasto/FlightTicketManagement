@@ -16,7 +16,7 @@ public class Ticket implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int ticket_Id;
+	private Integer ticket_Id;
 
 	private double ticket_PriceTotal;
 
@@ -61,11 +61,11 @@ public class Ticket implements Serializable {
 	public Ticket() {
 	}
 
-	public int getTicket_Id() {
+	public Integer getTicket_Id() {
 		return this.ticket_Id;
 	}
 
-	public void setTicket_Id(int ticket_Id) {
+	public void setTicket_Id(Integer ticket_Id) {
 		this.ticket_Id = ticket_Id;
 	}
 

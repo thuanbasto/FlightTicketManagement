@@ -1,8 +1,14 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -16,36 +22,27 @@ public class Role implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int role_Id;
+	private Integer role_Id;
 
 	private String name;
 
 	//bi-directional many-to-many association to User
-	@ManyToMany
-	@JoinTable(
-		name="role_user"
-		, joinColumns={
-			@JoinColumn(name="Role_Id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="User_Id")
-			}
-		)
-	private List<User> users;
+	@ManyToMany(mappedBy="roles")
+	private Set<User> users;
 
 	public Role() {
 	}
 
-	public Role(int id, String name) {
+	public Role(Integer id, String name) {
 		this.role_Id = id;
 		this.name = name;
 	}
 
-	public int getRole_Id() {
+	public Integer getRole_Id() {
 		return this.role_Id;
 	}
 
-	public void setRole_Id(int role_Id) {
+	public void setRole_Id(Integer role_Id) {
 		this.role_Id = role_Id;
 	}
 
@@ -57,11 +54,11 @@ public class Role implements Serializable {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 
