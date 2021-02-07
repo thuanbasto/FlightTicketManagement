@@ -48,5 +48,10 @@ public class AdminController {
 //		request.setAttribute("listCity", cityService.getList());
 		return "City";
 	}
+	@GetMapping(value= {"/tax-management"})
+	public String taxManagement(HttpServletRequest request) {
+//		request.setAttribute("listCity", cityService.getList());
+		return "Tax";
+	}
 	
 }
