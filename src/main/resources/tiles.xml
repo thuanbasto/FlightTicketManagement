@@ -48,6 +48,9 @@
   <definition name="City" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/CityManagement.jsp"/>
   </definition>
+    <definition name="Airport" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/AirportManagement.jsp"/>
+  </definition>
    <definition name="Tax" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp"/>
   </definition>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<c:url value="/storage/js/CityManagement.js" var="jsUrl"/>
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 	<!-- Main Content -->
@@ -11,11 +13,11 @@
 
 			<div class="row mt-3 mb-4">
 				<div class="col-lg-3">
-					<input type="text" class="form-control" id="email"
+					<input type="text" class="form-control" id="cityCode"
 						placeholder="City Code" name="cityCode">
 				</div>
 				<div class="col-lg-5">
-					<input type="text" class="form-control" id="email"
+					<input type="text" class="form-control" id="cityName"
 						placeholder="City name" name="cityName">
 				</div>
 				<div class="col-lg-4">
@@ -173,3 +175,5 @@
 	</div>
 </div>
 <!-- End of Main Content -->
+
+<script src="${jsUrl}"></script>

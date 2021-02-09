@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:url value="/storage/js/TaxManagement.js" var="jsUrl"/>
+<c:url value="/storage/js/AirportManagement.js" var="jsUrl"/>
+
 
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -10,16 +11,21 @@
     <div id="content">
         <!-- Begin Page Content -->
         <div class="container-fluid">
-            
+
             <div class="row mt-3 mb-4">
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" id="taxName" placeholder="Tax name" name="taxName">
+                    <select class="form-control" id="sel1" name="sellist1">
+                        <option value="HCM">Ho Chi Minh</option>
+                        <option value="HN">Ha Noi</option>
+                        <option value="DNg">Da Nang</option>
+                        <option value="NT">Nha Trang</option>
+                    </select>
                 </div>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control" id="taxPrice" placeholder="Tax price" name="taxPrice">
+                    <input type="text" class="form-control" id="email" placeholder="Airport name" name="airportName">
                 </div>
                 <div class="col-lg-4">
-                    <button class="btn btn-success">Add Tax</button>
+                    <button class="btn btn-success">Add Airport</button>
                 </div>
             </div>
 
@@ -33,49 +39,37 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Tax Code</th>
+                                    <th>Airport Code</th>
                                     <th>City Name</th>
-                                    <th>Tax Price</th>
-                                    <th>Add Price</th>
+                                    <th>Airport Name</th>
                                     <th>Action</th>
-                                    <th>Day Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>VS1</td>
-                                    <td>Ve Sinh</td>
-                                    <td>300000</td>
-                                    <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button></td>
+                                    <td>1</td>
+                                    <td>Ha Noi</td>
+                                    <td>Noi Bai</td>
                                     <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>2/7/2021</td>
-
                                 </tr>
                                 <tr>
-                                    <td>VS2</td>
-                                    <td>Phu phi</td>
-                                    <td>30000</td>
-                                    <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button></td>
+                                    <td>2</td>
+                                    <td>Ho Chi Minh</td>
+                                    <td>Tan Son Nhat</td>
                                     <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>2/3/2021</td>
                                 </tr>
                                 <tr>
-                                    <td>VAT0</td>
-                                    <td>Gia tri gia tang</td>
-                                    <td>100000</td>
-                                    <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button></td>
+                                    <td>3</td>
+                                    <td>Da Nang(DAd)</td>
+                                    <td>Da Nang</td>
                                     <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>2/5/2021</td>
-
                                 </tr>
-
-
                             </tbody>
                         </table>
                     </div>
