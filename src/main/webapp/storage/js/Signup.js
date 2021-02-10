@@ -54,207 +54,205 @@ confirmPassword.value = "";
 var section = 1;
 
 function checkExistUsername(username) {
-	$.ajax({
-    	async:false,
-		method: "GET",
-		contentType: "application/json; charset=utf-8",
-		url: "/FlightTicketManagement/admin/user/" + username,
-		dataType: "json",
-		success: function(data) {
-			if (data) {
-				usernameErrorExist.style.display = "";
-				// return true; // username is exist
-			} else {
-				usernameErrorExist.style.display = "none";
-				// return false; // username isn't exist
-			}
-		}
-	})
-	enableNext();
+    $.ajax({
+        async: false,
+        method: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "/FlightTicketManagement/admin/user/" + username,
+        dataType: "json",
+        success: function(data) {
+            if (data) {
+                usernameErrorExist.style.display = "";
+                // return true; // username is exist
+            } else {
+                usernameErrorExist.style.display = "none";
+                // return false; // username isn't exist
+            }
+        }
+    })
+    enableNext();
 }
 
 function enableSubmit() {
-	if (section === 3) {
-		if ($("#email").val() != "")
-			submit.disabled = false;
-		else
-			submit.disabled = true;
+    if (section === 3) {
+        if ($("#email").val() != "")
+            submit.disabled = false;
+        else
+            submit.disabled = true;
 
-	}
+    }
 }
 
 // enable next button when all field aren't null
 function enableNext() {
-	if (section === 1) {
-		if (usernameErrorLength.style.display == "none"
-			&& usernameErrorRegex.style.display == "none"
-			&& passwordErrorMatch.style.display == "none"
-			&& usernameErrorExist.style.display == "none"
-			&& password.value != "" && confirmPassword.value != "" && username.value != "") {
-			next.disabled = false;
-		} else {
-			next.disabled = true;
-		}
-	} else if (section === 2) {
-		if ($("#firstName").val() != "" && $("#lastName").val() != "" && $("#birthDay").val() != ""
-			&& $("#phone").val() != "" && $("#address").val() != "") {
-			next.disabled = false;
-		} else {
-			next.disabled = true;
-		}
-	}
+    if (section === 1) {
+        if (usernameErrorLength.style.display == "none" &&
+            usernameErrorRegex.style.display == "none" &&
+            passwordErrorMatch.style.display == "none" &&
+            usernameErrorExist.style.display == "none" &&
+            password.value != "" && confirmPassword.value != "" && username.value != "") {
+            next.disabled = false;
+        } else {
+            next.disabled = true;
+        }
+    } else if (section === 2) {
+        if ($("#firstName").val() != "" && $("#lastName").val() != "" && $("#birthDay").val() != "" &&
+            $("#phone").val() != "" && $("#address").val() != "") {
+            next.disabled = false;
+        } else {
+            next.disabled = true;
+        }
+    }
 }
 
 next.addEventListener("click", () => {
-	event.preventDefault();
+    event.preventDefault();
 
-	if (section === 1) {
+    if (section === 1) {
 
-		usernameDiv.style.display = "none";
-		passwordDiv.style.display = "none";
-		confirmPasswordDiv.style.display = "none";
+        usernameDiv.style.display = "none";
+        passwordDiv.style.display = "none";
+        confirmPasswordDiv.style.display = "none";
 
-		fullname.style.display = "";
-		birthDay.style.display = "";
-		phone.style.display = "";
-		address.style.display = "";
+        fullname.style.display = "";
+        birthDay.style.display = "";
+        phone.style.display = "";
+        address.style.display = "";
 
-		// back button appearance when section > 1
-		back.style.display = "";
+        // back button appearance when section > 1
+        back.style.display = "";
 
-		section++;
+        section++;
 
-	} else if (section === 2) {
-		fullname.style.display = "none";
-		birthDay.style.display = "none";
-		phone.style.display = "none";
-		address.style.display = "none";
+    } else if (section === 2) {
+        fullname.style.display = "none";
+        birthDay.style.display = "none";
+        phone.style.display = "none";
+        address.style.display = "none";
 
-		email.style.display = "";
-		role.style.display = "";
-		enable.style.display = "";
+        email.style.display = "";
+        role.style.display = "";
+        enable.style.display = "";
 
-		// section == 3 => hide next button and submit button appearance
-		next.style.display = "none";
-		submit.style.display = "";
+        // section == 3 => hide next button and submit button appearance
+        next.style.display = "none";
+        submit.style.display = "";
 
-		section++;
-	}
-	enableNext();
-	enableSubmit();
+        section++;
+    }
+    enableNext();
+    enableSubmit();
 })
 
 back.addEventListener("click", () => {
-	event.preventDefault();
-	if (section === 2) {
-		usernameDiv.style.display = "";
-		passwordDiv.style.display = "";
-		confirmPasswordDiv.style.display = "";
+    event.preventDefault();
+    if (section === 2) {
+        usernameDiv.style.display = "";
+        passwordDiv.style.display = "";
+        confirmPasswordDiv.style.display = "";
 
-		fullname.style.display = "none";
-		birthDay.style.display = "none";
-		phone.style.display = "none";
-		address.style.display = "none";
+        fullname.style.display = "none";
+        birthDay.style.display = "none";
+        phone.style.display = "none";
+        address.style.display = "none";
 
-		// section == 1 => hide back button and sumit button
-		back.style.display = "none";
-		submit.style.display = "none";
-		next.style.display = "";
+        // section == 1 => hide back button and sumit button
+        back.style.display = "none";
+        submit.style.display = "none";
+        next.style.display = "";
 
-		section--;
-	} else if (section === 3) {
-		fullname.style.display = "";
-		birthDay.style.display = "";
-		phone.style.display = "";
-		address.style.display = "";
+        section--;
+    } else if (section === 3) {
+        fullname.style.display = "";
+        birthDay.style.display = "";
+        phone.style.display = "";
+        address.style.display = "";
 
-		email.style.display = "none";
-		role.style.display = "none";
-		enable.style.display = "none";
+        email.style.display = "none";
+        role.style.display = "none";
+        enable.style.display = "none";
 
-		// section < 3 => hide sumit button and next button appaerance
-		submit.style.display = "none";
-		next.style.display = "";
+        // section < 3 => hide sumit button and next button appaerance
+        submit.style.display = "none";
+        next.style.display = "";
 
-		section--;
-	}
-	enableNext();
+        section--;
+    }
+    enableNext();
 })
 
 
 // check username
 username.addEventListener("focusout", () => {
-	if (usernameErrorLength.style.display == "none"
-		&& usernameErrorRegex.style.display == "none"
-		&& passwordErrorMatch.style.display == "none"
-		&& username.value != "") {
-		checkExistUsername(username.value);
-	}
+    if (usernameErrorLength.style.display == "none" &&
+        usernameErrorRegex.style.display == "none" &&
+        passwordErrorMatch.style.display == "none" &&
+        username.value != "") {
+        checkExistUsername(username.value);
+    }
 })
 
 username.addEventListener("keyup", () => {
-	if (usernameErrors != null)
-		usernameErrors.style.display = "none";
-	next.disabled = true;
+        if (usernameErrors != null)
+            usernameErrors.style.display = "none";
+        next.disabled = true;
 
-	var nameRegex = /^[a-zA-Z0-9]+$/;
-	var validUsername = nameRegex.test(username.value);
+        var nameRegex = /^[a-zA-Z0-9]+$/;
+        var validUsername = nameRegex.test(username.value);
 
-	if (validUsername === false)
-		usernameErrorRegex.style.display = "";
-	else
-		usernameErrorRegex.style.display = "none";
+        if (validUsername === false)
+            usernameErrorRegex.style.display = "";
+        else
+            usernameErrorRegex.style.display = "none";
 
 
-	if (username.value.length < 6) {
-		usernameErrorLength.style.display = "";
-		usernameErrorExist.style.display = "none";
-	} else {
-		usernameErrorLength.style.display = "none";
-	}
-})
-// check password match or not match
+        if (username.value.length < 6) {
+            usernameErrorLength.style.display = "";
+            usernameErrorExist.style.display = "none";
+        } else {
+            usernameErrorLength.style.display = "none";
+        }
+    })
+    // check password match or not match
 password.addEventListener("keyup", () => {
-	if (passwordErrors != null)
-		passwordErrors.style.display = "none";
+    if (passwordErrors != null)
+        passwordErrors.style.display = "none";
 
-	if (confirmPassword.value !== password.value && confirmPassword.value !== "")
-		passwordErrorMatch.style.display = "";
-	else
-		passwordErrorMatch.style.display = "none";
+    if (confirmPassword.value !== password.value && confirmPassword.value !== "")
+        passwordErrorMatch.style.display = "";
+    else
+        passwordErrorMatch.style.display = "none";
 
-	enableNext();
+    enableNext();
 })
 confirmPassword.addEventListener("keyup", () => {
-	if (passwordErrors != null)
-		passwordErrors.style.display = "none";
+    if (passwordErrors != null)
+        passwordErrors.style.display = "none";
 
-	if (confirmPassword.value !== password.value)
-		passwordErrorMatch.style.display = "";
-	else
-		passwordErrorMatch.style.display = "none";
+    if (confirmPassword.value !== password.value)
+        passwordErrorMatch.style.display = "";
+    else
+        passwordErrorMatch.style.display = "none";
 
 
-	enableNext();
+    enableNext();
 })
 
 $("#firstName").keyup(() => {
-	enableNext();
+    enableNext();
 })
 $("#lastName").keyup(() => {
-	enableNext();
+    enableNext();
 })
 $("#birthDay").change(() => {
-	enableNext();
+    enableNext();
 })
 $("#address").keyup(() => {
-	enableNext();
+    enableNext();
 })
 $("#phone").keyup(() => {
-	enableNext();
+    enableNext();
 })
 $("#email").keyup(() => {
-	enableSubmit();
+    enableSubmit();
 })
-
-
