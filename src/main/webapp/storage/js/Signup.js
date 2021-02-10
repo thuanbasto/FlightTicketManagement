@@ -53,8 +53,9 @@ confirmPassword.value = "";
 // variable count the button next
 var section = 1;
 
-async function checkExistUsername(username){
-    await $.ajax({
+function checkExistUsername(username){
+    $.ajax({
+    	async: false,
         method: "GET",
         contentType: "application/json; charset=utf-8",
         url: "/FlightTicketManagement/admin/user/" + username,
