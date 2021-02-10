@@ -4,14 +4,15 @@
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
   <definition name="home-difinition" template="/WEB-INF/views/layouts/Layout.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
-    <put-attribute name="body" value="" />
-  </definition>
-  <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/layouts/AdminHeader.jsp" />
-    <put-attribute name="body" value="" />
-    <put-attribute name="footer" value="/WEB-INF/views/layouts/AdminFooter.jsp" />
-  </definition>
+        <put-attribute name="header" value="/WEB-INF/views/layouts/Header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+    <definition name="admin-difinition" template="/WEB-INF/views/layouts/AdminLayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layouts/AdminHeader.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/views/layouts/AdminMenu.jsp" />        
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/layouts/AdminFooter.jsp" />
+    </definition>
 
   <!-- home page -->
   <definition name="Home" extends="home-difinition">
@@ -25,10 +26,9 @@
     <put-attribute name="header" value=""/>
     <put-attribute name="body" value="/WEB-INF/views/home/NotFound.jsp"/>
   </definition>
-  <definition name="Signin" extends="admin-difinition">
+  <definition name="Signin" extends="home-difinition">
     <put-attribute name="header" value="" />
     <put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
-    <put-attribute name="footer" value="" />
   </definition>
   <definition name="Booking" extends="home-difinition">
     <put-attribute name="body" value="/WEB-INF/views/home/Booking.jsp" />
@@ -48,5 +48,10 @@
   <definition name="City" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/CityManagement.jsp"/>
   </definition>
-
+    <definition name="Airport" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/AirportManagement.jsp"/>
+  </definition>
+   <definition name="Tax" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp"/>
+  </definition>
 </tiles-definitions>
