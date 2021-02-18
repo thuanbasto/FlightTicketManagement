@@ -23,8 +23,8 @@ public class TaxAPI {
 		
 	}
 	@PutMapping("api/tax")
-	public TaxPriceDTO updateTaxPrice  (@RequestBody TaxPriceDTO taxpriceDTO) {
-		return taxpriceDTO;
+	public TaxDTO updateTaxPrice  (@RequestBody TaxDTO taxDTO) {
+		return taxService.save(taxDTO);
 		/* taxpriceService.save(taxpriceDTO); */
 		
 	}
