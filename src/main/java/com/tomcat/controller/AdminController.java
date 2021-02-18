@@ -1,5 +1,7 @@
 package com.tomcat.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tomcat.dto.UserDTO;
+import com.tomcat.service.ITaxService;
 import com.tomcat.service.IUserService;
 
 @Controller
@@ -19,6 +22,10 @@ public class AdminController {
 	
 	@Autowired
 	IUserService userService;
+	
+	@Autowired
+	ITaxService taxService;
+	
 	
 	@GetMapping("/signup")
 	public String signupPage(@ModelAttribute("userDTO") UserDTO userDTO) {
@@ -33,5 +40,10 @@ public class AdminController {
 //		}
 		userService.add(userDTO);
 		return "redirect:/home?signup=success";
+	}
+	@GetMapping("/taxa")
+	public String home(HttpServletRequest request) {
+		request.setAttribute("listTax", taxService.getList());
+		return "ListTax";
 	}
 }

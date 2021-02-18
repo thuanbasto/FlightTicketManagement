@@ -26,5 +26,15 @@
   <definition name="Signup" extends="admin-difinition">
   	<put-attribute name="body" value="/WEB-INF/views/admin/Signup.jsp"/>
   </definition>
+  <definition name="ListTax" extends="admin-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/admin/ListTax.jsp"/>
+  </definition>
+   
+  <definition name="ListTaxPrice" extends="admin-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/admin/ListTaxPrice.jsp"/>
+  </definition>
+  <definition name="CreateTaxPrice" extends="admin-difinition">
+  	<put-attribute name="body" value="/WEB-INF/views/admin/CreateTaxPrice.jsp"/>
+  </definition>
   
 </tiles-definitions>

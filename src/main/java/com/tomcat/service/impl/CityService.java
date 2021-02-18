@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tomcat.entity.City;
+import com.tomcat.dto.CityDTO;
 import com.tomcat.repository.CityRepository;
 import com.tomcat.service.ICityService;
 
@@ -16,17 +16,28 @@ public class CityService implements ICityService{
 
 	@Autowired
 	CityRepository cityRepository;
-	
+
 	@Override
-	public List<City> getList() {
-		return cityRepository.findAll();
+	public List<CityDTO> getList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public City getCity(String id) {
-		City city = cityRepository.findOne(id);
-		return city;
+	public CityDTO getCityDTO(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
+	/*
+	 * @Override public List<City> getList() { return cityRepository.findAll(); }
+	 * 
+	 * @Override public City getCity(String id) { City city =
+	 * cityRepository.findOne(id); return city; }
+	 * 
+	 * @Override public CityDTO getCityDTO(String id) { // TODO Auto-generated
+	 * method stub return null; }
+	 */
 	
 	
 }

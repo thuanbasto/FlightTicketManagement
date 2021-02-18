@@ -14,6 +14,25 @@ public class TaxPriceDTO implements Serializable {
 	private String price;
 
 	private TaxDTO tax;
+	private String taxName;
+	private int tax_Id;
+	public String getTaxName() {
+		return taxName;
+	}
+
+	public void setTaxName(String taxName) {
+		this.taxName = taxName;
+	}
+
+	public int getTax_Id() {
+		return tax_Id;
+	}
+
+	public void setTax_Id(int tax_Id) {
+		this.tax_Id = tax_Id;
+	}
+
+	
 
 	public TaxPriceDTO() {
 	}
