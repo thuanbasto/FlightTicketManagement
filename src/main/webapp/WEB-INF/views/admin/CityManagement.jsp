@@ -42,7 +42,7 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="loadCity">
 								<tr>
 									<td>HN</td>
 									<td>Ha Noi</td>
@@ -73,96 +73,7 @@
 											<i class="fas fa-trash-alt"></i>
 										</button></td>
 								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
+		
 							</tbody>
 						</table>
 					</div>
