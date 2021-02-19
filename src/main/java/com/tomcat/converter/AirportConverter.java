@@ -20,10 +20,6 @@ public class AirportConverter {
 	
 	public Airport toAirport(AirportDTO airportDTO) {
 		Airport airport = modelMapper.map(airportDTO, Airport.class);
-//		if(airportDTO.getCity() != null) {
-//			City city = cityConverter.toCity(airportDTO.getCity());
-//			airport.setCity(city);
-//		}
 		return airport;
 	}
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,32 +25,54 @@ public class AirportAPI {
 	private IAirportService airportService;
 	
 	@RequestMapping(value = "/airports", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public List<AirportDTO> getAirports() {
-		return airportService.getList();
+	public ResponseEntity<List<AirportDTO>> getAirports() {
+		List<AirportDTO> airportDTOs = airportService.getList();
+		if(airportDTOs.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(airportDTOs, HttpStatus.OK) ;
 	}
 	
 	@RequestMapping(value = "/airports/{id}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public AirportDTO getAirports(@PathVariable("id") String id) {
-		return airportService.get(id);
+	public ResponseEntity<AirportDTO> getAirport(@PathVariable("id") String id) {
+		AirportDTO airportDTO = airportService.get(id);
+		if(airportDTO.getAirport_Id() == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(airportDTO, HttpStatus.OK) ;
 	}
 	
 	@RequestMapping(value = "/airports", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public void addAirport(@RequestBody AirportDTO airportDTO) {
-		airportService.save(airportDTO);
+	public ResponseEntity<AirportDTO> addAirport(@RequestBody AirportDTO airportDTO) {
+		AirportDTO _airportDTO = airportService.get(airportDTO.getAirport_Id());
+		if(_airportDTO.getAirport_Id() == null) {
+			airportService.save(airportDTO);
+			return new ResponseEntity<>(airportDTO, HttpStatus.CREATED);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 	}
 
 	@RequestMapping(value = "/airports/{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteAirport(@PathVariable String id) {
-		airportService.delete(id);
+	public ResponseEntity<HttpStatus> deleteAirport(@PathVariable String id) {
+		try{
+			airportService.delete(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}catch(Exception e) {
+			return  new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 
 	@RequestMapping(value = "/airports/{id}", method = RequestMethod.PUT)
-	public void updateAirport(@RequestBody AirportDTO airportDTO,
+	public ResponseEntity<AirportDTO> updateAirport(@RequestBody AirportDTO airportDTO,
 			@PathVariable String id) {
-		airportService.save(airportDTO);
+		AirportDTO _airportDTO = airportService.get(id);
+		if(_airportDTO.getAirport_Id() != null) {
+			airportService.save(airportDTO);
+			return new ResponseEntity<>(airportDTO, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 }
