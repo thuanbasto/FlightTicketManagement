@@ -14,4 +14,6 @@ public interface ICityService {
 	
 	public void delete(String id);
 	
+	public List<City> getList1();
+	
 }

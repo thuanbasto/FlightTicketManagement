@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tomcat.dto.CityDTO;
 import com.tomcat.entity.City;
 import com.tomcat.service.ICityService;
@@ -22,25 +23,33 @@ public class CityAPI {
 	@Autowired
 	private ICityService cityService;
 	
-	@RequestMapping(value = "/citys", method = RequestMethod.GET)
+	@RequestMapping(value = "/cities", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public List<CityDTO> getCitys(){
-		return cityService.getList();
+	public List<CityDTO> getCities(){
+		List<CityDTO> cities = cityService.getList();
+		return cities ;
 	}
 	
-	@RequestMapping(value = "/citys", method = RequestMethod.POST)
+	@RequestMapping(value = "/cities/{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public CityDTO getCity(@PathVariable("id") String id){
+		CityDTO city = cityService.get(id);
+		return city ;
+	}
+	
+	@RequestMapping(value = "/cities", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addCity(@RequestBody CityDTO cityDTO){
 		cityService.save(cityDTO);
 	}
 	
-	@RequestMapping(value = "/citys/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/cities/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteCity(@PathVariable String id){
 		cityService.delete(id);
 	}
 	
-	@RequestMapping(value = "/citys", method = RequestMethod.PUT)
+	@RequestMapping(value = "/cities", method = RequestMethod.PUT)
 	public void updateCity(@RequestBody CityDTO cityDTO) {
 		cityService.save(cityDTO);
 	}

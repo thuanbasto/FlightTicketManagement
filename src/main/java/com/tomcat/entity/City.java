@@ -1,8 +1,18 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -11,6 +21,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="City.findAll", query="SELECT c FROM City c")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
