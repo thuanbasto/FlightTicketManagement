@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:url value="/storage/js/CityManagement.js" var="jsUrl"/>
+<c:url value="/storage/js/CityManagement.js" var="jsUrl" />
 
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -21,7 +21,7 @@
 						placeholder="City name" name="cityName">
 				</div>
 				<div class="col-lg-4">
-					<button class="btn btn-success">Add City</button>
+					<button id="btnAdd" class="btn btn-success">Add City</button>
 				</div>
 			</div>
 
@@ -43,43 +43,38 @@
 								</tr>
 							</thead>
 							<tbody id="loadCity">
-								<tr>
-									<td>HN</td>
-									<td>Ha Noi</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>DNg</td>
-									<td>Da Nang</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-								<tr>
-									<td>HCM</td>
-									<td>Ho Chi Minh</td>
-									<td><button type="button" class="btn btn-info">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</button></td>
-								</tr>
-		
+
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
+			<!-- Button to Open the Modal -->
 
+			<!-- The Modal -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">Edit City</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div style="text-align: center;">
+								<input type="text" disabled id="inpCityID"> 
+								<input type="text" id="inpCityName">
+							</div>
+							<button id="btnUpdate"  type="button" class="btn btn-success mt-1 float-right">Update</button>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- /.container-fluid -->
 
