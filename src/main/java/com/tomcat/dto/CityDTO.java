@@ -3,6 +3,7 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -11,6 +12,7 @@ public class CityDTO implements Serializable {
 
 	private String name;
 
+	@JsonIgnore
 	private List<AirportDTO> airports;
 
 	public CityDTO() {
