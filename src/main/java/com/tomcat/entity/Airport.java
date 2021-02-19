@@ -3,6 +3,7 @@ package com.tomcat.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -35,11 +36,11 @@ public class Airport implements Serializable {
 	private City city;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport1")
+	@OneToMany(mappedBy="airport1", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights1;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport2")
+	@OneToMany(mappedBy="airport2", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights2;
 
 	public Airport() {

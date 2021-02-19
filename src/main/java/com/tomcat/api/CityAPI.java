@@ -49,7 +49,7 @@ public class CityAPI {
 		cityService.delete(id);
 	}
 	
-	@RequestMapping(value = "/cities", method = RequestMethod.PUT)
+	@RequestMapping(value = "/cities/{id}", method = RequestMethod.PUT)
 	public void updateCity(@RequestBody CityDTO cityDTO) {
 		cityService.save(cityDTO);
 	}
