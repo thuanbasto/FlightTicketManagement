@@ -27,7 +27,6 @@ public class AirportService implements IAirportService{
 	@Transactional
 	public List<AirportDTO> getList() {
 		List<Airport> airports =  airportRepository.findAll();
-		airports.forEach(airport -> Hibernate.initialize(airport.getCity()));
 		List<AirportDTO> airportDTOs = new ArrayList<>();
 		airports.forEach(airport -> airportDTOs.add(airportConverter.toAirportDTO(airport)));
 		return airportDTOs;
@@ -48,8 +47,7 @@ public class AirportService implements IAirportService{
 	@Transactional
 	public AirportDTO get(String id) {
 		Airport airport = airportRepository.findOne(id);
-		Hibernate.initialize(airport.getCity());
-		if(airport.getAirport_Id() != null) {
+		if(airport != null) {
 			return airportConverter.toAirportDTO(airport);
 		}
 		return new AirportDTO();
