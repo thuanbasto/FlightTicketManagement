@@ -54,4 +54,5 @@
    <definition name="Tax" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp"/>
   </definition>
+  
 </tiles-definitions>
