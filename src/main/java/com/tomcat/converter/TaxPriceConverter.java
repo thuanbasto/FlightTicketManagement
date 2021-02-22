@@ -19,7 +19,7 @@ public class TaxPriceConverter {
 		taxpriceDTO.setModifiedDate(entity.getModifiedDate());
 		taxpriceDTO.setPrice(entity.getPrice());
 		taxpriceDTO.setTax_Price_Id(entity.getTax_Price_Id());
-		TaxDTO tax =taxConverter.todto(entity.getTax());
+		TaxDTO tax =taxConverter.toDTO(entity.getTax());
 		taxpriceDTO.setTax(tax);
 		return taxpriceDTO;
 	}

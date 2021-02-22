@@ -69,7 +69,7 @@ public class TaxService implements ITaxService{
 	@Override
 	public TaxDTO findbyid(Integer id) {
 		Tax tax = taxRepository.findOne(id);
-		return taxConverter.todto(tax);
+		return taxConverter.toDTO(tax);
 	}
 	
 	
