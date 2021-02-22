@@ -12,7 +12,7 @@ public class CityDTO implements Serializable {
 
 	private String name;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private List<AirportDTO> airports;
 
 	public CityDTO() {

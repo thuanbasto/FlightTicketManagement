@@ -15,10 +15,10 @@ public class AirportDTO implements Serializable {
 
 	private CityDTO city;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private List<FlightDTO> flights1;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private List<FlightDTO> flights2;
 
 	public AirportDTO() {
