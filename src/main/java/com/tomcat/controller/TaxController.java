@@ -35,10 +35,10 @@ public class TaxController {
 		return "ListTaxPrice";
 	}
 	@GetMapping("/createtaxprice")
-	public String create(@RequestParam(value = "id",required = false) Integer id  ,HttpServletRequest request) {
+	public String create(@RequestParam(value = "id",required = false) int id  ,HttpServletRequest request) {
 		/* request.setAttribute("listTaxPrice", taxpriceService.getList()); */
 		TaxPriceDTO model = new TaxPriceDTO();
-		if(id!=null) {
+		if(id!=0) {
 			model = taxpriceService.findbyid(id);
 		}
 		request.setAttribute("listTaxPrice", model);

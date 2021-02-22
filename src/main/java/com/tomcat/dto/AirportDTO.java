@@ -12,6 +12,7 @@ public class AirportDTO implements Serializable {
 
 	private CityDTO city;
 
+	
 	private List<FlightDTO> flights1;
 
 	private List<FlightDTO> flights2;

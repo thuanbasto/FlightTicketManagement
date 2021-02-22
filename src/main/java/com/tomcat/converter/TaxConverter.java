@@ -12,6 +12,8 @@ public class TaxConverter {
 		TaxDTO result =new  TaxDTO();
 		result.setTax_Id(entity.getTax_Id());
 		result.setTaxName(entity.getTaxName());
+		result.setTaxPrices(null);
+		result.setTickets(null);
 		return result;
 	}
 	

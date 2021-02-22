@@ -18,6 +18,7 @@
             <td>${taxprice.tax_Price_Id}</td>
             <td>${taxprice.modifiedDate}</td>
             <td>${taxprice.price}</td>
+     
             <c:url var="updatetaxprive" value="http://localhost:8084/FlightTicketManagement/createtaxprice">
             	<c:param name="id" value="${taxprice.tax_Price_Id}"></c:param>
             </c:url>
