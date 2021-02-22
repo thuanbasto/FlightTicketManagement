@@ -8,6 +8,6 @@ import com.tomcat.entity.Customer;
 
 @Repository
 @Transactional
-public interface CustomerRepository extends JpaRepository<Customer,Integer>{
+public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
 }

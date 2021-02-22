@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.TaxConverter;
 import com.tomcat.dto.TaxDTO;
-import com.tomcat.dto.TaxPriceDTO;
 import com.tomcat.entity.Tax;
-import com.tomcat.entity.TaxPrice;
 import com.tomcat.repository.TaxRepository;
 import com.tomcat.service.ITaxService;
 
@@ -29,22 +27,19 @@ public class TaxService implements ITaxService{
 	@Transactional
 	public List<TaxDTO> getList() {
 		List<TaxDTO> models = new ArrayList<>();
-		List<Tax> entytis = taxRepository.findAll();
-		for (Tax item : entytis) {
-			TaxDTO taxDTO = taxConverter.todto(item);
+		List<Tax> entities = taxRepository.findAll();
+		for (Tax item : entities) {
+			TaxDTO taxDTO = taxConverter.toDTO(item);
 			models.add(taxDTO);			
 		}
 		return models;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Map<Integer, String> findAll() {
-		Map<Integer, String > model = new HashMap<>();
-		List<Tax> entytis = taxRepository.findAll();
-		for (Tax item : entytis) {
-			
+		Map<Integer, String> model = new HashMap<>();
+		List<Tax> entities = taxRepository.findAll();
+		for (Tax item : entities) {
 			model.put(item.getTax_Id(),item.getTaxName());			
 		}
 		return model;
@@ -53,16 +48,17 @@ public class TaxService implements ITaxService{
 	@Override
 	@Transactional
 	public TaxDTO save(TaxDTO dto) {
-		// TODO Auto-generated method stub
-		Tax taxentity = new Tax();
+		Tax taxEntity = new Tax();
 		if(dto.getTax_Id()!=0) {
-			Tax taxone = taxRepository.findOne(dto.getTax_Id());
-			taxentity = taxConverter.toentyti(taxone, dto);
+			Tax taxOne = taxRepository.findOne(dto.getTax_Id());
+			taxEntity = taxConverter.toEntity(taxOne, dto);
 		}
-		taxentity = taxConverter.toentyti(dto);
-		Tax a =taxRepository.save(taxentity);
-		return taxConverter.todto(a);
+		else {
+			taxEntity = taxConverter.toEntity(dto);
+		}
 		
+		Tax a =taxRepository.save(taxEntity);
+		return taxConverter.toDTO(a);
 	}
 
 	@Override
@@ -71,19 +67,12 @@ public class TaxService implements ITaxService{
 		for(int id :ids) {
 			taxRepository.delete(id);
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public TaxDTO findbyid(Integer id) {
 		Tax tax = taxRepository.findOne(id);
-		return taxConverter.todto(tax);
+		return taxConverter.toDTO(tax);
 	}
 	
-	
-
-
-
 }

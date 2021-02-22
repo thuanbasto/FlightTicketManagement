@@ -1,0 +1,31 @@
+/* <style> */
+a:hover {
+  color: #af6992;
+  /* text-decoration: underline; */
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.tab_select_co {
+  background-color: #f7c4ff !important;
+}
+
+.tab_no_select_co {
+  background-color: #a85285 !important;
+
+}
+
+
+.logoal {
+  max-width: 100%;
+  width: auto;
+  max-height: 6.167rem;
+
+}
+
+.nav-link {
+  font-family: Jotia, Verdana, Geneva, sans-serif;
+  color: #64003D;
+}

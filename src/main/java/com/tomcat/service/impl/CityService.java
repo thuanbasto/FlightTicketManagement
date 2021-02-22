@@ -1,12 +1,15 @@
 package com.tomcat.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tomcat.converter.CityConverter;
 import com.tomcat.dto.CityDTO;
+import com.tomcat.entity.City;
 import com.tomcat.repository.CityRepository;
 import com.tomcat.service.ICityService;
 
@@ -16,28 +19,38 @@ public class CityService implements ICityService{
 
 	@Autowired
 	CityRepository cityRepository;
-
+	
+	@Autowired
+	private CityConverter cityConverter;
+	
+	
 	@Override
 	public List<CityDTO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<City> cities =  cityRepository.findAll();
+		List<CityDTO> cityDTOs = new ArrayList<>();
+		cities.forEach(city -> cityDTOs.add(cityConverter.toCityDTO(city)));
+		return cityDTOs;
 	}
 
 	@Override
-	public CityDTO getCityDTO(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void save(CityDTO cityDTO) {
+		City city = cityConverter.toCity(cityDTO);
+		cityRepository.save(city);
 	}
-	
-	/*
-	 * @Override public List<City> getList() { return cityRepository.findAll(); }
-	 * 
-	 * @Override public City getCity(String id) { City city =
-	 * cityRepository.findOne(id); return city; }
-	 * 
-	 * @Override public CityDTO getCityDTO(String id) { // TODO Auto-generated
-	 * method stub return null; }
-	 */
-	
-	
+
+
+	@Override
+	public void delete(String id) {
+		cityRepository.delete(id);
+	}
+
+	@Override
+	public CityDTO get(String id) {
+		City city = cityRepository.findOne(id);
+		if(city != null) {
+			return cityConverter.toCityDTO(city);
+		}
+		return new CityDTO();
+	}
+
 }

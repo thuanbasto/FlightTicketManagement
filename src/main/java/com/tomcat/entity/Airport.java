@@ -1,8 +1,18 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -11,6 +21,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Airport.findAll", query="SELECT a FROM Airport a")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Airport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,11 +36,11 @@ public class Airport implements Serializable {
 	private City city;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport1")
+	@OneToMany(mappedBy="airport1", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights1;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport2")
+	@OneToMany(mappedBy="airport2", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights2;
 
 	public Airport() {

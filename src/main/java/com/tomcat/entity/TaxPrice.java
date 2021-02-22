@@ -17,7 +17,7 @@ public class TaxPrice implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int tax_Price_Id;
+	private Integer tax_Price_Id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
@@ -32,11 +32,11 @@ public class TaxPrice implements Serializable {
 	public TaxPrice() {
 	}
 
-	public int getTax_Price_Id() {
+	public Integer getTax_Price_Id() {
 		return this.tax_Price_Id;
 	}
 
-	public void setTax_Price_Id(int tax_Price_Id) {
+	public void setTax_Price_Id(Integer tax_Price_Id) {
 		this.tax_Price_Id = tax_Price_Id;
 	}
 

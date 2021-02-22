@@ -3,6 +3,9 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 public class AirportDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -12,9 +15,10 @@ public class AirportDTO implements Serializable {
 
 	private CityDTO city;
 
-	
+	@JsonIgnore
 	private List<FlightDTO> flights1;
 
+	@JsonIgnore
 	private List<FlightDTO> flights2;
 
 	public AirportDTO() {

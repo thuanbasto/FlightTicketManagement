@@ -7,7 +7,7 @@ import com.tomcat.entity.Tax;
 
 @Component
 public class TaxConverter {
-	public TaxDTO todto (Tax entity)
+	public TaxDTO toDTO(Tax entity)
 	{
 		TaxDTO result =new  TaxDTO();
 		result.setTax_Id(entity.getTax_Id());
@@ -17,20 +17,15 @@ public class TaxConverter {
 		return result;
 	}
 	
-	public Tax toentyti (TaxDTO taxdto)
-	{
-		Tax result = new Tax();
-		result.setTax_Id(taxdto.getTax_Id());
-		result.setTaxName(taxdto.getTaxName());
-		return result;
+	public Tax toEntity (TaxDTO taxDTO){
+		Tax tax = new Tax();
+		tax.setTax_Id(taxDTO.getTax_Id());
+		tax.setTaxName(taxDTO.getTaxName());
+		return tax;
 	}
-	public Tax toentyti ( Tax result,TaxDTO taxdto)
-	{
-		
-		result.setTax_Id(taxdto.getTax_Id());
-		result.setTaxName(taxdto.getTaxName());
-		return result;
+	public Tax toEntity (Tax tax,TaxDTO taxDTO){
+		tax.setTax_Id(taxDTO.getTax_Id());
+		tax.setTaxName(taxDTO.getTaxName());
+		return tax;
 	}
-
-
 }

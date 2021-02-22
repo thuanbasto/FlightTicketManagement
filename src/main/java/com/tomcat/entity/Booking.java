@@ -17,7 +17,7 @@ public class Booking implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int booking_Id;
+	private Integer booking_Id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date bookingDate;
@@ -40,11 +40,11 @@ public class Booking implements Serializable {
 	public Booking() {
 	}
 
-	public int getBooking_Id() {
+	public Integer getBooking_Id() {
 		return this.booking_Id;
 	}
 
-	public void setBooking_Id(int booking_Id) {
+	public void setBooking_Id(Integer booking_Id) {
 		this.booking_Id = booking_Id;
 	}
 

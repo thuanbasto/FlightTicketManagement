@@ -4,4 +4,48 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 
-<h1>Header</h1>
+<c:url value="/storage/img/logo.png" var="imgUrl" />
+<c:url value="/storage/css/Header.css" var="cssUrl" />
+<c:url value="/admin/dashboard" var="dashboardUrl" />
+<c:url value="/logout" var="logoutUrl" />
+
+<link rel="stylesheet"
+	href='<c:url value="/storage/css/Header.css"></c:url>'>
+
+<nav class="navbar navbar-expand-sm bg-light">
+	<div class="container">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="home"> <img
+					class="logoal" src="${imgUrl}" alt="logo">
+			</a></li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item"><a class="nav-link" href="booking">
+					Book your trip </a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> Manage my
+					bookings </a></li>
+			<security:authorize access="!isAuthenticated()">
+				<li class="nav-item">
+					<button class="btn"
+						style="background-color: #64003D; color: white; padding: 10px 20px 10px 20px;"
+						onclick="window.location.href = 'signin';">Login</button>
+				</li>
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+				<security:authentication property="principal" var="user" />
+				<li class="nav-item"><a class="nav-link" 
+					href="${dashboardUrl}">Dashboard</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" style="color: teal" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> ${user.username} </a>
+					<div class="dropdown-menu dropdown-menu-right"
+						aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="${logoutUrl}">Logout</a>
+					</div></li>
+			</security:authorize>
+		</ul>
+	</div>
+</nav>
+
+

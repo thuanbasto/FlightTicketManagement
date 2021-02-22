@@ -1,26 +1,26 @@
 package com.tomcat.dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 
 public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int role_Id;
+	private Integer role_Id;
 
 	private String name;
 
-	private List<UserDTO> users;
+	private Set<UserDTO> users;
 
 	public RoleDTO() {
 	}
 
-	public int getRole_Id() {
+	public Integer getRole_Id() {
 		return this.role_Id;
 	}
 
-	public void setRole_Id(int role_Id) {
+	public void setRole_Id(Integer role_Id) {
 		this.role_Id = role_Id;
 	}
 
@@ -32,11 +32,11 @@ public class RoleDTO implements Serializable {
 		this.name = name;
 	}
 
-	public List<UserDTO> getUsers() {
+	public Set<UserDTO> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<UserDTO> users) {
+	public void setUsers(Set<UserDTO> users) {
 		this.users = users;
 	}
 

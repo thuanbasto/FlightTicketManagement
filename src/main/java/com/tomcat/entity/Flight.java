@@ -17,7 +17,7 @@ public class Flight implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int flight_Id;
+	private Integer flight_Id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date arrivalDate;
@@ -49,11 +49,11 @@ public class Flight implements Serializable {
 	public Flight() {
 	}
 
-	public int getFlight_Id() {
+	public Integer getFlight_Id() {
 		return this.flight_Id;
 	}
 
-	public void setFlight_Id(int flight_Id) {
+	public void setFlight_Id(Integer flight_Id) {
 		this.flight_Id = flight_Id;
 	}
 

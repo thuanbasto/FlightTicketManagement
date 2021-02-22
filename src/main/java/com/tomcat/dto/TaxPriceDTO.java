@@ -7,7 +7,7 @@ import java.util.Date;
 public class TaxPriceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int tax_Price_Id;
+	private Integer tax_Price_Id;
 
 	private Date modifiedDate;
 
@@ -37,11 +37,11 @@ public class TaxPriceDTO implements Serializable {
 	public TaxPriceDTO() {
 	}
 
-	public int getTax_Price_Id() {
+	public Integer getTax_Price_Id() {
 		return this.tax_Price_Id;
 	}
 
-	public void setTax_Price_Id(int tax_Price_Id) {
+	public void setTax_Price_Id(Integer tax_Price_Id) {
 		this.tax_Price_Id = tax_Price_Id;
 	}
 

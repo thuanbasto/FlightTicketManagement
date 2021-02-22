@@ -17,7 +17,7 @@ public class Customer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int customer_Id;
+	private Integer customer_Id;
 
 	private String address;
 
@@ -37,11 +37,11 @@ public class Customer implements Serializable {
 	public Customer() {
 	}
 
-	public int getCustomer_Id() {
+	public Integer getCustomer_Id() {
 		return this.customer_Id;
 	}
 
-	public void setCustomer_Id(int customer_Id) {
+	public void setCustomer_Id(Integer customer_Id) {
 		this.customer_Id = customer_Id;
 	}
 

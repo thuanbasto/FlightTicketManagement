@@ -7,10 +7,8 @@ import com.tomcat.entity.Customer;
 
 @Component
 public class CustomerConverter {
-
 	public CustomerDTO toDTO(Customer entity) {
 		CustomerDTO customerDTO = new CustomerDTO();
-		customerDTO.setCustomer_Id(entity.getCustomer_Id());
 		customerDTO.setAddress(entity.getAddress());
 		customerDTO.setBirthDay(entity.getBirthDay());
 		customerDTO.setFirstName(entity.getFirstName());
@@ -28,7 +26,7 @@ public class CustomerConverter {
 		customer.setFirstName(customerDTO.getFirstName());
 		customer.setIdentityNumber(customerDTO.getIdentityNumber());
 		customer.setLastName(customerDTO.getLastName());
-		customer.setTickets(null);
+		
 		return customer;
 	}
 	
@@ -39,7 +37,8 @@ public class CustomerConverter {
 		customer.setFirstName(customerDTO.getFirstName());
 		customer.setIdentityNumber(customerDTO.getIdentityNumber());
 		customer.setLastName(customerDTO.getLastName());
-		customer.setTickets(null);
+		
 		return customer;
 	}
+
 }

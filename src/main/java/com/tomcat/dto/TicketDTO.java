@@ -6,7 +6,7 @@ import java.util.List;
 public class TicketDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int ticket_Id;
+	private Integer ticket_Id;
 
 	private double ticket_PriceTotal;
 
@@ -25,11 +25,11 @@ public class TicketDTO implements Serializable {
 	public TicketDTO() {
 	}
 
-	public int getTicket_Id() {
+	public Integer getTicket_Id() {
 		return this.ticket_Id;
 	}
 
-	public void setTicket_Id(int ticket_Id) {
+	public void setTicket_Id(Integer ticket_Id) {
 		this.ticket_Id = ticket_Id;
 	}
 
