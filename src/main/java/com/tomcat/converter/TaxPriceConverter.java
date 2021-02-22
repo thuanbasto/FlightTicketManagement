@@ -1,19 +1,27 @@
 package com.tomcat.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.tomcat.dto.TaxDTO;
 import com.tomcat.dto.TaxPriceDTO;
 import com.tomcat.entity.TaxPrice;
 
 @Component
 public class TaxPriceConverter {
+	
+	@Autowired
+	private TaxConverter taxConverter;
+	
 	public TaxPriceDTO toDto (TaxPrice entity)
 	{
-		TaxPriceDTO result =new  TaxPriceDTO();
-		result.setModifiedDate(entity.getModifiedDate());
-		result.setPrice(entity.getPrice());
-		result.setTax_Price_Id(entity.getTax_Price_Id());
-		result.setTax_Id(entity.getTax().getTax_Id());
-		return result;
+		TaxPriceDTO taxpriceDTO =new  TaxPriceDTO();
+		taxpriceDTO.setModifiedDate(entity.getModifiedDate());
+		taxpriceDTO.setPrice(entity.getPrice());
+		taxpriceDTO.setTax_Price_Id(entity.getTax_Price_Id());
+		TaxDTO tax =taxConverter.todto(entity.getTax());
+		taxpriceDTO.setTax(tax);
+		return taxpriceDTO;
 	}
 	
 	public TaxPrice toEntity (TaxPriceDTO dto) {

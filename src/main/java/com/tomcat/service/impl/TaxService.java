@@ -24,6 +24,7 @@ public class TaxService implements ITaxService{
 	TaxConverter taxConverter;
 
 	@Override
+	@Transactional
 	public List<TaxDTO> getList() {
 		List<TaxDTO> models = new ArrayList<>();
 		List<Tax> entities = taxRepository.findAll();
@@ -64,4 +65,15 @@ public class TaxService implements ITaxService{
 			taxRepository.delete(id);
 		}
 	}
+
+	@Override
+	public TaxDTO findbyid(Integer id) {
+		Tax tax = taxRepository.findOne(id);
+		return taxConverter.todto(tax);
+	}
+	
+	
+
+
+
 }
