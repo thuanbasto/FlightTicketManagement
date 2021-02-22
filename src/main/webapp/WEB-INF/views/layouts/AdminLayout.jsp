@@ -31,11 +31,11 @@
             </head>
 
             <body id="page-top">
+            
                 <tiles:insertAttribute name="menu" />
                 <tiles:insertAttribute name="header" />
                 <tiles:insertAttribute name="body" />
                 <tiles:insertAttribute name="footer" />
-
 
                 <script src='<c:url value="/storage/vendor/jquery/jquery.min.js"/>'></script>
                 <script src='<c:url value="/storage/vendor/bootstrap/js/bootstrap.bundle.min.js"/>'></script>

@@ -134,7 +134,7 @@
 								<div class="font-weight-bold">
 									<div class="text-truncate">Hi there! I am wondering if
 										you can help me with a problem I've been having.</div>
-									<div class="small text-gray-500">Emily Fowler · 58m</div>
+									<div class="small text-gray-500">Emily Fowler ï¿½ 58m</div>
 								</div>
 							</a> <a class="dropdown-item d-flex align-items-center" href="#">
 								<div class="dropdown-list-image mr-3">
@@ -144,7 +144,7 @@
 								<div>
 									<div class="text-truncate">I have the photos that you
 										ordered last month, how would you like them sent to you?</div>
-									<div class="small text-gray-500">Jae Chun · 1d</div>
+									<div class="small text-gray-500">Jae Chun ï¿½ 1d</div>
 								</div>
 							</a> <a class="dropdown-item d-flex align-items-center" href="#">
 								<div class="dropdown-list-image mr-3">
@@ -155,7 +155,7 @@
 									<div class="text-truncate">Last month's report looks
 										great, I am very happy with the progress so far, keep up the
 										good work!</div>
-									<div class="small text-gray-500">Morgan Alvarez · 2d</div>
+									<div class="small text-gray-500">Morgan Alvarez ï¿½ 2d</div>
 								</div>
 							</a> <a class="dropdown-item d-flex align-items-center" href="#">
 								<div class="dropdown-list-image mr-3">
@@ -167,7 +167,7 @@
 									<div class="text-truncate">Am I a good boy? The reason I
 										ask is because someone told me that people say this to all
 										dogs, even if they aren't good...</div>
-									<div class="small text-gray-500">Chicken the Dog · 2w</div>
+									<div class="small text-gray-500">Chicken the Dog ï¿½ 2w</div>
 								</div>
 							</a> <a class="dropdown-item text-center small text-gray-500"
 								href="#">Read More Messages</a>
@@ -223,4 +223,4 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+					</div>

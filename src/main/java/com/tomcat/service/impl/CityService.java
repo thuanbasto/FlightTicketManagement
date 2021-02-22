@@ -26,14 +26,10 @@ public class CityService implements ICityService{
 	@Autowired
 	private CityConverter cityConverter;
 	
-	@Autowired
-	private IAirportService airportService;
 	
 	@Override
-	@Transactional
 	public List<CityDTO> getList() {
 		List<City> cities =  cityRepository.findAll();
-		cities.forEach(city -> Hibernate.initialize(city.getAirports()));
 		List<CityDTO> cityDTOs = new ArrayList<>();
 		cities.forEach(city -> cityDTOs.add(cityConverter.toCityDTO(city)));
 		return cityDTOs;
@@ -52,22 +48,12 @@ public class CityService implements ICityService{
 	}
 
 	@Override
-	@Transactional
 	public CityDTO get(String id) {
 		City city = cityRepository.findOne(id);
-		Hibernate.initialize(city.getAirports());
-		if(city.getCity_Id() != null) {
+		if(city != null) {
 			return cityConverter.toCityDTO(city);
 		}
 		return new CityDTO();
 	}
 
-	@Override
-	@Transactional
-	public List<City> getList1() {
-		List<City> cities = cityRepository.findAll();
-		cities.forEach(city -> Hibernate.initialize(city.getAirports()));
-		return cities;
-	}
-	
 }

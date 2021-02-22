@@ -41,8 +41,8 @@ $('body').on('click', '#btnAdd', function() {
             // du lieu truyen vao dang json 
             data: JSON.stringify({ "city_Id": $("#cityCode").val(), "name": $("#cityName").val() }),
             success: function(response) {
-		        $("#cityCode").val("");
-		        $("#cityName").val("");
+                $("#cityCode").val("");
+                $("#cityName").val("");
                 console.log(response);
                 loadCityList();
             },
@@ -94,12 +94,12 @@ $('#myModal').on("keyup", function(event) {
 $('#loadCity').on('click', '#btnDelete', function() {
     // console.log($(this).data('id'));
     if (confirm(`You want to delete ${$(this).data('id')} city?`)) {
-		// get class name cua the <tr> muon xoa   
+        // get class name cua the <tr> muon xoa   
         var rawstrClass = $(this).closest('tr').attr('class');
-        var strClass ='';
+        var strClass = '';
         console.log(rawstrClass.split(" "));
-        for (var i = 0 ; i < rawstrClass.split(" ").length ; i++){
-        	strClass = strClass+'.'+rawstrClass.split(" ")[i];
+        for (var i = 0; i < rawstrClass.split(" ").length; i++) {
+            strClass = strClass + '.' + rawstrClass.split(" ")[i];
         }
 
         $.ajax({
@@ -109,8 +109,8 @@ $('#loadCity').on('click', '#btnDelete', function() {
             async: false,
             type: "delete",
             success: function(response) {
-        		//xoa the <tr>
-		        $("tr").remove(strClass);
+                //xoa the <tr>
+                $("tr").remove(strClass);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);

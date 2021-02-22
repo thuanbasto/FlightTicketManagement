@@ -3,16 +3,13 @@ package com.tomcat.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -31,7 +28,7 @@ public class City implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Airport
-	@OneToMany(mappedBy="city")
+	@OneToMany(mappedBy="city", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Airport> airports;
 
 	public City() {

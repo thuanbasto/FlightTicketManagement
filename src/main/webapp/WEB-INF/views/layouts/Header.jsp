@@ -6,6 +6,8 @@
 
 <c:url value="/storage/img/logo.png" var="imgUrl" />
 <c:url value="/storage/css/Header.css" var="cssUrl" />
+<c:url value="/admin/dashboard" var="dashboardUrl" />
+<c:url value="/logout" var="logoutUrl" />
 
 <link rel="stylesheet"
 	href='<c:url value="/storage/css/Header.css"></c:url>'>
@@ -31,16 +33,15 @@
 			</security:authorize>
 			<security:authorize access="isAuthenticated()">
 				<security:authentication property="principal" var="user" />
-
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value='/admin/dashboard'/>">Dashboard</a></li>
+				<li class="nav-item"><a class="nav-link" 
+					href="${dashboardUrl}">Dashboard</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" style="color: teal" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> ${user.username} </a>
 					<div class="dropdown-menu dropdown-menu-right"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
+						<a class="dropdown-item" href="${logoutUrl}">Logout</a>
 					</div></li>
 			</security:authorize>
 		</ul>

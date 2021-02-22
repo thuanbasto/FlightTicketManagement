@@ -3,7 +3,6 @@ package com.tomcat.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tomcat.dto.UserDTO;
 import com.tomcat.service.IRoleService;
+import com.tomcat.service.ITaxService;
 import com.tomcat.service.IUserService;
 import com.tomcat.validator.UserValidator;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	@Autowired
-	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	IRoleService roleService;
@@ -30,6 +28,10 @@ public class AdminController {
 
 	@Autowired
 	UserValidator userValidator;
+	
+	@Autowired
+	ITaxService taxService;
+	
 	
 	@GetMapping("/signup")
 	public String signupPage(@ModelAttribute("userDTO") UserDTO userDTO) {
@@ -57,14 +59,14 @@ public class AdminController {
 	public String cityManagement(HttpServletRequest request) {
 		return "City";
 	}
+	
 	@GetMapping(value= {"/airport-management"})
 	public String airportManagement(HttpServletRequest request) {
 		return "Airport";
 	}
+	
 	@GetMapping(value= {"/tax-management"})
 	public String taxManagement(HttpServletRequest request) {
-//		request.setAttribute("listCity", cityService.getList());
 		return "Tax";
 	}
-	
 }
