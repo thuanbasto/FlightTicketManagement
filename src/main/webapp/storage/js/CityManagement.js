@@ -1,4 +1,4 @@
-//func lam moi thanh pho
+//func load thanh pho
 function loadCityList() {
     $.ajax({
         url: "/FlightTicketManagement/api/cities",
@@ -11,12 +11,12 @@ function loadCityList() {
                 var cityName = $(this).find("name").text();
                 htmlStr = htmlStr + `<tr class=${cityId}><td>${cityId}</td>
                 <td>${cityName}</td>
-                <td><button id="btnEdit" data-id=${cityId} type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fas fa-edit"></i></button>&nbsp
+                <td><button id="btnEdit" data-id=${cityId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateCityModal"><i class="fas fa-edit"></i></button>&nbsp
                 <button id="btnDelete" data-id=${cityId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </td></tr>`;
             });
             //hien thi len
-            $("#loadCity").html(htmlStr);
+            $("#tbodyData").html(htmlStr);
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -51,17 +51,18 @@ $('body').on('click', '#btnAdd', function() {
             }
         });
     }
-
 });
 
 
 var cityID;
 
 //su kien nut Edit thanh pho
-$('#loadCity').on('click', '#btnEdit', function() {
+$('#tbodyData').on('click', '#btnEdit', function() {
     console.log($(this).data('id'));
     cityID = $(this).data('id');
     $('#inpCityID').val($(this).data('id'));
+    var cityName = $(this).closest('tr').children('td').eq(1).text(); // Lay ten thanh pho hien thi len inpCityName
+    $("#inpCityName").val(cityName);
 });
 
 //su kien nut Update thanh pho
@@ -83,7 +84,7 @@ $('body').on('click', '#btnUpdate', function() {
     });
 });
 
-$('#myModal').on("keyup", function(event) {
+$('#updateCityModal').on("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         $('#btnUpdate').click();
@@ -91,7 +92,7 @@ $('#myModal').on("keyup", function(event) {
 });
 
 //su kien nut Delete thanh pho
-$('#loadCity').on('click', '#btnDelete', function() {
+$('#tbodyData').on('click', '#btnDelete', function() {
     // console.log($(this).data('id'));
     if (confirm(`You want to delete ${$(this).data('id')} city?`)) {
         // get class name cua the <tr> muon xoa   
@@ -117,6 +118,5 @@ $('#loadCity').on('click', '#btnDelete', function() {
             }
         });
     } else {}
-
 
 });
