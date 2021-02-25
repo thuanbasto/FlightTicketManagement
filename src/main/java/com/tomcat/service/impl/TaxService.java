@@ -53,7 +53,10 @@ public class TaxService implements ITaxService{
 			Tax taxOne = taxRepository.findOne(dto.getTax_Id());
 			taxEntity = taxConverter.toEntity(taxOne, dto);
 		}
-		taxEntity = taxConverter.toEntity(dto);
+		else {
+			taxEntity = taxConverter.toEntity(dto);
+		}
+		
 		Tax a =taxRepository.save(taxEntity);
 		return taxConverter.toDTO(a);
 	}
@@ -72,8 +75,4 @@ public class TaxService implements ITaxService{
 		return taxConverter.toDTO(tax);
 	}
 	
-	
-
-
-
 }
