@@ -3,8 +3,10 @@ package com.tomcat.service.impl;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.RoleConverter;
 import com.tomcat.dto.RoleDTO;

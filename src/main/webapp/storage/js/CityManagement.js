@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 //func load thanh pho
+=======
+//func lam moi thanh pho
+>>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
 function loadCityList() {
     $.ajax({
         url: "/FlightTicketManagement/api/cities",
@@ -51,9 +55,16 @@ $('body').on('click', '#btnAdd', function() {
             }
         });
     }
+<<<<<<< HEAD
 });
 
 
+=======
+
+});
+
+
+>>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
 var cityID;
 
 //su kien nut Edit thanh pho
@@ -119,4 +130,9 @@ $('#tbodyData').on('click', '#btnDelete', function() {
         });
     } else {}
 
+<<<<<<< HEAD
 });
+=======
+
+});
+>>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b

@@ -81,6 +81,7 @@
                             <a class="collapse-item" href="city-management" style="color: cornflowerblue">City</a>
                             <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
                             <h6 class="collapse-header">Air plane:</h6>
+                            <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
                             <a class="collapse-item" href="#">Airplane seat</a>
                         </div>
                     </div>

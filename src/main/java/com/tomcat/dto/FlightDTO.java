@@ -18,9 +18,9 @@ public class FlightDTO implements Serializable {
 
 	private AirplaneDTO airplane;
 
-	private AirportDTO airport1;
+	private AirportDTO fromAirport;
 
-	private AirportDTO airport2;
+	private AirportDTO toAriport;
 
 	private List<TicketDTO> tickets;
 
@@ -67,20 +67,20 @@ public class FlightDTO implements Serializable {
 		this.airplane = airplane;
 	}
 
-	public AirportDTO getAirport1() {
-		return this.airport1;
+	public AirportDTO getFromAirport() {
+		return fromAirport;
 	}
 
-	public void setAirport1(AirportDTO airport1) {
-		this.airport1 = airport1;
+	public void setFromAirport(AirportDTO fromAirport) {
+		this.fromAirport = fromAirport;
 	}
 
-	public AirportDTO getAirport2() {
-		return this.airport2;
+	public AirportDTO getToAriport() {
+		return toAriport;
 	}
 
-	public void setAirport2(AirportDTO airport2) {
-		this.airport2 = airport2;
+	public void setToAriport(AirportDTO toAriport) {
+		this.toAriport = toAriport;
 	}
 
 	public List<TicketDTO> getTickets() {

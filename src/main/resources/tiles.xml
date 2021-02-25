@@ -51,6 +51,9 @@
     <definition name="Airport" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/AirportManagement.jsp"/>
   </definition>
+    <definition name="Airplane" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/AirplaneManagement.jsp"/>
+  </definition>
    <definition name="Tax" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp"/>
   </definition>
