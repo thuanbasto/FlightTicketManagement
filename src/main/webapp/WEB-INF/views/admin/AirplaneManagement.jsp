@@ -16,7 +16,7 @@
                             <input type="text" class="form-control" id="airplaneCode" placeholder="Airplane code" name="airplaneCode">
                         </div>
                         <div class="col-lg-5">
-                            <input type="text" class="form-control" id="airplaneName" placeholder="Airplane name" name="airplaneCode">
+                            <input type="text" class="form-control" id="airplaneName" placeholder="Airplane name" name="airplaneName">
                         </div>
                         <div class="col-lg-4">
                             <button id="btnAdd" class="btn btn-success">Add Airplane</button>

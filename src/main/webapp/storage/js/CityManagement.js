@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-//func load thanh pho
-=======
 //func lam moi thanh pho
->>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
-function loadCityList() {
+function loadAirplaneList() {
     $.ajax({
         url: "/FlightTicketManagement/api/cities",
         async: false,
@@ -29,42 +25,36 @@ function loadCityList() {
     });
 }
 
-loadCityList();
+loadAirplaneList();
 
 //su kien nut Add thanh pho
 $('body').on('click', '#btnAdd', function() {
     // check validate
-    if ($("#cityCode").val() == '' || $("#cityName").val() == '') {
+    if ($("#airplaneCode").val() == '' || $("#airplaneName").val() == '') {
         alert('Khong duoc chua trong!');
     } else {
         $.ajax({
-            url: "/FlightTicketManagement/api/cities",
+            url: "/FlightTicketManagement/api/airplanes",
             contentType: "application/json",
             async: false,
             type: "post",
             // du lieu truyen vao dang json 
-            data: JSON.stringify({ "city_Id": $("#cityCode").val(), "name": $("#cityName").val() }),
+            data: JSON.stringify({ "airplane_Id": $("#airplaneCode").val(), "name": $("#airplaneName").val() }),
             success: function(response) {
-                $("#cityCode").val("");
-                $("#cityName").val("");
+                $("#airplaneCode").val("");
+                $("#airplaneName").val("");
                 console.log(response);
-                loadCityList();
+                loadAirplaneList();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
             }
         });
     }
-<<<<<<< HEAD
-});
-
-
-=======
 
 });
 
 
->>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
 var cityID;
 
 //su kien nut Edit thanh pho
@@ -86,7 +76,7 @@ $('body').on('click', '#btnUpdate', function() {
         data: JSON.stringify({ "city_Id": cityID, "name": $("#inpCityName").val() }),
         success: function(response) {
             $('.close').click();
-            loadCityList();
+            loadAirplaneList();
             $("#inpCityName").val('');
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -130,9 +120,5 @@ $('#tbodyData').on('click', '#btnDelete', function() {
         });
     } else {}
 
-<<<<<<< HEAD
-});
-=======
 
 });
->>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
