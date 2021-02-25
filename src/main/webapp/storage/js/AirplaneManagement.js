@@ -11,7 +11,7 @@ function loadAirplaneList() {
                 var airplaneName = $(this).find("name").text();
                 htmlStr = htmlStr + `<tr class=${airplaneId}><td>${airplaneId}</td>
                 <td>${airplaneName}</td>
-                <td><button id="btnEdit" data-id=${airplaneId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateCityModal"><i class="fas fa-edit"></i></button>&nbsp
+                <td><button id="btnEdit" data-id=${airplaneId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateAirplaneModal"><i class="fas fa-edit"></i></button>&nbsp
                 <button id="btnDelete" data-id=${airplaneId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </td></tr>`;
             });
@@ -59,43 +59,31 @@ $('body').on('click', '#btnAdd', function() {
 });
 
 
-var airportID;
-var CITYID;
+var AirplaneID;
 
 //su kien nut Edit san bay
 $('#tbodyData').on('click', '#btnEdit', function() {
-    AirportID = $(this).data('id'); // id san bay muon edit
-    CITYID = $(this).data('ctid'); // id thanh pho muon edit
-    $('#inpAirportID').val($(this).data('id')); // Lay ma san bay hien thi len inpAirportID
-    var airportName = $(this).closest('tr').children('td').eq(2).text(); // Lay ten san bay hien thi len inpAirportName
-    $("#inpAirportName").val(airportName);
-    //Hien thi thanh pho dang chon
-    $("#loadCityMD option").each(function() {
-        if ($(this).val() == CITYID) {
-            $(this).attr("selected", "selected");
-        }
-    })
-
+    AirplaneID = $(this).data('id'); // id san bay muon edit
+    $('#inpAirplaneID').val($(this).data('id')); // Lay ma may bay hien thi len inpAirportID
+    var airplaneName = $(this).closest('tr').children('td').eq(1).text(); // Lay ten may bay hien thi len inpAirportName
+    $("#inpAirplaneName").val(airplaneName);
 });
 
 //su kien nut Update san bay
 $('body').on('click', '#btnUpdate', function() {
     $.ajax({
-        url: "/FlightTicketManagement/api/airports/" + AirportID,
+        url: "/FlightTicketManagement/api/airplanes/" + AirplaneID,
         contentType: "application/json",
         async: false,
         type: "put",
         data: JSON.stringify({
-            "airport_Id": AirportID,
-            "name": $("#inpAirportName").val(),
-            "city": {
-                "city_Id": $("#loadCityMD").val()
-            }
+            "airplane_Id": $("#inpAirplaneID").val(),
+            "name": $("#inpAirplaneName").val(),
         }),
         success: function(response) {
             $('.close').click();
-            loadAirportList();
-            $("#inpAirportName").val('');
+            loadAirplaneList();
+            $("#inpAirplaneName").val('');
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
