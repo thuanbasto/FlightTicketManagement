@@ -28,7 +28,7 @@
 		<label>Confirm password<span class="required"> *</span></label>
 		<form:input path="confirmPassword" class="form-control" type="password" placeholder="Confirm password" required="true"/>
 		<p class="errorSignup"><form:errors path="password"></form:errors></p>
-		<p id="passwordErrorMatch" class="error">- Passwords do not match</p>
+		<p id="passwordErrorMatch" class="errorSignup">- Passwords do not match</p>
 	</div>
 	<div class="name form-group">
 		<label>First name<span class="required"> *</span></label>
@@ -42,7 +42,7 @@
 	</div>
 	<div class="phone form-group">
 		<label>Phone<span class="required"> *</span></label>
-		<form:input path="phone" class="form-control" placeholder="0123456789" required="true"/>
+		<form:input path="phone" class="form-control" maxlength="10" placeholder="0123456789" required="true"/>
 	</div>
 	<div class="address form-group">
 		<label>Address<span class="required"> *</span></label>

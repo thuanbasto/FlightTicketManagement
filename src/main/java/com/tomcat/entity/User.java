@@ -57,7 +57,7 @@ public class User implements Serializable {
 	private List<Booking> bookings;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE })
 	@JoinTable(
 			name="role_user"
 			, joinColumns={

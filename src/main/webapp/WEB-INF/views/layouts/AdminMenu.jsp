@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -82,6 +82,8 @@
                             <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
                             <h6 class="collapse-header">Air plane:</h6>
                             <a class="collapse-item" href="#">Airplane seat</a>
+                            <h6 class="collapse-header">User:</h6>
+                            <a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
                         </div>
                     </div>
                 </li>

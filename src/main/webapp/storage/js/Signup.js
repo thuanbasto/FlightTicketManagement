@@ -58,17 +58,14 @@ function checkExistUsername(username) {
         async: false,
         method: "GET",
         contentType: "application/json; charset=utf-8",
-        url: "/FlightTicketManagement/admin/user/" + username,
+        url: "/FlightTicketManagement/api/users/" + username,
         dataType: "json",
         success: function(data) {
-            if (data) {
-                usernameErrorExist.style.display = "";
-                // return true; // username is exist
-            } else {
-                usernameErrorExist.style.display = "none";
-                // return false; // username isn't exist
-            }
-        }
+        	usernameErrorExist.style.display = ""; // return true; // username is exist
+        },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	    	usernameErrorExist.style.display = "none"; // return false; // username isn't exist
+	    }
     })
     enableNext();
 }

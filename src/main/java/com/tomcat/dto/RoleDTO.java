@@ -15,6 +15,12 @@ public class RoleDTO implements Serializable {
 
 	public RoleDTO() {
 	}
+	
+	public RoleDTO(Integer role_Id, String name) {
+		super();
+		this.role_Id = role_Id;
+		this.name = name;
+	}
 
 	public Integer getRole_Id() {
 		return this.role_Id;
