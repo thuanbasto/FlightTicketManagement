@@ -36,11 +36,11 @@ public class Airport implements Serializable {
 	private City city;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport1", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy="fromAirport", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights1;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airport2", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy="toAirport", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Flight> flights2;
 
 	public Airport() {
@@ -80,14 +80,14 @@ public class Airport implements Serializable {
 
 	public Flight addFlights1(Flight flights1) {
 		getFlights1().add(flights1);
-		flights1.setAirport1(this);
+		flights1.setFromAirport(this);
 
 		return flights1;
 	}
 
 	public Flight removeFlights1(Flight flights1) {
 		getFlights1().remove(flights1);
-		flights1.setAirport1(null);
+		flights1.setFromAirport(null);
 
 		return flights1;
 	}
@@ -102,14 +102,14 @@ public class Airport implements Serializable {
 
 	public Flight addFlights2(Flight flights2) {
 		getFlights2().add(flights2);
-		flights2.setAirport2(this);
+		flights2.setToAirport(this);
 
 		return flights2;
 	}
 
 	public Flight removeFlights2(Flight flights2) {
 		getFlights2().remove(flights2);
-		flights2.setAirport2(null);
+		flights2.setToAirport(null);
 
 		return flights2;
 	}
