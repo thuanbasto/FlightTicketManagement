@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tomcat.converter.TravelclassPriceConverter;
 import com.tomcat.dto.TravelclassDTO;
 import com.tomcat.dto.TravelclassPriceDTO;
-import com.tomcat.entity.Tax;
-import com.tomcat.entity.TaxPrice;
 import com.tomcat.entity.Travelclass;
 import com.tomcat.entity.TravelclassPrice;
 import com.tomcat.repository.TravelclassPriceRepository;
