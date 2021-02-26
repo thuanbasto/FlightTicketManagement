@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import com.tomcat.dto.AirportDTO;
 import com.tomcat.dto.CityDTO;
 import com.tomcat.entity.Airport;
-import com.tomcat.entity.City;
 
 @Component
 public class AirportConverter { 

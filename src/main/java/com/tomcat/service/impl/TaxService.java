@@ -24,7 +24,6 @@ public class TaxService implements ITaxService{
 	TaxConverter taxConverter;
 
 	@Override
-	@Transactional
 	public List<TaxDTO> getList() {
 		List<TaxDTO> models = new ArrayList<>();
 		List<Tax> entities = taxRepository.findAll();

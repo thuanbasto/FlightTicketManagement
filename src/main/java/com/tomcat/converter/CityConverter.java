@@ -1,15 +1,10 @@
 package com.tomcat.converter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tomcat.dto.AirportDTO;
 import com.tomcat.dto.CityDTO;
-import com.tomcat.entity.Airport;
 import com.tomcat.entity.City;
 
 @Component

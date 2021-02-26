@@ -1,0 +1,48 @@
+[33me4d20dd[m[33m ([m[1;36mHEAD -> [m[1;32mhieu[m[33m)[m HEAD@{0}: commit (merge): merge hoa
+[33m7dc400c[m[33m ([m[1;31morigin/hieu[m[33m)[m HEAD@{1}: commit: Ajax AirportManagement , clean code Ajax CityManagement
+[33mb8f93e4[m HEAD@{2}: commit (merge): fix conflict merge main
+[33me5cfd48[m HEAD@{3}: commit: update performance deleteCityAjax
+[33m20d568f[m[33m ([m[1;31morigin/test_hieu[m[33m, [m[1;32mtest_hieu[m[33m)[m HEAD@{4}: pull origin test_hieu: Fast-forward
+[33m4c3b689[m HEAD@{5}: checkout: moving from test_hieu to hieu
+[33m20d568f[m[33m ([m[1;31morigin/test_hieu[m[33m, [m[1;32mtest_hieu[m[33m)[m HEAD@{6}: commit: Pull hoa & Ajax CityManagement
+[33m7ef586c[m HEAD@{7}: checkout: moving from hieu to test_hieu
+[33m4c3b689[m HEAD@{8}: checkout: moving from test_hieu to hieu
+[33m7ef586c[m HEAD@{9}: merge hieu: Merge made by the 'recursive' strategy.
+[33mb45cb3a[m HEAD@{10}: pull origin hoa: Merge made by the 'recursive' strategy.
+[33m03c3beb[m HEAD@{11}: commit: ajax CityManagement load city list
+[33m7f2f68d[m HEAD@{12}: checkout: moving from hieu to test_hieu
+[33m4c3b689[m HEAD@{13}: merge test_hieu: Merge made by the 'recursive' strategy.
+[33mb41c512[m HEAD@{14}: commit: AdminFooter change
+[33ma008f46[m HEAD@{15}: checkout: moving from test_hieu to hieu
+[33m7f2f68d[m HEAD@{16}: commit (merge): fix conflict & merge hoa
+[33ma008f46[m HEAD@{17}: checkout: moving from hieu to test_hieu
+[33ma008f46[m HEAD@{18}: commit: AirportManagement
+[33m8111ff6[m HEAD@{19}: commit: merge thuan
+[33m99024c4[m HEAD@{20}: commit (merge): hieu merge main
+[33me4ceed7[m HEAD@{21}: checkout: moving from main to hieu
+[33m03a319a[m[33m ([m[1;32mmain[m[33m)[m HEAD@{22}: commit: fix db
+[33mbfa9768[m HEAD@{23}: pull: Fast-forward
+[33m006da4f[m HEAD@{24}: checkout: moving from hieu to main
+[33me4ceed7[m HEAD@{25}: commit: Separate AdminMenu , add TaxManagement
+[33mfa6bc80[m HEAD@{26}: commit: delete storage/admin , format code
+[33m4ff0e1c[m HEAD@{27}: commit: admin dashboard , city management , login UI
+[33m413d955[m HEAD@{28}: commit: ad page
+[33mdc823ee[m HEAD@{29}: commit (merge): hieu merge main
+[33me6ed5c6[m HEAD@{30}: checkout: moving from main to hieu
+[33m006da4f[m HEAD@{31}: commit: fix home and city
+[33mf4782eb[m HEAD@{32}: checkout: moving from hieu to main
+[33me6ed5c6[m HEAD@{33}: commit: fix file header
+[33m49b1832[m HEAD@{34}: commit (merge): fix conflict
+[33m8324a97[m HEAD@{35}: checkout: moving from main to hieu
+[33mf4782eb[m HEAD@{36}: checkout: moving from hieu to main
+[33m8324a97[m HEAD@{37}: commit: change
+[33m150a1ae[m HEAD@{38}: checkout: moving from main to hieu
+[33mf4782eb[m HEAD@{39}: pull: Fast-forward
+[33m04a61ff[m HEAD@{40}: checkout: moving from hieu to main
+[33m150a1ae[m HEAD@{41}: commit: nochange
+[33mfa88168[m HEAD@{42}: reset: moving to HEAD^
+[33m17c083b[m HEAD@{43}: commit: suon pj
+[33mfa88168[m HEAD@{44}: commit: first commit
+[33m04a61ff[m HEAD@{45}: reset: moving to HEAD
+[33m04a61ff[m HEAD@{46}: checkout: moving from main to hieu
+[33m04a61ff[m HEAD@{47}: clone: from https://github.com/thuanbasto/FlightTicketManagement.git

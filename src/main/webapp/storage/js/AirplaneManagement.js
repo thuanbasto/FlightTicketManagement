@@ -1,18 +1,18 @@
-//func lam moi thanh pho
+//func load danh sach may bay 
 function loadAirplaneList() {
     $.ajax({
-        url: "/FlightTicketManagement/api/cities",
+        url: "/FlightTicketManagement/api/airplanes",
         async: false,
         success: function(response) {
             var htmlStr = ``;
             // lap qua ket qua tra ve & tao html theo mong muon
             $(response).find("item").each(function() {
-                var cityId = $(this).find("city_Id").text();
-                var cityName = $(this).find("name").text();
-                htmlStr = htmlStr + `<tr class=${cityId}><td>${cityId}</td>
-                <td>${cityName}</td>
-                <td><button id="btnEdit" data-id=${cityId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateCityModal"><i class="fas fa-edit"></i></button>&nbsp
-                <button id="btnDelete" data-id=${cityId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                var airplaneId = $(this).find("airplane_Id").text();
+                var airplaneName = $(this).find("name").text();
+                htmlStr = htmlStr + `<tr class=${airplaneId}><td>${airplaneId}</td>
+                <td>${airplaneName}</td>
+                <td><button id="btnEdit" data-id=${airplaneId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateAirplaneModal"><i class="fas fa-edit"></i></button>&nbsp
+                <button id="btnDelete" data-id=${airplaneId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </td></tr>`;
             });
             //hien thi len
@@ -24,11 +24,12 @@ function loadAirplaneList() {
         }
     });
 }
-
 loadAirplaneList();
 
-//su kien nut Add thanh pho
+
+//su kien nut Add san bay
 $('body').on('click', '#btnAdd', function() {
+
     // check validate
     if ($("#airplaneCode").val() == '' || $("#airplaneName").val() == '') {
         alert('Khong duoc chua trong!');
@@ -39,9 +40,12 @@ $('body').on('click', '#btnAdd', function() {
             async: false,
             type: "post",
             // du lieu truyen vao dang json 
-            data: JSON.stringify({ "airplane_Id": $("#airplaneCode").val(), "name": $("#airplaneName").val() }),
+            data: JSON.stringify({
+                "airplane_Id": $("#airplaneCode").val(),
+                "name": $("#airplaneName").val(),
+            }),
             success: function(response) {
-                $("#airplaneCode").val("");
+                $("#airplaneName").val("");
                 $("#airplaneName").val("");
                 console.log(response);
                 loadAirplaneList();
@@ -55,29 +59,31 @@ $('body').on('click', '#btnAdd', function() {
 });
 
 
-var cityID;
+var AirplaneID;
 
-//su kien nut Edit thanh pho
+//su kien nut Edit san bay
 $('#tbodyData').on('click', '#btnEdit', function() {
-    console.log($(this).data('id'));
-    cityID = $(this).data('id');
-    $('#inpCityID').val($(this).data('id'));
-    var cityName = $(this).closest('tr').children('td').eq(1).text(); // Lay ten thanh pho hien thi len inpCityName
-    $("#inpCityName").val(cityName);
+    AirplaneID = $(this).data('id'); // id san bay muon edit
+    $('#inpAirplaneID').val($(this).data('id')); // Lay ma may bay hien thi len inpAirportID
+    var airplaneName = $(this).closest('tr').children('td').eq(1).text(); // Lay ten may bay hien thi len inpAirportName
+    $("#inpAirplaneName").val(airplaneName);
 });
 
-//su kien nut Update thanh pho
+//su kien nut Update san bay
 $('body').on('click', '#btnUpdate', function() {
     $.ajax({
-        url: "/FlightTicketManagement/api/cities/id",
+        url: "/FlightTicketManagement/api/airplanes/" + AirplaneID,
         contentType: "application/json",
         async: false,
         type: "put",
-        data: JSON.stringify({ "city_Id": cityID, "name": $("#inpCityName").val() }),
+        data: JSON.stringify({
+            "airplane_Id": $("#inpAirplaneID").val(),
+            "name": $("#inpAirplaneName").val(),
+        }),
         success: function(response) {
             $('.close').click();
             loadAirplaneList();
-            $("#inpCityName").val('');
+            $("#inpAirplaneName").val('');
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -85,28 +91,25 @@ $('body').on('click', '#btnUpdate', function() {
     });
 });
 
-$('#updateCityModal').on("keyup", function(event) {
+$('#updateAirplaneModal').on("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         $('#btnUpdate').click();
     }
 });
 
-//su kien nut Delete thanh pho
+//su kien nut Delete san bay
 $('#tbodyData').on('click', '#btnDelete', function() {
-    // console.log($(this).data('id'));
-    if (confirm(`You want to delete ${$(this).data('id')} city?`)) {
+    if (confirm(`You want to delete ${$(this).data('id')} Airplane?`)) {
         // get class name cua the <tr> muon xoa   
         var rawstrClass = $(this).closest('tr').attr('class');
         var strClass = '';
-        console.log(rawstrClass.split(" "));
         for (var i = 0; i < rawstrClass.split(" ").length; i++) {
             strClass = strClass + '.' + rawstrClass.split(" ")[i];
         }
-
         $.ajax({
-            //  $(this).data('id') = ma thanh pho
-            url: "/FlightTicketManagement/api/cities/" + $(this).data('id'),
+            //  $(this).data('id') = ma san bay
+            url: "/FlightTicketManagement/api/airplanes/" + $(this).data('id'),
             contentType: "application/json",
             async: false,
             type: "delete",
@@ -119,6 +122,4 @@ $('#tbodyData').on('click', '#btnDelete', function() {
             }
         });
     } else {}
-
-
 });

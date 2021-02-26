@@ -20,7 +20,7 @@ public class Airplane implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Flight
-	@OneToMany(mappedBy="airplane")
+	@OneToMany(mappedBy="airplane", cascade = {CascadeType.PERSIST, CascadeType.REMOVE} )
 	private List<Flight> flights;
 
 	public Airplane() {

@@ -1,6 +1,5 @@
 package com.tomcat.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,26 +27,28 @@ public class TaxPriceService implements ITaxPriceService{
 	TaxRepository taxRepository;
 
 	@Override
-	@Transactional
-	public List<TaxPriceDTO> getList() {
-		  List<TaxPriceDTO> models = new ArrayList<>(); 
-		  List<TaxPrice> entytis= taxpriceRepositpory.findAll(); 
-		  for (TaxPrice item : entytis) { 
-			  TaxPriceDTO taxpriceDTO = taxpriceConverter.toDto(item);
-			  models.add(taxpriceDTO);   
-		  }
-		return models;
+	public List<TaxPrice> getList() {
+		
+		
+		/*
+		 * List<TaxPriceDTO> models = new ArrayList<>(); List<TaxPrice>
+		 * entytis=(List<TaxPrice>) taxpriceRepositpory.myCustomQuery(); for (TaxPrice
+		 * item : entytis) { TaxPriceDTO taxpriceDTO = taxpriceConverter.toDto2(item);
+		 * models.add(taxpriceDTO); }
+		 */
+		
+		
+		/*
+		 * List<TaxPriceDTO> list = (List<TaxPriceDTO>)
+		 * taxpriceRepositpory.myCustomQuery();
+		 */
+		return taxpriceRepositpory.findAll() ;
 	}
 
 	@Override
-	@Transactional
 	public TaxPriceDTO findbyid(Integer id) {
 		TaxPrice entyti = taxpriceRepositpory.findOne(id);
-		if(entyti != null) {
-			TaxPriceDTO taxpriceDTO = taxpriceConverter.toDto(entyti);
-			return taxpriceDTO;
-		}
-		return new TaxPriceDTO();
+		return taxpriceConverter.toDto(entyti);
 	}
 
 	@Override
@@ -86,8 +87,14 @@ public class TaxPriceService implements ITaxPriceService{
 		return taxpriceConverter.toDto(taxpriceRepositpory.save(taxEntity));
 	}
 	@Override
-	public void delete(int id) {
-		taxpriceRepositpory.delete(id);
+	@Transactional
+	public void delete(int[] ids) {
+		for(int id :ids) {
+			taxRepository.delete(id);
+		}
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,9 +1,20 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -35,12 +46,12 @@ public class Flight implements Serializable {
 	//bi-directional many-to-one association to Airport
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="From_Airport_Id")
-	private Airport airport1;
+	private Airport fromAirport;
 
 	//bi-directional many-to-one association to Airport
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="To_Airport_Id")
-	private Airport airport2;
+	private Airport toAirport;
 
 	//bi-directional many-to-one association to Ticket
 	@OneToMany(mappedBy="flight")
@@ -89,20 +100,20 @@ public class Flight implements Serializable {
 		this.airplane = airplane;
 	}
 
-	public Airport getAirport1() {
-		return this.airport1;
+	public Airport getFromAirport() {
+		return fromAirport;
 	}
 
-	public void setAirport1(Airport airport1) {
-		this.airport1 = airport1;
+	public void setFromAirport(Airport fromAirport) {
+		this.fromAirport = fromAirport;
 	}
 
-	public Airport getAirport2() {
-		return this.airport2;
+	public Airport getToAirport() {
+		return toAirport;
 	}
 
-	public void setAirport2(Airport airport2) {
-		this.airport2 = airport2;
+	public void setToAirport(Airport toAirport) {
+		this.toAirport = toAirport;
 	}
 
 	public List<Ticket> getTickets() {

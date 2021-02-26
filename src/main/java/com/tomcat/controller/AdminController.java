@@ -72,6 +72,11 @@ public class AdminController {
 		return "Airport";
 	}
 	
+	@GetMapping(value= {"/airplane-management"})
+	public String airplaneManagement(HttpServletRequest request) {
+		return "Airplane";
+	}
+	
 	@GetMapping(value= {"/tax-management"})
 	public String taxManagement() {
 		return "Tax";

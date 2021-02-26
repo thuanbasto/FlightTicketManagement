@@ -16,28 +16,16 @@ public class TaxController {
 	@Autowired
 	ITaxPriceService taxpriceService;
 	
-	// @GetMapping("/tax")
-	// public String home(HttpServletRequest request) {
-	// 	request.setAttribute("listTax", taxService.getList());
-	// 	return "ListTax";
-	// }
-	
-	
-	// @GetMapping("/taxprice")
-	// public String home1(HttpServletRequest request  ) {
-	// 	request.setAttribute("listTaxPrice", taxpriceService.getList());
-	// 	return "ListTaxPrice";
-	// }
-	// @GetMapping("/createtaxprice")
-	// public String create(@RequestParam(value = "id",required = false) int id  ,HttpServletRequest request) {
-	// 	/* request.setAttribute("listTaxPrice", taxpriceService.getList()); */
-	// 	TaxPriceDTO model = new TaxPriceDTO();
-	// 	if(id!=0) {
-	// 		model = taxpriceService.findbyid(id);
-	// 	}
-	// 	request.setAttribute("listTaxPrice", model);
-	// 	request.setAttribute("listTax", taxService.findAll());
-	// 	return "CreateTaxPrice";
-	// }
+//	@GetMapping("/createtaxprice")
+//	public String create(@RequestParam(value = "id",required = false) Integer id  ,HttpServletRequest request) {
+//		/* request.setAttribute("listTaxPrice", taxpriceService.getList()); */
+//		TaxPriceDTO model = new TaxPriceDTO();
+//		if(id!=null) {
+//			model = taxpriceService.findbyid(id);
+//		}
+//		request.setAttribute("listTaxPrice", model);
+//		request.setAttribute("listTax", taxService.findAll());
+//		return "CreateTaxPrice";
+//	}
 
 }
