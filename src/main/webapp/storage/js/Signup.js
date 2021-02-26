@@ -53,26 +53,19 @@ confirmPassword.value = "";
 // variable count the button next
 var section = 1;
 
-<<<<<<< HEAD
 function checkExistUsername(username) {
-=======
-function checkExistUsername(username){
->>>>>>> ac065ea92022866c09f6011860a92cf6cc044e8b
     $.ajax({
     	async: false,
         method: "GET",
         contentType: "application/json; charset=utf-8",
-        url: "/FlightTicketManagement/admin/user/" + username,
+        url: "/FlightTicketManagement/api/users/" + username,
         dataType: "json",
-        success:function(data){
-            if (data) {
-                usernameErrorExist.style.display = "";
-                // return true; // username is exist
-            } else {
-                usernameErrorExist.style.display = "none";
-                // return false; // username isn't exist
-            }
-        }
+        success: function(data) {
+        	usernameErrorExist.style.display = ""; // return true; // username is exist
+        },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	    	usernameErrorExist.style.display = "none"; // return false; // username isn't exist
+	    }
     })
     enableNext();
 }

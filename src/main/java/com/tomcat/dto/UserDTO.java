@@ -10,6 +10,10 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +24,7 @@ public class UserDTO implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+07:00")
 	private Date birthDay;
 
 	private String email;
@@ -38,8 +43,9 @@ public class UserDTO implements Serializable {
 	
 	private Byte enable;
 
+	@JsonIgnore
 	private List<BookingDTO> bookings;
-
+	
 	private Set<RoleDTO> roles;
 
 	private List<String> roleIdList;
@@ -157,10 +163,12 @@ public class UserDTO implements Serializable {
 		this.username = username;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
 
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

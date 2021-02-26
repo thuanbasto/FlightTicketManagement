@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tomcat.dto.RoleDTO;
 import com.tomcat.service.ICityService;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.IUserService;

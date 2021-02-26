@@ -1,8 +1,11 @@
 package com.tomcat.controller;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tomcat.dto.RoleDTO;
 import com.tomcat.dto.UserDTO;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.ITaxService;
@@ -32,6 +36,8 @@ public class AdminController {
 	@Autowired
 	ITaxService taxService;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/signup")
 	public String signupPage(@ModelAttribute("userDTO") UserDTO userDTO) {
@@ -46,22 +52,23 @@ public class AdminController {
 			userDTO.setRoles(roleService.getRoleDTOList());
 			return "Signup";
 		}
-		userService.add(userDTO);
-		return "redirect:/home?signup=success";
+		userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		userService.save(userDTO);
+		return "redirect:/admin/user-management?signup=success";
 	}
 	
 	@GetMapping(value= {"/dashboard","/"})
-	public String adminPage(HttpServletRequest request) {
+	public String adminPage() {
 		return "Dashboard";
 	}
 	
 	@GetMapping(value= {"/city-management"})
-	public String cityManagement(HttpServletRequest request) {
+	public String cityManagement() {
 		return "City";
 	}
 	
 	@GetMapping(value= {"/airport-management"})
-	public String airportManagement(HttpServletRequest request) {
+	public String airportManagement() {
 		return "Airport";
 	}
 	
@@ -71,12 +78,23 @@ public class AdminController {
 	}
 	
 	@GetMapping(value= {"/tax-management"})
-	public String taxManagement(HttpServletRequest request) {
+	public String taxManagement() {
 		return "Tax";
 	}
 	
 	@GetMapping(value= {"/travelclass-management"})
 	public String travelClassManagement(HttpServletRequest request) {
 		return "TravelClass";
+		
+	@GetMapping(value= {"/user-management"})
+	public String userManagement(HttpServletRequest request) {
+		Set<RoleDTO> roles = roleService.getRoleDTOList();
+		request.setAttribute("roles", roles);
+		return "User";
+	}
+	
+	@GetMapping(value= {"/customer-management"})
+	public String customerManagement() {
+		return "Customer";
 	}
 }

@@ -51,7 +51,7 @@
     <definition name="Airport" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/AirportManagement.jsp"/>
   </definition>
-    <definition name="Airplane" extends="admin-difinition">
+  <definition name="Airplane" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/AirplaneManagement.jsp"/>
   </definition>
    <definition name="Tax" extends="admin-difinition">
@@ -59,6 +59,11 @@
   </definition>
       <definition name="TravelClass" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TravelClassManagement.jsp"/>
+  <definition name="User" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/UserManagement.jsp"/>
+  </definition>
+  <definition name="Customer" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/CustomerManagement.jsp"/>
   </definition>
   
 </tiles-definitions>

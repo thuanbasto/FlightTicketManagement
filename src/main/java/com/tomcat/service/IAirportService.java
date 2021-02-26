@@ -3,7 +3,6 @@ package com.tomcat.service;
 import java.util.List;
 
 import com.tomcat.dto.AirportDTO;
-import com.tomcat.entity.Airport;
 
 public interface IAirportService {
 

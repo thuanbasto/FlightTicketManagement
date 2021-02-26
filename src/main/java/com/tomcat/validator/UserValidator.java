@@ -21,7 +21,7 @@ public class UserValidator implements Validator{
 		UserDTO user = (UserDTO) target;
 		
 		// check username
-		if (userService.checkExist(user.getUsername()))
+		if (userService.getUser(user.getUsername()) != null)
 			errors.rejectValue("username", "user.username.exist");
 		if (user.getUsername().length() == 0 || user.getUsername() == null || user.getUsername().length() < 6)
 			errors.rejectValue("username", "user.username.length");

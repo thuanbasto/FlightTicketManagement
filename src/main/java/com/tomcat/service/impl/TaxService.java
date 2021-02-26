@@ -46,15 +46,10 @@ public class TaxService implements ITaxService{
 
 	@Override
 	@Transactional
-	public TaxDTO save(TaxDTO dto) {
-		Tax taxEntity = new Tax();
-		if(dto.getTax_Id()!=0) {
-			Tax taxOne = taxRepository.findOne(dto.getTax_Id());
-			taxEntity = taxConverter.toEntity(taxOne, dto);
-		}
-		taxEntity = taxConverter.toEntity(dto);
-		Tax a =taxRepository.save(taxEntity);
-		return taxConverter.toDTO(a);
+	public void save(TaxDTO dto) {
+		Tax taxEntity = taxConverter.toEntity(dto);
+		taxRepository.save(taxEntity);
+		
 	}
 
 	@Override
@@ -64,4 +59,11 @@ public class TaxService implements ITaxService{
 			taxRepository.delete(id);
 		}
 	}
+
+	@Override
+	public TaxDTO findbyid(Integer id) {
+		Tax tax = taxRepository.findOne(id);
+		return taxConverter.toDTO(tax);
+	}
+	
 }

@@ -8,7 +8,7 @@ import com.tomcat.dto.TaxDTO;
 public interface ITaxService {
 	public List<TaxDTO> getList();
 	Map<Integer, String> findAll();
-	TaxDTO save(TaxDTO dto);
+	void save(TaxDTO dto);
 	void delete(int[] id);
-
+	TaxDTO findbyid(Integer id);
 }

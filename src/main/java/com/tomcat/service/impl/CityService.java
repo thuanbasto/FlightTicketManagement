@@ -3,17 +3,14 @@ package com.tomcat.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.CityConverter;
 import com.tomcat.dto.CityDTO;
-import com.tomcat.entity.Airport;
 import com.tomcat.entity.City;
 import com.tomcat.repository.CityRepository;
-import com.tomcat.service.IAirportService;
 import com.tomcat.service.ICityService;
 
 @Service
