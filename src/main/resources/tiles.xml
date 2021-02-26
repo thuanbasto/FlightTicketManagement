@@ -57,5 +57,8 @@
   <definition name="User" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/UserManagement.jsp"/>
   </definition>
+  <definition name="Customer" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/CustomerManagement.jsp"/>
+  </definition>
   
 </tiles-definitions>

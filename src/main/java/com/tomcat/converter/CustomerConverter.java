@@ -9,6 +9,7 @@ import com.tomcat.entity.Customer;
 public class CustomerConverter {
 	public CustomerDTO toDTO(Customer entity) {
 		CustomerDTO customerDTO = new CustomerDTO();
+		customerDTO.setCustomer_Id(entity.getCustomer_Id());
 		customerDTO.setAddress(entity.getAddress());
 		customerDTO.setBirthDay(entity.getBirthDay());
 		customerDTO.setFirstName(entity.getFirstName());
@@ -18,7 +19,7 @@ public class CustomerConverter {
 		return customerDTO;
 	}
 	
-	public Customer toEntyti(CustomerDTO customerDTO) {
+	public Customer toEntity(CustomerDTO customerDTO) {
 		Customer customer = new Customer();
 		customer.setCustomer_Id(customerDTO.getCustomer_Id());
 		customer.setAddress(customerDTO.getAddress());
@@ -30,7 +31,7 @@ public class CustomerConverter {
 		return customer;
 	}
 	
-	public Customer toEntyti(CustomerDTO customerDTO,Customer customer) {
+	public Customer toEntity(CustomerDTO customerDTO,Customer customer) {
 		customer.setCustomer_Id(customerDTO.getCustomer_Id());
 		customer.setAddress(customerDTO.getAddress());
 		customer.setBirthDay(customerDTO.getBirthDay());

@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.CustomerDTO;
 import com.tomcat.service.ICustomerService;
 
 @RestController
+@RequestMapping("/api")
 public class CustomerAPI {
 	
 	@Autowired
 	ICustomerService customerService;
 	
-	@GetMapping("api/customer")
+	@GetMapping("/customers")
 	public ResponseEntity<List<CustomerDTO>> getCustomers() {
 		List<CustomerDTO> customerDTOs = customerService.getList();
 		if(customerDTOs.isEmpty()) {
@@ -31,7 +33,7 @@ public class CustomerAPI {
 		return new ResponseEntity<>(customerDTOs, HttpStatus.OK) ;
 	}
 	
-	@GetMapping("api/customer/{id}")
+	@GetMapping("/customers/{id}")
 	public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("id") Integer id) {
 		CustomerDTO customerDTO= customerService.findbyid(id);
 		if (customerDTO == null) {
@@ -43,13 +45,13 @@ public class CustomerAPI {
 		
 	}
 	
-	@PostMapping("api/customer")
+	@PostMapping("/customers")
 	public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customerDTO){
 		customerService.save(customerDTO);
 		return new ResponseEntity<>(customerDTO,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("api/customer/{id}")
+	@PutMapping("/customers/{id}")
 	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO, @PathVariable("id") Integer id){
 		CustomerDTO _customerDTO = customerService.findbyid(id);
 		if(_customerDTO != null) {
@@ -62,7 +64,7 @@ public class CustomerAPI {
 		
 	}
 	
-	@DeleteMapping("api/customer/{id}")
+	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<HttpStatus> deleteTax(@PathVariable int id) {
 		try {
 			customerService.delete(id);

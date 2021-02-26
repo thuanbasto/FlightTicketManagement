@@ -38,7 +38,7 @@
 	</div>
 	<div class="birthDay form-group">
 		<label>Birthday<span class="required"> *</span></label>
-		<form:input path="birthDay" type="date" class="form-control" required="true"/>
+		<form:input path="birthDay" type="date" class="form-control" max="9999-01-01" required="true"/>
 	</div>
 	<div class="phone form-group">
 		<label>Phone<span class="required"> *</span></label>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.tomcat.converter.CustomerConverter;
 import com.tomcat.dto.CustomerDTO;
-import com.tomcat.entity.City;
 import com.tomcat.entity.Customer;
 import com.tomcat.repository.CustomerRepository;
 import com.tomcat.service.ICustomerService;
@@ -34,7 +33,7 @@ public class CustomerService implements ICustomerService{
 
 	@Override
 	public void save(CustomerDTO customerDTO) {
-		Customer entity = customerConverter.toEntyti(customerDTO);
+		Customer entity = customerConverter.toEntity(customerDTO);
 		customerRepository.save(entity);
 	}
 

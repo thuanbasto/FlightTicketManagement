@@ -83,4 +83,9 @@ public class AdminController {
 		request.setAttribute("roles", roles);
 		return "User";
 	}
+	
+	@GetMapping(value= {"/customer-management"})
+	public String customerManagement() {
+		return "Customer";
+	}
 }
