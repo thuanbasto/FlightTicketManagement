@@ -58,13 +58,9 @@ public class TaxAPI {
 
 	@RequestMapping(value = "/tax", method = RequestMethod.POST)
 	public ResponseEntity<TaxDTO> addTax(@RequestBody TaxDTO taxDTO) {
-		TaxDTO _taxDTO = taxService.findbyid(taxDTO.getTax_Id());
-		if (_taxDTO.getTax_Id() == 0) {
 			taxService.save(taxDTO);
 			return new ResponseEntity<>(taxDTO, HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+	
 	}
 
 	@RequestMapping(value = "/tax/{id}", method = RequestMethod.DELETE)

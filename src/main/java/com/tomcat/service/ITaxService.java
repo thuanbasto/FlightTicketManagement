@@ -9,7 +9,7 @@ public interface ITaxService {
 	public List<TaxDTO> getList();
 	TaxDTO findbyid(Integer id);
 	Map<Integer, String> findAll();
-	TaxDTO save(TaxDTO dto);
+	void save(TaxDTO dto);
 	void delete(int[] id);
 
 }

@@ -47,18 +47,10 @@ public class TaxService implements ITaxService{
 
 	@Override
 	@Transactional
-	public TaxDTO save(TaxDTO dto) {
-		Tax taxEntity = new Tax();
-		if(dto.getTax_Id()!=0) {
-			Tax taxOne = taxRepository.findOne(dto.getTax_Id());
-			taxEntity = taxConverter.toEntity(taxOne, dto);
-		}
-		else {
-			taxEntity = taxConverter.toEntity(dto);
-		}
+	public void save(TaxDTO dto) {
+		Tax taxEntity = taxConverter.toEntity(dto);
+		taxRepository.save(taxEntity);
 		
-		Tax a =taxRepository.save(taxEntity);
-		return taxConverter.toDTO(a);
 	}
 
 	@Override

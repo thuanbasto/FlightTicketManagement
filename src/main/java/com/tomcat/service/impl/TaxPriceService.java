@@ -50,40 +50,16 @@ public class TaxPriceService implements ITaxPriceService{
 		return new TaxPriceDTO();
 	}
 
-	@Override
-	@Transactional
-	public TaxPriceDTO insertTax(TaxPriceDTO dto) {
-		Tax tax = taxRepository.findOne(dto.getTax_Id());
-		TaxPrice taxPrice = taxpriceConverter.toEntity(dto);
-		taxPrice.setTax(tax);
-		return taxpriceConverter.toDto(taxpriceRepositpory.save(taxPrice));
-	}
 
 	@Override
 	@Transactional
-	public TaxPriceDTO updateTax(TaxPriceDTO dto) {
-		TaxPrice oldTaxPrice = taxpriceRepositpory.findOne(dto.getTax_Price_Id());
+	public void save(TaxPriceDTO dto) {
 		Tax tax = taxRepository.findOne(dto.getTax_Id());
-		oldTaxPrice.setTax(tax);
-		TaxPrice updateTax = taxpriceConverter.toEntity(oldTaxPrice, dto);
-		return taxpriceConverter.toDto(taxpriceRepositpory.save(updateTax));
-	}
-
-	@Override
-	@Transactional
-	public TaxPriceDTO save(TaxPriceDTO dto) {
-		Tax tax = taxRepository.findByTaxName(dto.getTaxName());
-		TaxPrice taxEntity = new TaxPrice();
-		if(dto.getTax_Price_Id() != 0) {
-			
-			TaxPrice oldTaxPrice = taxpriceRepositpory.findOne(dto.getTax_Price_Id());
-			oldTaxPrice.setTax(tax);
-			taxEntity = taxpriceConverter.toEntity(oldTaxPrice, dto);
-		} else {
-			taxEntity = taxpriceConverter.toEntity(dto);
-			taxEntity.setTax(tax);
-		}
-		return taxpriceConverter.toDto(taxpriceRepositpory.save(taxEntity));
+		TaxPrice taxEntity = taxpriceConverter.toEntity(dto);
+		taxEntity.setTax(tax);
+		taxpriceRepositpory.save(taxEntity);
+		
+		
 	}
 	@Override
 	public void delete(int id) {
