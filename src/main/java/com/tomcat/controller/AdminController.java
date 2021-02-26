@@ -74,4 +74,9 @@ public class AdminController {
 	public String taxManagement(HttpServletRequest request) {
 		return "Tax";
 	}
+	
+	@GetMapping(value= {"/travelclass-management"})
+	public String travelClassManagement(HttpServletRequest request) {
+		return "TravelClass";
+	}
 }
