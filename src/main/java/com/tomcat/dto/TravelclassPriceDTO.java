@@ -12,6 +12,25 @@ public class TravelclassPriceDTO implements Serializable {
 	private Date modifiedDate;
 
 	private double price;
+	private Integer travelClass_Id;
+
+	private String name;
+
+	public Integer getTravelClass_Id() {
+		return travelClass_Id;
+	}
+
+	public void setTravelClass_Id(Integer travelClass_Id) {
+		this.travelClass_Id = travelClass_Id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	private TravelclassDTO travelclass;
 

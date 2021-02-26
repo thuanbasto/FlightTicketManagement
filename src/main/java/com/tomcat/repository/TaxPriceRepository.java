@@ -11,6 +11,6 @@ public interface TaxPriceRepository extends JpaRepository<TaxPrice, Integer>{
 	// 		+ "FROM flightticketmanagement.tax_price tp,flightticketmanagement.tax t "
 	// 		+ "where tp.Tax_Id = t.Tax_Id"
 	// 		, nativeQuery = true)
-	// ResultSet myCustomQuery();
+	// ResultSe	t myCustomQuery();
 
 }
