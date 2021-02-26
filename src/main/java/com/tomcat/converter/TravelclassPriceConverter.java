@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.tomcat.dto.TravelclassDTO;
 import com.tomcat.dto.TravelclassPriceDTO;
-import com.tomcat.entity.TaxPrice;
 import com.tomcat.entity.TravelclassPrice;
 
 @Component
@@ -14,8 +13,6 @@ public class TravelclassPriceConverter {
 	
 	@Autowired
 	TravelclassConverter travelclassConverter;
-	@Autowired
-	private ModelMapper modelMapper;
 	
 	public TravelclassPriceDTO toDTO(TravelclassPrice entity) {
 		TravelclassPriceDTO travelclasspriceDTO = new TravelclassPriceDTO();

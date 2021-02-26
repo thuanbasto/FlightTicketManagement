@@ -9,6 +9,7 @@ import com.tomcat.entity.Travelclass;
 public class TravelclassConverter {
 	public TravelclassDTO toDTO(Travelclass entity) {
 		TravelclassDTO travelclassDTO = new TravelclassDTO();
+		travelclassDTO.setTravelClass_Id(entity.getTravelClass_Id());
 		travelclassDTO.setName(entity.getName());
 		travelclassDTO.setQuantity(entity.getQuantity());
 		travelclassDTO.setSeats(null);

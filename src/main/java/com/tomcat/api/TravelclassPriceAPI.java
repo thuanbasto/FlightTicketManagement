@@ -43,6 +43,11 @@ public class TravelclassPriceAPI {
 	public ResponseEntity<TravelclassPriceDTO> addTravelclassPrice(@RequestBody TravelclassPriceDTO travelclassPriceDTO){
 		travelclassPriceService.save(travelclassPriceDTO);
 		return new ResponseEntity<>(travelclassPriceDTO,HttpStatus.CREATED);
+		/*
+		 * postman{
+		 * 
+		 * "modifiedDate":"1999-07-07", "price":"301", "travelClass_Id":"3" }
+		 */
 	}
 	
 	@PutMapping("api/travelclassprice/{id}")
@@ -55,6 +60,10 @@ public class TravelclassPriceAPI {
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 		}
+		/*
+		 * postman{ "price_Id":"id o tren", "modifiedDate":"1999-07-07", "price":"301",
+		 * "travelClass_Id":"3" }
+		 */
 		
 	}
 	
