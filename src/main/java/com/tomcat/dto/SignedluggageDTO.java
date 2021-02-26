@@ -51,19 +51,19 @@ public class SignedluggageDTO implements Serializable {
 		this.signedluggagePrices = signedluggagePrices;
 	}
 
-	public SignedluggagePriceDTO addSignedluggagePrice(SignedluggagePriceDTO signedluggagePrice) {
-		getSignedluggagePrices().add(signedluggagePrice);
-		signedluggagePrice.setSignedluggage(this);
-
-		return signedluggagePrice;
-	}
-
-	public SignedluggagePriceDTO removeSignedluggagePrice(SignedluggagePriceDTO signedluggagePrice) {
-		getSignedluggagePrices().remove(signedluggagePrice);
-		signedluggagePrice.setSignedluggage(null);
-
-		return signedluggagePrice;
-	}
+	/*
+	 * public SignedluggagePriceDTO addSignedluggagePrice(SignedluggagePriceDTO
+	 * signedluggagePrice) { getSignedluggagePrices().add(signedluggagePrice);
+	 * signedluggagePrice.setSignedluggage(this);
+	 * 
+	 * return signedluggagePrice; }
+	 * 
+	 * public SignedluggagePriceDTO removeSignedluggagePrice(SignedluggagePriceDTO
+	 * signedluggagePrice) { getSignedluggagePrices().remove(signedluggagePrice);
+	 * signedluggagePrice.setSignedluggage(null);
+	 * 
+	 * return signedluggagePrice; }
+	 */
 
 	public List<TicketDTO> getTickets() {
 		return this.tickets;
