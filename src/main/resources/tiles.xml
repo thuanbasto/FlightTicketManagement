@@ -57,8 +57,9 @@
    <definition name="Tax" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TaxManagement.jsp"/>
   </definition>
-      <definition name="TravelClass" extends="admin-difinition">
+  <definition name="TravelClass" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TravelClassManagement.jsp"/>
+  </definition>
   <definition name="User" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/UserManagement.jsp"/>
   </definition>
