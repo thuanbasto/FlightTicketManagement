@@ -3,18 +3,31 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class TravelclassPriceDTO implements Serializable {
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+public class TravelClassPriceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer price_Id;
 
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+07:00")
 	private Date modifiedDate;
-
+	
 	private double price;
-	private Integer travelClass_Id;
-
+	
 	private String name;
+
+	private TravelClassDTO travelClass;
+
+	private Integer travelClass_Id;
 
 	public Integer getTravelClass_Id() {
 		return travelClass_Id;
@@ -32,9 +45,7 @@ public class TravelclassPriceDTO implements Serializable {
 		this.name = name;
 	}
 
-	private TravelclassDTO travelclass;
-
-	public TravelclassPriceDTO() {
+	public TravelClassPriceDTO() {
 	}
 
 	public Integer getPrice_Id() {
@@ -61,12 +72,12 @@ public class TravelclassPriceDTO implements Serializable {
 		this.price = price;
 	}
 
-	public TravelclassDTO getTravelclass() {
-		return this.travelclass;
+	public TravelClassDTO getTravelClass() {
+		return this.travelClass;
 	}
 
-	public void setTravelclass(TravelclassDTO travelclass) {
-		this.travelclass = travelclass;
+	public void setTravelclass(TravelClassDTO travelClass) {
+		this.travelClass = travelClass;
 	}
 
 }

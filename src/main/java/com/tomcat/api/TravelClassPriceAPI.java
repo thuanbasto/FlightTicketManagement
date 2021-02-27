@@ -11,37 +11,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tomcat.dto.TravelclassPriceDTO;
-import com.tomcat.service.ITravelclassPriceService;
+import com.tomcat.dto.TravelClassPriceDTO;
+import com.tomcat.service.ITravelClassPriceService;
 
 @RestController
-public class TravelclassPriceAPI {
+@RequestMapping("/api")
+public class TravelClassPriceAPI {
 	@Autowired
-	ITravelclassPriceService travelclassPriceService;
+	ITravelClassPriceService travelClassPriceService;
 	
-	@GetMapping("api/travelclassprice")
-	public ResponseEntity<List<TravelclassPriceDTO>> getTravelclasssPrice(){
-		List<TravelclassPriceDTO> travelclassPriceDTOs = travelclassPriceService.getList();
+	@GetMapping("/travelclassprices")
+	public ResponseEntity<List<TravelClassPriceDTO>> getTravelclasssPrice(){
+		List<TravelClassPriceDTO> travelclassPriceDTOs = travelClassPriceService.getTravelClassPrices();
 		if(travelclassPriceDTOs.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		else return new ResponseEntity<>(travelclassPriceDTOs,HttpStatus.OK);
 	}
 	
-	@GetMapping("api/travelclassprice/{id}")
-	public ResponseEntity<TravelclassPriceDTO> getTravelclassPrice(@PathVariable("id") Integer id){
-		TravelclassPriceDTO travelclassPriceDTO = travelclassPriceService.findbyid(id);
+	@GetMapping("/travelclassprices/{id}")
+	public ResponseEntity<TravelClassPriceDTO> getTravelclassPrice(@PathVariable("id") String id){
+		TravelClassPriceDTO travelclassPriceDTO = travelClassPriceService.getTravelClassPrice(id);
 		if(travelclassPriceDTO != null) {
 			return new ResponseEntity<>(travelclassPriceDTO,HttpStatus.OK);
 		}
 		else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping("api/travelclassprice")
-	public ResponseEntity<TravelclassPriceDTO> addTravelclassPrice(@RequestBody TravelclassPriceDTO travelclassPriceDTO){
-		travelclassPriceService.save(travelclassPriceDTO);
+	@PostMapping("/travelclassprices")
+	public ResponseEntity<TravelClassPriceDTO> addTravelclassPrice(@RequestBody TravelClassPriceDTO travelclassPriceDTO){
+		travelClassPriceService.save(travelclassPriceDTO);
 		return new ResponseEntity<>(travelclassPriceDTO,HttpStatus.CREATED);
 		/*
 		 * postman{
@@ -50,11 +52,11 @@ public class TravelclassPriceAPI {
 		 */
 	}
 	
-	@PutMapping("api/travelclassprice/{id}")
-	public ResponseEntity<TravelclassPriceDTO> updateTravelclassPrice(@RequestBody TravelclassPriceDTO travelclassPriceDTO, @PathVariable("id") Integer id){
-		TravelclassPriceDTO _travelclassPriceDTO = travelclassPriceService.findbyid(id);
+	@PutMapping("/travelclassprices/{id}")
+	public ResponseEntity<TravelClassPriceDTO> updateTravelclassPrice(@RequestBody TravelClassPriceDTO travelclassPriceDTO, @PathVariable("id") String id){
+		TravelClassPriceDTO _travelclassPriceDTO = travelClassPriceService.getTravelClassPrice(id);
 		if(_travelclassPriceDTO != null) {
-			travelclassPriceService.save(travelclassPriceDTO);
+			travelClassPriceService.save(travelclassPriceDTO);
 			return new ResponseEntity<>(travelclassPriceDTO,HttpStatus.OK);
 		}
 		else {
@@ -67,10 +69,10 @@ public class TravelclassPriceAPI {
 		
 	}
 	
-	@DeleteMapping("api/travelclassprice/{id}")
-	public ResponseEntity<HttpStatus> deleteTravelclassPrice(@PathVariable int id) {
+	@DeleteMapping("/travelclassprices/{id}")
+	public ResponseEntity<HttpStatus> deleteTravelclassPrice(@PathVariable String id) {
 		try {
-			travelclassPriceService.delete(id);
+			travelClassPriceService.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

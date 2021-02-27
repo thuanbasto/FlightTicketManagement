@@ -3,20 +3,20 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class TravelclassDTO implements Serializable {
+public class TravelClassDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer travelClass_Id;
 
 	private String name;
 
-	private int quantity;
+	private Integer quantity;
 
 	private List<SeatDTO> seats;
 
-	private List<TravelclassPriceDTO> travelclassPrices;
+	private List<TravelClassPriceDTO> travelClassPrices;
 
-	public TravelclassDTO() {
+	public TravelClassDTO() {
 	}
 
 	public Integer getTravelClass_Id() {
@@ -53,35 +53,35 @@ public class TravelclassDTO implements Serializable {
 
 	public SeatDTO addSeat(SeatDTO seat) {
 		getSeats().add(seat);
-		seat.setTravelclass(this);
+		seat.setTravelClass(this);
 
 		return seat;
 	}
 
 	public SeatDTO removeSeat(SeatDTO seat) {
 		getSeats().remove(seat);
-		seat.setTravelclass(null);
+		seat.setTravelClass(null);
 
 		return seat;
 	}
 
-	public List<TravelclassPriceDTO> getTravelclassPrices() {
-		return this.travelclassPrices;
+	public List<TravelClassPriceDTO> getTravelClassPrices() {
+		return this.travelClassPrices;
 	}
 
-	public void setTravelclassPrices(List<TravelclassPriceDTO> travelclassPrices) {
-		this.travelclassPrices = travelclassPrices;
+	public void setTravelClassPrices(List<TravelClassPriceDTO> travelClassPrices) {
+		this.travelClassPrices = travelClassPrices;
 	}
 
-	public TravelclassPriceDTO addTravelclassPrice(TravelclassPriceDTO travelclassPrice) {
-		getTravelclassPrices().add(travelclassPrice);
+	public TravelClassPriceDTO addTravelclassPrice(TravelClassPriceDTO travelclassPrice) {
+		getTravelClassPrices().add(travelclassPrice);
 		travelclassPrice.setTravelclass(this);
 
 		return travelclassPrice;
 	}
 
-	public TravelclassPriceDTO removeTravelclassPrice(TravelclassPriceDTO travelclassPrice) {
-		getTravelclassPrices().remove(travelclassPrice);
+	public TravelClassPriceDTO removeTravelclassPrice(TravelClassPriceDTO travelclassPrice) {
+		getTravelClassPrices().remove(travelclassPrice);
 		travelclassPrice.setTravelclass(null);
 
 		return travelclassPrice;

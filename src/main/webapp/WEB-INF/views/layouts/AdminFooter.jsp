@@ -1,9 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-<!-- popup success-->
-<div class="popup" aria-live="polite" aria-atomic="true">
+     
+<!-- popup success -->
+<!-- <div class="popup" aria-live="polite" aria-atomic="true">
     <div style="position: fixed;width: 200px; top: 50%; right: 50%; transform: translate(50%,-50%); z-index: 999;">
         <div class="toast successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
@@ -17,10 +17,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- popup failed-->
-<div class="popup" aria-live="polite" aria-atomic="true">
+<!-- <div class="popup" aria-live="polite" aria-atomic="true">
     <div style="position: fixed;width: 200px; top: 50%; right: 50%; transform: translate(50%,-50%); z-index: 999;">
         <div class="toast failedToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 </div>
 <!-- /.container-fluid -->

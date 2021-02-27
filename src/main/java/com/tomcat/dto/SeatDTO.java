@@ -8,7 +8,7 @@ public class SeatDTO implements Serializable {
 
 	private String seat_Id;
 
-	private TravelclassDTO travelclass;
+	private TravelClassDTO travelClass;
 
 	private List<TicketDTO> tickets;
 
@@ -23,12 +23,12 @@ public class SeatDTO implements Serializable {
 		this.seat_Id = seat_Id;
 	}
 
-	public TravelclassDTO getTravelclass() {
-		return this.travelclass;
+	public TravelClassDTO getTravelClass() {
+		return this.travelClass;
 	}
 
-	public void setTravelclass(TravelclassDTO travelclass) {
-		this.travelclass = travelclass;
+	public void setTravelClass(TravelClassDTO travelClass) {
+		this.travelClass = travelClass;
 	}
 
 	public List<TicketDTO> getTickets() {

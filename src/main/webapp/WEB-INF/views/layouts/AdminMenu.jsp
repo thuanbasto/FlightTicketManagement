@@ -82,7 +82,7 @@
                             <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
                             <h6 class="collapse-header">Air plane:</h6>
                             <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
-                            <a class="collapse-item" href="#">Airplane seat</a>
+                            <a class="collapse-item" href="seat-management" style="color: cornflowerblue">Seat</a>
                             <h6 class="collapse-header">User and customer:</h6>
                             <a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
                             <a class="collapse-item" href="customer-management" style="color: cornflowerblue">Customer</a>
