@@ -22,28 +22,10 @@ public class TravelClassPriceDTO implements Serializable {
 	private Date modifiedDate;
 	
 	private double price;
-	
-	private String name;
 
 	private TravelClassDTO travelClass;
 
 	private Integer travelClass_Id;
-
-	public Integer getTravelClass_Id() {
-		return travelClass_Id;
-	}
-
-	public void setTravelClass_Id(Integer travelClass_Id) {
-		this.travelClass_Id = travelClass_Id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public TravelClassPriceDTO() {
 	}
@@ -80,4 +62,11 @@ public class TravelClassPriceDTO implements Serializable {
 		this.travelClass = travelClass;
 	}
 
+	public Integer getTravelClass_Id() {
+		return travelClass_Id;
+	}
+
+	public void setTravelClass_Id(Integer travelClass_Id) {
+		this.travelClass_Id = travelClass_Id;
+	}
 }

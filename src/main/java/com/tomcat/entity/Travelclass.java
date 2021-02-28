@@ -27,7 +27,7 @@ public class Travelclass implements Serializable {
 	private List<Seat> seats;
 
 	//bi-directional many-to-one association to TravelclassPrice
-	@OneToMany(mappedBy="travelclass")
+	@OneToMany(mappedBy="travelclass",cascade = {CascadeType.REMOVE})
 	private List<TravelclassPrice> travelclassPrices;
 
 	public Travelclass() {

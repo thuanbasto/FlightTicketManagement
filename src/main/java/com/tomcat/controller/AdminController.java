@@ -98,4 +98,9 @@ public class AdminController {
 	public String seatManagement() {
 		return "Seat";
 	}
+	
+	@GetMapping(value= {"/travelclass-management"})
+	public String travelClassManagement() {
+		return "TravelClass";
+	}
 }

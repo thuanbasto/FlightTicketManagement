@@ -19,7 +19,8 @@ public class TravelClassService implements ITravelClassService{
 	
 	@Autowired
 	TravelClassConverter travelClassConverter;
-
+	
+	
 	@Override
 	public List<TravelClassDTO> getTravelClasses() {
 		List<Object[]> objs = travelClassRepository.getTravelClasses();
@@ -37,10 +38,15 @@ public class TravelClassService implements ITravelClassService{
 	}
 
 	@Override
-	public void save(TravelClassDTO travelClassDTO) {
-		Travelclass entity = travelClassConverter.toEntity(travelClassDTO);
-		travelClassRepository.save(entity);
+	public TravelClassDTO save(TravelClassDTO travelClassDTO) {
+		Travelclass travelClass = travelClassConverter.toEntity(travelClassDTO);
+		// save travel class
+		travelClass = travelClassRepository.save(travelClass);
+		travelClassDTO.setTravelClass_Id(travelClass.getTravelClass_Id());
 		
+		return travelClassDTO;
+		// save price of travel class
+//		travelClassPriceService.save(travelClassDTO.getTravelClassPrices().get(0));
 	}
 
 	@Override

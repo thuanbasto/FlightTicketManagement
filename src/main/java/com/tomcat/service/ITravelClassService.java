@@ -10,7 +10,7 @@ public interface ITravelClassService {
 	
 	TravelClassDTO getTravelClass(String id);
 	
-	void save(TravelClassDTO travelclassDTO);
+	TravelClassDTO save(TravelClassDTO travelclassDTO);
 	
 	void delete(String id);
 }

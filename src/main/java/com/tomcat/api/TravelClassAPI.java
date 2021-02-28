@@ -22,38 +22,38 @@ import com.tomcat.service.ITravelClassService;
 public class TravelClassAPI {
 	
 	@Autowired
-	ITravelClassService travelclassService;
+	ITravelClassService travelClassService;
 	
 	@GetMapping("/travelclasses")
-	public ResponseEntity<List<TravelClassDTO>> getTravelclasss(){
-		List<TravelClassDTO> travelclassDTOs = travelclassService.getTravelClasses();
-		if(travelclassDTOs.isEmpty()) {
+	public ResponseEntity<List<TravelClassDTO>> getTravelClasses(){
+		List<TravelClassDTO> travelClassDTOs = travelClassService.getTravelClasses();
+		if(travelClassDTOs.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		else return new ResponseEntity<>(travelclassDTOs,HttpStatus.OK);
+		else return new ResponseEntity<>(travelClassDTOs,HttpStatus.OK);
 	}
 	
 	@GetMapping("/travelclasses/{id}")
-	public ResponseEntity<TravelClassDTO> getTravelclass(@PathVariable("id") String id){
-		TravelClassDTO travelclassDTO = travelclassService.getTravelClass(id);
-		if(travelclassDTO != null) {
-			return new ResponseEntity<>(travelclassDTO,HttpStatus.OK);
+	public ResponseEntity<TravelClassDTO> getTravelClass(@PathVariable("id") String id){
+		TravelClassDTO travelClassDTO = travelClassService.getTravelClass(id);
+		if(travelClassDTO != null) {
+			return new ResponseEntity<>(travelClassDTO,HttpStatus.OK);
 		}
 		else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping("/travelclasses")
-	public ResponseEntity<TravelClassDTO> addTravelclass(@RequestBody TravelClassDTO travelclassDTO){
-		travelclassService.save(travelclassDTO);
-		return new ResponseEntity<>(travelclassDTO,HttpStatus.CREATED);
+	public ResponseEntity<TravelClassDTO> addTravelClass(@RequestBody TravelClassDTO travelClassDTO){
+		travelClassDTO = travelClassService.save(travelClassDTO);
+		return new ResponseEntity<>(travelClassDTO,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/travelclasses/{id}")
-	public ResponseEntity<TravelClassDTO> updateTravelclass(@RequestBody TravelClassDTO travelclassDTO, @PathVariable("id") String id){
-		TravelClassDTO _travelclassDTO = travelclassService.getTravelClass(id);
-		if(_travelclassDTO != null) {
-			travelclassService.save(travelclassDTO);
-			return new ResponseEntity<>(travelclassDTO,HttpStatus.OK);
+	public ResponseEntity<TravelClassDTO> updateTravelClass(@RequestBody TravelClassDTO travelClassDTO, @PathVariable("id") String id){
+		TravelClassDTO _travelClassDTO = travelClassService.getTravelClass(id);
+		if(_travelClassDTO != null) {
+			travelClassService.save(travelClassDTO);
+			return new ResponseEntity<>(travelClassDTO,HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -62,9 +62,9 @@ public class TravelClassAPI {
 	}
 	
 	@DeleteMapping("/travelclasses/{id}")
-	public ResponseEntity<HttpStatus> deleteTravelclass(@PathVariable String id) {
+	public ResponseEntity<HttpStatus> deleteTravelClass(@PathVariable String id) {
 		try {
-			travelclassService.delete(id);
+			travelClassService.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

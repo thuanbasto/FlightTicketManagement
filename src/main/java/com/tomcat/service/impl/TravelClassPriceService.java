@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.converter.TravelClassPriceConverter;
 import com.tomcat.dto.TravelClassPriceDTO;
@@ -13,7 +13,7 @@ import com.tomcat.entity.TravelclassPrice;
 import com.tomcat.repository.TravelClassPriceRepository;
 import com.tomcat.service.ITravelClassPriceService;
 
-@RestController
+@Service
 public class TravelClassPriceService implements ITravelClassPriceService{
 
 	@Autowired
