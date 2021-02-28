@@ -4,15 +4,28 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class FlightDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer flight_Id;
 
+	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+07:00")
 	private Date arrivalDate;
 
-	private Date deparutreDate;
+	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+07:00")
+	private Date departureDate;
 
 	private double flight_Price;
 
@@ -20,7 +33,7 @@ public class FlightDTO implements Serializable {
 
 	private AirportDTO fromAirport;
 
-	private AirportDTO toAriport;
+	private AirportDTO toAirport;
 
 	private List<TicketDTO> tickets;
 
@@ -43,12 +56,12 @@ public class FlightDTO implements Serializable {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public Date getDeparutreDate() {
-		return this.deparutreDate;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDeparutreDate(Date deparutreDate) {
-		this.deparutreDate = deparutreDate;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
 	public double getFlight_Price() {
@@ -75,12 +88,12 @@ public class FlightDTO implements Serializable {
 		this.fromAirport = fromAirport;
 	}
 
-	public AirportDTO getToAriport() {
-		return toAriport;
+	public AirportDTO getToAirport() {
+		return toAirport;
 	}
 
-	public void setToAriport(AirportDTO toAriport) {
-		this.toAriport = toAriport;
+	public void setToAirport(AirportDTO toAirport) {
+		this.toAirport = toAirport;
 	}
 
 	public List<TicketDTO> getTickets() {

@@ -93,4 +93,9 @@ public class AdminController {
 	public String customerManagement() {
 		return "Customer";
 	}
+	
+	@GetMapping(value= {"/flight-management"})
+	public String flightManagement() {
+		return "Flight";
+	}
 }
