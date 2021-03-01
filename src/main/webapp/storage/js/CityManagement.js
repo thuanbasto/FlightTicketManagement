@@ -1,5 +1,5 @@
 //func lam moi thanh pho
-function loadAirplaneList() {
+function loadCityList() {
     $.ajax({
         url: "/FlightTicketManagement/api/cities",
         async: false,
@@ -25,26 +25,26 @@ function loadAirplaneList() {
     });
 }
 
-loadAirplaneList();
+loadCityList();
 
 //su kien nut Add thanh pho
 $('body').on('click', '#btnAdd', function() {
     // check validate
-    if ($("#airplaneCode").val() == '' || $("#airplaneName").val() == '') {
+    if ($("#cityCode").val() == '' || $("#cityName").val() == '') {
         alert('Khong duoc chua trong!');
     } else {
         $.ajax({
-            url: "/FlightTicketManagement/api/airplanes",
+            url: "/FlightTicketManagement/api/cities",
             contentType: "application/json",
             async: false,
             type: "post",
             // du lieu truyen vao dang json 
-            data: JSON.stringify({ "airplane_Id": $("#airplaneCode").val(), "name": $("#airplaneName").val() }),
+            data: JSON.stringify({ "city_Id": $("#cityCode").val(), "name": $("#cityName").val() }),
             success: function(response) {
-                $("#airplaneCode").val("");
-                $("#airplaneName").val("");
+                $("#cityCode").val("");
+                $("#cityName").val("");
                 console.log(response);
-                loadAirplaneList();
+                loadCityList();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -76,7 +76,7 @@ $('body').on('click', '#btnUpdate', function() {
         data: JSON.stringify({ "city_Id": cityID, "name": $("#inpCityName").val() }),
         success: function(response) {
             $('.close').click();
-            loadAirplaneList();
+            loadCityList();
             $("#inpCityName").val('');
         },
         error: function(jqXHR, textStatus, errorThrown) {

@@ -82,6 +82,10 @@ public class AdminController {
 		return "Tax";
 	}
 	
+	@GetMapping(value= {"/travelclass-management"})
+	public String travelClassManagement(HttpServletRequest request) {
+		return "TravelClass";
+	}
 	@GetMapping(value= {"/user-management"})
 	public String userManagement(HttpServletRequest request) {
 		Set<RoleDTO> roles = roleService.getRoleDTOList();
