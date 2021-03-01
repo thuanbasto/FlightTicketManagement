@@ -34,7 +34,7 @@ public class Flight implements Serializable {
 	private Date arrivalDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date deparutreDate;
+	private Date departureDate;
 
 	private double flight_Price;
 
@@ -76,12 +76,12 @@ public class Flight implements Serializable {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public Date getDeparutreDate() {
-		return this.deparutreDate;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDeparutreDate(Date deparutreDate) {
-		this.deparutreDate = deparutreDate;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
 	public double getFlight_Price() {

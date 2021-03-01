@@ -45,7 +45,7 @@ public class FlightAPI {
 	}
 
 	@PostMapping("/flights")
-	public ResponseEntity<FlightDTO> updateFlight(@RequestBody FlightDTO flightDTO) {
+	public ResponseEntity<FlightDTO> addFlight(@RequestBody FlightDTO flightDTO) {
 		flightService.save(flightDTO);
 		return new ResponseEntity<FlightDTO>(flightDTO, HttpStatus.OK);
 	}

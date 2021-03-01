@@ -84,6 +84,7 @@
                             <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
                             <a class="collapse-item" href="seat-management" style="color: cornflowerblue">Seat</a>
                             <a class="collapse-item" href="travelclass-management" style="color: cornflowerblue">Travel Class</a>
+                            <a class="collapse-item" href="flight-management" style="color: cornflowerblue">Flight</a>
                             <h6 class="collapse-header">User and customer:</h6>
                             <a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
                             <a class="collapse-item" href="customer-management" style="color: cornflowerblue">Customer</a>

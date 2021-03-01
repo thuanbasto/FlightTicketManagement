@@ -28,10 +28,10 @@ public class FlightConverter {
 		flightDTO.setFlight_Id(flight.getFlight_Id());
 		flightDTO.setAirplane(airplaneConverter.toAirplaneDTO(flight.getAirplane()));
 		flightDTO.setArrivalDate(flight.getArrivalDate());
-		flightDTO.setDeparutreDate(flight.getDeparutreDate());
+		flightDTO.setDepartureDate(flight.getDepartureDate());
 		flightDTO.setFlight_Price(flight.getFlight_Price());
 		flightDTO.setFromAirport(airportConverter.toAirportDTO(flight.getFromAirport()));
-		flightDTO.setToAriport(airportConverter.toAirportDTO(flight.getToAirport()));
+		flightDTO.setToAirport(airportConverter.toAirportDTO(flight.getToAirport()));
 		return flightDTO;
 //		return modelMapper.map(flight, FlightDTO.class);
 	}

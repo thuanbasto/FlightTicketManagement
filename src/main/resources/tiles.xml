@@ -69,5 +69,8 @@
   <definition name="TravelClass" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/TravelClassManagement.jsp"/>
   </definition>
+  <definition name="Flight" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/FlightManagement.jsp"/>
+  </definition>
   
 </tiles-definitions>
