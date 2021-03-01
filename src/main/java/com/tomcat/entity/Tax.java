@@ -21,7 +21,7 @@ public class Tax implements Serializable {
 	private String taxName;
 
 	//bi-directional many-to-one association to TaxPrice
-	@OneToMany(mappedBy="tax")
+	@OneToMany(mappedBy="tax",cascade = {CascadeType.REMOVE})
 	private List<TaxPrice> taxPrices;
 
 	//bi-directional many-to-many association to Ticket

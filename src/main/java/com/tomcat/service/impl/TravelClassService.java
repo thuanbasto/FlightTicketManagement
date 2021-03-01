@@ -45,8 +45,6 @@ public class TravelClassService implements ITravelClassService{
 		travelClassDTO.setTravelClass_Id(travelClass.getTravelClass_Id());
 		
 		return travelClassDTO;
-		// save price of travel class
-//		travelClassPriceService.save(travelClassDTO.getTravelClassPrices().get(0));
 	}
 
 	@Override

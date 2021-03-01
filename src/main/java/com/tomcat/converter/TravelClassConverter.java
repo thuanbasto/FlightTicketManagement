@@ -32,17 +32,10 @@ public class TravelClassConverter {
 	}
 	
 	public Travelclass toEntity(TravelClassDTO travelClassDTO) {
-		Travelclass entity = new Travelclass();
-		entity.setTravelClass_Id(travelClassDTO.getTravelClass_Id());
-		entity.setName(travelClassDTO.getName());
-		entity.setQuantity(travelClassDTO.getQuantity());
-		return entity;
-	}
-	
-	public Travelclass toEntity(TravelClassDTO travelclassDTO, Travelclass entity) {
-		entity.setTravelClass_Id(travelclassDTO.getTravelClass_Id());
-		entity.setName(travelclassDTO.getName());
-		entity.setQuantity(travelclassDTO.getQuantity());
-		return entity;
+		Travelclass travelClass = new Travelclass();
+		travelClass.setTravelClass_Id(travelClassDTO.getTravelClass_Id());
+		travelClass.setName(travelClassDTO.getName());
+		travelClass.setQuantity(travelClassDTO.getQuantity());
+		return travelClass;
 	}
 }

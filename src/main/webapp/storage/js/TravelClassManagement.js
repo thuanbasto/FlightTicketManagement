@@ -1,5 +1,6 @@
 var travelClassList = [];
 var action = "";
+var price = ""; // check update price by comparing prices
 
 // load data body of table
 function loadTravelClassList() {
@@ -45,6 +46,7 @@ $('#tbodyData').on('click', '#btnEdit', function() {
             $("#inpName").val(travelClass.name)
             $("#inpPrice").val(travelClass.travelClassPrices[0].price)
             $("#inpQuantity").val(travelClass.quantity)
+            price = travelClass.travelClassPrices[0].price;
         }
     })
 
@@ -98,12 +100,16 @@ $('body').on('click', '#btnUpdate', function() {
                 $('.close').click();
                 $('.successToast').toast('show');
                 travelClassList = []; // empty the old list to add a new one
-                addNewPrice(travelClass)
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $('.failedToast').toast('show');
-                    console.log(textStatus, errorThrown);
+                if (price == travelClass.travelClassPrices[0].price) loadTravelClassList()
+                else {
+                    travelClass.travelClassPrices[0].travelClass_Id = $(response)[0].travelClass_Id;
+                    addNewPrice(travelClass);
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').toast('show');
+                console.log(textStatus, errorThrown);
+            }
         });
     } else if (action == "add"){
         $.ajax({
@@ -129,7 +135,7 @@ $('body').on('click', '#btnUpdate', function() {
 });
 
 // add new price
-function addNewPrice(travelClass,travelClass_Id) {
+function addNewPrice(travelClass) {
     $.ajax({
         method: "POST",
         url: "/FlightTicketManagement/api/travelclassprices",

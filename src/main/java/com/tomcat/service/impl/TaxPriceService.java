@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.TaxPriceConverter;
 import com.tomcat.dto.TaxPriceDTO;
-import com.tomcat.entity.Tax;
 import com.tomcat.entity.TaxPrice;
 import com.tomcat.repository.TaxPriceRepository;
 import com.tomcat.repository.TaxRepository;
@@ -33,7 +32,7 @@ public class TaxPriceService implements ITaxPriceService{
 		  List<TaxPriceDTO> models = new ArrayList<>(); 
 		  List<TaxPrice> entytis= taxpriceRepositpory.findAll(); 
 		  for (TaxPrice item : entytis) { 
-			  TaxPriceDTO taxpriceDTO = taxpriceConverter.toDto(item);
+			  TaxPriceDTO taxpriceDTO = taxpriceConverter.toDTO(item);
 			  models.add(taxpriceDTO);   
 		  }
 		return models;
@@ -42,9 +41,9 @@ public class TaxPriceService implements ITaxPriceService{
 	@Override
 	@Transactional
 	public TaxPriceDTO findbyid(Integer id) {
-		TaxPrice entyti = taxpriceRepositpory.findOne(id);
-		if(entyti != null) {
-			TaxPriceDTO taxpriceDTO = taxpriceConverter.toDto(entyti);
+		TaxPrice taxPrice = taxpriceRepositpory.findOne(id);
+		if(taxPrice != null) {
+			TaxPriceDTO taxpriceDTO = taxpriceConverter.toDTO(taxPrice);
 			return taxpriceDTO;
 		}
 		return new TaxPriceDTO();
@@ -53,13 +52,9 @@ public class TaxPriceService implements ITaxPriceService{
 
 	@Override
 	@Transactional
-	public void save(TaxPriceDTO dto) {
-		Tax tax = taxRepository.findOne(dto.getTax_Id());
-		TaxPrice taxEntity = taxpriceConverter.toEntity(dto);
-		taxEntity.setTax(tax);
-		taxpriceRepositpory.save(taxEntity);
-		
-		
+	public void save(TaxPriceDTO taxPriceDTO) {
+		TaxPrice taxPrice = taxpriceConverter.toEntity(taxPriceDTO);
+		taxpriceRepositpory.save(taxPrice);
 	}
 	@Override
 	public void delete(int id) {

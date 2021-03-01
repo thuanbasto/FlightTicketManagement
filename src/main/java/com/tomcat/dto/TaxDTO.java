@@ -16,11 +16,7 @@ public class TaxDTO implements Serializable {
 
 	public TaxDTO() {
 	}
-
-	public Integer getTax_Id() {
-		return this.tax_Id;
-	}
-
+	
 	public void setTax_Id(Integer tax_Id) {
 		this.tax_Id = tax_Id;
 	}
@@ -41,26 +37,16 @@ public class TaxDTO implements Serializable {
 		this.taxPrices = taxPrices;
 	}
 
-	public TaxPriceDTO addTaxPrice(TaxPriceDTO taxPrice) {
-		getTaxPrices().add(taxPrice);
-		taxPrice.setTax(this);
-
-		return taxPrice;
-	}
-
-	public TaxPriceDTO removeTaxPrice(TaxPriceDTO taxPrice) {
-		getTaxPrices().remove(taxPrice);
-		taxPrice.setTax(null);
-
-		return taxPrice;
+	public Integer getTax_Id() {
+		return tax_Id;
 	}
 
 	public List<TicketDTO> getTickets() {
 		return this.tickets;
 	}
 
-	public void setTickets(List<TicketDTO> tickets) {
-		this.tickets = tickets;
+	public void setTickets(List<TicketDTO> ticketDTOs) {
+		this.tickets = ticketDTOs;
 	}
-
+	
 }

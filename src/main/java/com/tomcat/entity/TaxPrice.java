@@ -21,8 +21,8 @@ public class TaxPrice implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
-
-	private String price;
+	
+	private double price;
 
 	//bi-directional many-to-one association to Tax
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -48,11 +48,11 @@ public class TaxPrice implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public String getPrice() {
-		return this.price;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

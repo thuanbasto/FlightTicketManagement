@@ -1,46 +1,33 @@
-//func show noti success 
-function showNotiSuccess (content){
-    $("#notiAlert").show();
-	$( "#notiAlert" ).addClass("alert-success");
-    $("#notiAlert").html(`<strong>${content}</strong> has been added.`);
-    setTimeout(function() {
-        $("#notiAlert").hide();
-        $( "#notiAlert" ).removeClass("alert-success");
-    }, 1000);
-}
-
-//func show noti error 
-function showNotiError (){
-    $("#notiAlert").show();
-	$( "#notiAlert" ).addClass("alert-danger");
-    $("#notiAlert").html(`<strong>Error!</strong> An error occurred. Please try again later.`);
-    setTimeout(function() {
-        $("#notiAlert").hide();
-    	$( "#notiAlert" ).removeClass( "alert-danger" );        
-    }, 1000);
-}
-
+var taxList = [];
+var action = ""; // check update or add
+var price = ""; // check update price by comparing prices
 
 //func load tax
 function loadTaxList() {
     $.ajax({
-        url: "/FlightTicketManagement/api/tax",
+        method: "GET",
+        url: "/FlightTicketManagement/api/taxes",
         async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: function(response) {
-            var htmlStr = ``;
-            // lap qua ket qua tra ve & tao html theo mong muon
-            $(response).find("item").each(function() {
-                var taxId = $(this).find("tax_Id").text();
-                var taxName = $(this).find("taxName").text();
-                htmlStr = htmlStr + `<tr class=${taxId}><td>${taxId}</td>
-                <td>${taxName}</td>
-                <td><button id="btnEdit" data-id=${taxId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
-                <button id="btnDelete" data-id=${taxId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                </td></tr>`;
-            });
-            //hien thi len
-            $("#tbodyData").html(htmlStr);
+            let htmlStr = ``;
+            $.each(response,function(index,value){
+                taxList.push(value);
 
+                htmlStr += 
+                `<tr class=${value.tax_Id}>
+                    <td>${value.tax_Id}</td>
+                    <td>${value.taxName}</td>
+                    <td>${value.taxPrices[0].price}</td>
+                    <td>${value.taxPrices[0].modifiedDate}</td>
+                    <td>
+                        <button id="btnEdit" data-id=${value.tax_Id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
+                        <button id="btnDelete" data-id=${value.tax_Id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>`;
+            });
+            $("#tbodyData").html(htmlStr);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -50,96 +37,144 @@ function loadTaxList() {
 
 loadTaxList();
 
-//su kien nut Add tax
-$('body').on('click', '#btnAdd', function() {
-    // check validate
-    if ($("#taxName").val() == '') {
-        alert('Khong duoc chua trong!');
-    } else {
-    var tax_name = $("#taxName").val();
+// edit tax
+$('#tbodyData').on('click', '#btnEdit', function() {
+    // fill input with value
+    taxList.forEach(tax => {
+        if (tax.tax_Id == $(this).data("id")){
+            $("#inpTax_Id").val(tax.tax_Id)
+            $("#inpName").val(tax.taxName)
+            $("#inpPrice").val(tax.taxPrices[0].price)
+            price = tax.taxPrices[0].price;
+        }
+    })
+
+
+    action = "update";
+
+    // set title for modal popup
+    $(".modal-title").html("Edit Travel Class");
+    // set button name for modal popup
+    $("#btnUpdate").html("Update");
+});
+
+// before adding tax
+$('#btnAdd').on('click', function() {
+    // make empty input
+    $("#inpTax_Id").val("")
+    $("#inpName").val("")
+    $("#inpPrice").val("")
+
+    action = "add";
+
+    // set title for modal popup
+    $(".modal-title").html("Add Tax");
+    // set button name for modal popup
+    $("#btnUpdate").html("Add");
+});
+
+// update and add tax
+$('body').on('click', '#btnUpdate', function() {
+    let tax = {
+        tax_Id : $("#inpTax_Id").val(),
+        taxName : $("#inpName").val(),
+        taxPrices : [{
+            tax_Id : $("#inptax_Id").val(),
+            price : $("#inpPrice").val()
+        }]
+    };
+
+    console.log(tax);
+
+    if (action == "update"){
         $.ajax({
-            url: "/FlightTicketManagement/api/tax",
+            method: "PUT",
+            url: "/FlightTicketManagement/api/taxes/" + $("#inpTax_Id").val(),
             contentType: "application/json",
             async: false,
-            type: "post",
-            // du lieu truyen vao dang json 
-            data: JSON.stringify({
-                "taxName": tax_name
-            }),
+            data: JSON.stringify(tax),
+            dataType: "json",
             success: function(response) {
-                console.log(response);
-                $("#taxName").val('');
-                showNotiSuccess(tax_name);
-                loadTaxList();
+                $('.close').click();
+                $('.successToast').toast('show');
+                taxList = []; // empty the old list to add a new one
+                if (price == tax.taxPrices[0].price) loadTaxList();
+                else {
+                    tax.taxPrices[0].tax_Id = $(response)[0].tax_Id;
+                    addNewPrice(tax);
+                }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('.failedToast').toast('show');
+                    console.log(textStatus, errorThrown);
+                }
+        });
+    } else if (action == "add"){
+        $.ajax({
+            method: "POST",
+            url: "/FlightTicketManagement/api/taxes",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(tax),
+            dataType: "json",
+            success: function(response) {
+                $('.close').click();
+                $('.successToast').toast('show');
+                taxList = []; // empty the old list to add a new one
+                tax.taxPrices[0].tax_Id = $(response)[0].tax_Id;
+                addNewPrice(tax)
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
-                showNotiError();
             }
         });
     }
-
 });
 
-
-var TaxID;
-
-//su kien nut Edit tax
-$('#tbodyData').on('click', '#btnEdit', function() {
-    TaxID = $(this).data('id'); // id tax muon edit
-    $('#inpTaxID').val($(this).data('id')); // Lay ma may bay hien thi len inpAirportID
-    var taxName = $(this).closest('tr').children('td').eq(1).text(); // Lay ten tax hien thi len inpTaxName
-    $("#inpTaxName").val(taxName);
-});
-
-//su kien nut Update tax
-$('body').on('click', '#btnUpdate', function() {
+// add new price
+function addNewPrice(tax,tax_Id) {
     $.ajax({
-        url: "/FlightTicketManagement/api/tax/" + TaxID,
+        method: "POST",
+        url: "/FlightTicketManagement/api/taxprices",
         contentType: "application/json",
         async: false,
-        type: "put",
-        data: JSON.stringify({
-            "tax_Id": $("#inpTaxID").val(),
-            "taxName": $("#inpTaxName").val(),
-        }),
+        data: JSON.stringify(tax.taxPrices[0]),
+        dataType: "json",
         success: function(response) {
-            $('.close').click();
+            console.log("add new price cusscess")
             loadTaxList();
-            showNotiSuccess("Updated!");
-            $("#inpTaxName").val('');
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
         }
     });
-});
+}
 
-
-//su kien nut Delete tax
+// delete tax
 $('#tbodyData').on('click', '#btnDelete', function() {
-    if (confirm(`You want to delete ${$(this).closest('tr').children('td').eq(1).text()} tax?`)) {
-        // get class name cua the <tr> muon xoa   
-        var rawstrClass = $(this).closest('tr').attr('class');
-        var strClass = '';
-        console.log(rawstrClass.split(" "));
-        for (var i = 0; i < rawstrClass.split(" ").length; i++) {
-            strClass = strClass + '.' + rawstrClass.split(" ")[i];
-        }
-
+    if (confirm(`You want to delete tax with id = ${$(this).data('id')}?`)) {
+        let tr = $(this).closest('tr');
         $.ajax({
-            //  $(this).data('id') = ma tax
-            url: "/FlightTicketManagement/api/tax/" + $(this).data('id'),
+            method: "DELETE",
+            url: "/FlightTicketManagement/api/taxes/" + $(this).data('id'),
             contentType: "application/json",
             async: false,
-            type: "delete",
             success: function(response) {
-                //xoa the <tr>
-                $("tr").remove(strClass);
+                tr.remove();
+                $('.successToast').toast('show');
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });
     } else {}
+});
+
+$('#updatetaxModal').on("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        $('#btnUpdate').click();
+    }
 });

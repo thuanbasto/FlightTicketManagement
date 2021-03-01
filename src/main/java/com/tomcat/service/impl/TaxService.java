@@ -1,13 +1,10 @@
 package com.tomcat.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.TaxConverter;
 import com.tomcat.dto.TaxDTO;
@@ -20,50 +17,37 @@ public class TaxService implements ITaxService{
 
 	@Autowired
 	TaxRepository taxRepository;
+	
 	@Autowired
 	TaxConverter taxConverter;
 
 	@Override
-	public List<TaxDTO> getList() {
-		List<TaxDTO> models = new ArrayList<>();
-		List<Tax> entities = taxRepository.findAll();
-		for (Tax item : entities) {
-			TaxDTO taxDTO = taxConverter.toDTO(item);
-			models.add(taxDTO);			
-		}
-		return models;
+	public List<TaxDTO> getTaxes() {
+		List<Object[]> objs = taxRepository.getTaxes();
+		List<TaxDTO> taxDTOs = new ArrayList<>();
+		objs.forEach(tax -> taxDTOs.add(taxConverter.toDTO(tax)));
+		return taxDTOs;
 	}
 
 	@Override
-	public Map<Integer, String> findAll() {
-		Map<Integer, String> model = new HashMap<>();
-		List<Tax> entities = taxRepository.findAll();
-		for (Tax item : entities) {
-			model.put(item.getTax_Id(),item.getTaxName());			
-		}
-		return model;
+	public TaxDTO save(TaxDTO taxDTO) {
+		Tax tax = taxConverter.toEntity(taxDTO);
+		tax = taxRepository.save(tax);
+		taxDTO.setTax_Id(tax.getTax_Id());
+		return taxDTO;
 	}
 
 	@Override
-	@Transactional
-	public void save(TaxDTO dto) {
-		Tax taxEntity = taxConverter.toEntity(dto);
-		taxRepository.save(taxEntity);
-		
+	public void delete(String id) {
+		taxRepository.delete(Integer.valueOf(id));
 	}
 
 	@Override
-	@Transactional
-	public void delete(int[] ids) {
-		for(int id :ids) {
-			taxRepository.delete(id);
-		}
-	}
-
-	@Override
-	public TaxDTO findbyid(Integer id) {
-		Tax tax = taxRepository.findOne(id);
-		return taxConverter.toDTO(tax);
+	public TaxDTO getTax(String id) {
+		Object[] obj = taxRepository.getTax(Integer.valueOf(id));
+		if (obj.length == 0) return null;
+		TaxDTO taxDTO = taxConverter.toDTO((Object[]) obj[0]);
+		return taxDTO;
 	}
 	
 }
