@@ -112,4 +112,9 @@ public class AdminController {
 	public String flightManagement() {
 		return "Flight";
 	}
+	
+	@GetMapping(value= {"/luggage-management"})
+	public String luggageManagement() {
+		return "Luggage";
+	}
 }
