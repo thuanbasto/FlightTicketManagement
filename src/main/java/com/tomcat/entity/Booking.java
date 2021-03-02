@@ -2,6 +2,12 @@ package com.tomcat.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +40,8 @@ public class Booking implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to Ticket
-	@OneToMany(mappedBy="booking")
+	@OneToMany(mappedBy="booking", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private List<Ticket> tickets;
 
 	public Booking() {
