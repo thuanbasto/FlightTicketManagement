@@ -39,6 +39,8 @@
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Booking:</h6>
+                            <a class="collapse-item" href="booking-management" style="color: cornflowerblue">Booking</a>
                             <h6 class="collapse-header">Price:</h6>
                             <a class="collapse-item" href="tax-management" style="color: cornflowerblue">Tax</a>
                             <a class="collapse-item" href="#">Tiket</a>

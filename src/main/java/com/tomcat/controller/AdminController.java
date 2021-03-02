@@ -118,4 +118,8 @@ public class AdminController {
 	public String revenue() {
 		return "Revenue";
 	}
+	@GetMapping(value= {"/booking-management"})
+	public String bookingManagement() {
+		return "Booking";
+	}
 }

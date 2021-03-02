@@ -81,5 +81,8 @@
   <definition name="Revenue" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/Revenue.jsp"/>
   </definition>
+  <definition name="Booking" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/BookingManagement.jsp"/>
+  </definition>
   
 </tiles-definitions>
