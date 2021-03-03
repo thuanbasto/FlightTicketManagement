@@ -78,5 +78,8 @@
   <definition name="Luggage" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/LuggageManagement.jsp"/>
   </definition>
+  <definition name="Revenue" extends="admin-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/admin/Revenue.jsp"/>
+  </definition>
   
 </tiles-definitions>
