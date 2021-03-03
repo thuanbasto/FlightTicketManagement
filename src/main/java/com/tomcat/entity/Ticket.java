@@ -1,8 +1,20 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -46,7 +58,7 @@ public class Ticket implements Serializable {
 	private Signedluggage signedluggage;
 
 	//bi-directional many-to-many association to Tax
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE })
 	@JoinTable(
 		name="ticket_tax"
 		, joinColumns={
@@ -56,7 +68,7 @@ public class Ticket implements Serializable {
 			@JoinColumn(name="Tax_Id")
 			}
 		)
-	private List<Tax> taxs;
+	private Set<Tax> taxs;
 
 	public Ticket() {
 	}
@@ -117,11 +129,11 @@ public class Ticket implements Serializable {
 		this.signedluggage = signedluggage;
 	}
 
-	public List<Tax> getTaxs() {
+	public Set<Tax> getTaxs() {
 		return this.taxs;
 	}
 
-	public void setTaxs(List<Tax> taxs) {
+	public void setTaxs(Set<Tax> taxs) {
 		this.taxs = taxs;
 	}
 
