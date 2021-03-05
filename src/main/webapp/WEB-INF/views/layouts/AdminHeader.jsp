@@ -226,4 +226,3 @@
 					</div>
 
 				    <div id="notiAlert" style="display: none;" class="alert alert-dismissible fade show"></div>
- 

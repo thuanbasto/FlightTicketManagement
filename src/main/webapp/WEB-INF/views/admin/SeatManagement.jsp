@@ -21,7 +21,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Travel class</th>
-                        <th>Price</th>
+                        <th>Price (VND)</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@
 
                     </select>
                     <div class="price form-group">
-                        <label>Price</label>
+                        <label>Price (VND)</label>
                         <input class="form-control" type="text" id="inpPrice" disabled>
                     </div>
                 </div>

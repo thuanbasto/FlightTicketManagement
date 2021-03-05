@@ -61,9 +61,9 @@ public class HomeController {
 		return "Signin";
 	}
 	
-	@GetMapping(value= {"/booking"})
+	@GetMapping(value= {"/book"})
 	public String bookingPage(HttpServletRequest request) {
-		return "Booking";
+		return "Book";
 	}
 	
 	@GetMapping(value= {"/accountadmin"})

@@ -20,7 +20,7 @@
 			</a></li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item"><a class="nav-link" href="booking">
+			<li class="nav-item"><a class="nav-link" href="book">
 					Book your trip </a></li>
 			<li class="nav-item"><a class="nav-link" href="#"> Manage my
 					bookings </a></li>

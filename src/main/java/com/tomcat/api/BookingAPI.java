@@ -1,8 +1,11 @@
 package com.tomcat.api;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.BookingDTO;
@@ -25,15 +29,25 @@ public class BookingAPI {
 	private IBookingService bookingService;
 	
 	@GetMapping("/bookings")
-	public ResponseEntity<List<BookingDTO>> getBookings() {
-		List<BookingDTO> bookingDTOs = bookingService.getBookings();
-		if (bookingDTOs.isEmpty()) {
+	public ResponseEntity<List<BookingDTO>> getBookings(@RequestParam(name="fromDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate,
+			@RequestParam(name="toDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate,
+			@RequestParam(name="user_Id",required=false) String user_Id, @RequestParam(name="customer_Id",required=false) String customer_Id) {
+		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+		 
+		if (fromDate != null && toDate != null) // check fromDate and toDate to return time statistics
+			bookingDTOs = bookingService.getBookings(fromDate,toDate);
+		else if (user_Id != null) // check user_Id to return time statistics
+			bookingDTOs = bookingService.getBookings(user_Id);
+		else 
+			bookingDTOs = bookingService.getBookings();
+		
+		
+		if (bookingDTOs.isEmpty()) 
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} else {
+		else 
 			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
-		}
 	}
-
+	
 	@GetMapping("/bookings/{id}")
 	public ResponseEntity<BookingDTO> getBooking(@PathVariable("id") String id) {
 		BookingDTO bookingDTO = bookingService.getBooking(Integer.valueOf(id));

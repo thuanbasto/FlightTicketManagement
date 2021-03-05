@@ -30,8 +30,8 @@
     <put-attribute name="header" value="" />
     <put-attribute name="body" value="/WEB-INF/views/home/Signin.jsp"/>
   </definition>
-  <definition name="Booking" extends="home-difinition">
-    <put-attribute name="body" value="/WEB-INF/views/home/Booking.jsp" />
+  <definition name="Book" extends="home-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/home/Book.jsp" />
   </definition>
   <definition name="GenerateAccountAdmin" extends="home-difinition">
     <put-attribute name="body" value="/WEB-INF/views/home/GenerateAccountAdmin.jsp" />

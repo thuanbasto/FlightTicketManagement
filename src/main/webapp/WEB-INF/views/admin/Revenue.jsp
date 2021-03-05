@@ -8,19 +8,14 @@
         <button id="btnUser" class="btn btn-success" data-toggle="modal" data-target="#userModal">User statistics</button>
     </div>
     <div class="ml-2">
-        <button id="btnCustomer" class="btn btn-success" data-toggle="modal" data-target="#customerModal">Customer statistics</button>
-    </div>
-    <div class="ml-2">
         <button id="btnTime" class="btn btn-success" data-toggle="modal" data-target="#timeModal">Time statistics</button>
-    </div>
-    <div class="ml-2">
-        <button id="abc" class="btn btn-success" data-toggle="modal" data-target="#viewBookingModal">View Booking</button>
     </div>
 </div>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Revenue Statistics</h6>
+        <h6 class="m-0 font-weight-bold text-primary float-left">Revenue Statistics</h6>
+        <h6 class="totalPrice m-0 font-weight-bold text-primary float-right"></h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -28,9 +23,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Travel class</th>
-                        <th>Price</th>
-                        <th>Action</th>
+						<th>Booking Date</th>
+						<th>Email</th>
+                        <th>Ticket Seller</th>
+                        <th>Price (VND)</th>
+						<th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tbodyData">
@@ -58,37 +55,7 @@
 
                     </select>
                 </div>
-                <button id="btnUpdate" type="button" class="btn btn-success mt-1 float-right">Statistics</button>
-            </div>
-        </div>
-    </div>
-</div> 
-<div class="modal fade" id="customerModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Customer statistics</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div>
-                    <div class="seat_Id form-group">
-                        <label>ID</label>
-                        <input class="form-control" type="text" id="inpSeat_Id"> 
-                    </div>
-                    <select class="browser-default custom-select" id="inpTravelClass" required>
-
-                    </select>
-                    <div class="price form-group">
-                        <label>Price</label>
-                        <input class="form-control" type="text" id="inpPrice" disabled>
-                    </div>
-                </div>
-                <button id="btnUpdate" type="button" class="btn btn-success mt-1 float-right">Statistics</button>
+                <button id="btnUserStatistics" type="button" class="btn btn-success mt-1 float-right">Statistics</button>
             </div>
         </div>
     </div>
@@ -115,7 +82,7 @@
                         <input class="form-control" type="date" id="inpToDate" max="9999-01-01" required>
                     </div>
                 </div>
-                <button id="btnUpdate" type="button" class="btn btn-success mt-1 float-right">Statistics</button>
+                <button id="btnTimeStatistics" type="button" class="btn btn-success mt-1 float-right">Statistics</button>
             </div>
         </div>
     </div>

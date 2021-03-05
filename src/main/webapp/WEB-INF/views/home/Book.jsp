@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" href='<c:url value="/storage/css/Booking.css"></c:url>'>
+<link rel="stylesheet" href='<c:url value="/storage/css/Book.css"></c:url>'>
+<c:url value="/storage/js/Book.js" var="jsUrl"/>
 
 <div class="container ">
     <div class="row" style="margin-top:70px;">
@@ -118,5 +119,6 @@
         </div>
     </div>
 </div>
-<script src="<c:url value="/storage/js/Booking.js"></c:url>"></script>
+
+<script src="${jsUrl}"></script>
 
