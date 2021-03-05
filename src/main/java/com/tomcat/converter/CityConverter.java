@@ -1,11 +1,17 @@
 package com.tomcat.converter;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tomcat.dto.CityDTO;
+import com.tomcat.dto.RoleDTO;
 import com.tomcat.entity.City;
+import com.tomcat.entity.Role;
 
 @Component
 public class CityConverter {
@@ -39,6 +45,16 @@ public class CityConverter {
 		cityDTO.setName(city.getName());
 		cityDTO.setAirports(null);
 		return cityDTO;
+	}
+	public Set<CityDTO> toCityDTO(List<City> listCity) {
+		Set<CityDTO> listCityDTO = new HashSet<CityDTO>();
+		listCity.forEach(city -> {
+			CityDTO cityDTO = new CityDTO();
+			cityDTO.setCity_Id(city.getCity_Id());
+			cityDTO.setName(city.getName());
+			listCityDTO.add(cityDTO);
+		});
+		return listCityDTO;
 	}
 	
 }

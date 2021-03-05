@@ -51,4 +51,12 @@ public class FlightService implements IFlightService{
 	public void delete(Integer id) {
 		flightRepository.delete(id);
 	}
+
+	@Override
+	public List<FlightDTO> getseachsFlights(String id) {
+		List<Object[]> flights = flightRepository.findSeach(id);
+		List<FlightDTO> flightDTOs = new ArrayList<>();
+		flights.forEach(flight->flightDTOs.add(flightConverter.toFlightDTO(flight)));
+		return flightDTOs;
+	}
 }

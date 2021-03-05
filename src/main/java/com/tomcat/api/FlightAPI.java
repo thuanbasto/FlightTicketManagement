@@ -71,4 +71,15 @@ public class FlightAPI {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+
+	@GetMapping("/seachflights/{id}")
+	public ResponseEntity<List<FlightDTO>> getSeachFlight(@PathVariable("id") String id) {
+		List<FlightDTO> flightDTOs = flightService.getseachsFlights(id);
+		if (flightDTOs != null) {
+			return new ResponseEntity<List<FlightDTO>>(flightDTOs, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

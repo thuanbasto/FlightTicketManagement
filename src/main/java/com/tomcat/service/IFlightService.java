@@ -13,4 +13,5 @@ public interface IFlightService {
 	public void save(FlightDTO flightDTO);
 	
 	public void delete(Integer id);
+	public List<FlightDTO> getseachsFlights(String id);
 }
