@@ -35,6 +35,10 @@ public class FlightDTO implements Serializable {
 
 	private List<TicketDTO> tickets;
 
+	private Integer travelClass_Id;
+	
+	private List<Integer> listOfTravelClass_Id;
+	
 	public FlightDTO() {
 	}
 
@@ -116,4 +120,21 @@ public class FlightDTO implements Serializable {
 		return ticket;
 	}
 
+	public Integer getTravelClass_Id() {
+		return travelClass_Id;
+	}
+
+	public void setTravelClass_Id(Integer travelClass_Id) {
+		this.travelClass_Id = travelClass_Id;
+	}
+
+	public List<Integer> getListOfTravelClass_Id() {
+		return listOfTravelClass_Id;
+	}
+
+	public void setListOfTravelClass_Id(List<Integer> listOfTravelClass_Id) {
+		this.listOfTravelClass_Id = listOfTravelClass_Id;
+	}
+
+	
 }

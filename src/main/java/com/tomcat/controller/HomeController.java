@@ -1,5 +1,7 @@
 package com.tomcat.controller;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tomcat.dto.CityDTO;
+import com.tomcat.dto.RoleDTO;
 import com.tomcat.service.ICityService;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.IUserService;
@@ -63,6 +67,8 @@ public class HomeController {
 	
 	@GetMapping(value= {"/book"})
 	public String bookingPage(HttpServletRequest request) {
+		Set<CityDTO> citis = cityService.getCityDTOList();
+		request.setAttribute("citis", citis);
 		return "Book";
 	}
 	

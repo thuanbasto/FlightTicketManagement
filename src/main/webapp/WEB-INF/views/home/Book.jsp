@@ -38,18 +38,21 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+                                        	<option>Địa điểm đi</option>
+                                        	<c:forEach items="${citis}" var="citis">
+                                        		<option value="${citis.city_Id}">${citis.name}</option>
+                                        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+                                        <option>Địa điểm đến</option>
+                                        <c:forEach items="${citis}" var="citis">
+                                        		<option  value="${citis.city_Id}" >${citis.name}</option>
+                                        	</c:forEach>
+                                            
                                         </select>
                                     </div>
                                 </div>
