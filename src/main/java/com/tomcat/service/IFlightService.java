@@ -1,5 +1,6 @@
 package com.tomcat.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.tomcat.dto.FlightDTO;
@@ -13,5 +14,6 @@ public interface IFlightService {
 	public void save(FlightDTO flightDTO);
 	
 	public void delete(Integer id);
-	public List<FlightDTO> getseachsFlights(String id);
+	
+	public List<FlightDTO> getFlights(String from,String to,Date departureDate,String number);
 }

@@ -1,6 +1,8 @@
 package com.tomcat.converter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +46,29 @@ public class FlightConverter {
 //		return modelMapper.map(flight, FlightDTO.class);
 	}
 	
-	public FlightDTO toFlightDTO(Object[] obj) {
+	/*
+	 * public FlightDTO toFlightDTO(Object[] obj) { FlightDTO flightDTO = new
+	 * FlightDTO(); flightDTO.setFlight_Id(Integer.valueOf(String.valueOf(obj[0])));
+	 * 
+	 * AirportDTO fromAirport = airportService.get(String.valueOf(obj[1]));
+	 * flightDTO.setFromAirport(fromAirport);
+	 * 
+	 * 
+	 * AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
+	 * flightDTO.setToAirport(toAirport); AirplaneDTO airplaneDTO = new
+	 * AirplaneDTO(); airplaneDTO.setAirplane_Id(String.valueOf(obj[6]));
+	 * flightDTO.setAirplane(airplaneDTO); flightDTO.setArrivalDate((Date) obj[4]);
+	 * flightDTO.setDepartureDate((Date) obj[3]);
+	 * flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
+	 * flightDTO.setTickets(null); return flightDTO; }
+	 */
+	
+	public FlightDTO toDTO(Object[] obj) {
 		FlightDTO flightDTO = new FlightDTO();
 		flightDTO.setFlight_Id(Integer.valueOf(String.valueOf(obj[0])));
 		
 		AirportDTO fromAirport = airportService.get(String.valueOf(obj[1]));
 		flightDTO.setFromAirport(fromAirport);
-		
-		
 		AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
 		flightDTO.setToAirport(toAirport);
 		AirplaneDTO airplaneDTO = new AirplaneDTO();
@@ -60,8 +77,18 @@ public class FlightConverter {
 		flightDTO.setArrivalDate((Date) obj[4]);
 		flightDTO.setDepartureDate((Date) obj[3]);
 		flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
-		flightDTO.setTickets(null);
+		/* flightDTO.setSeat_Id(String.valueOf(obj[7])); cos the lay */
+		flightDTO.setTravelClass_Id(Integer.valueOf(String.valueOf(obj[8])));
+		
+		
+		 List<Integer> listOfTravelClass_Id = new ArrayList<Integer>();
+		 listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
+		  
+		 flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
+		 
+		
 		return flightDTO;
 	}
 
+	
 }

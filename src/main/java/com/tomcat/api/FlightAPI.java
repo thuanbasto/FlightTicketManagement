@@ -1,8 +1,10 @@
 package com.tomcat.api;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.FlightDTO;
+import com.tomcat.dto.SearchDTO;
 import com.tomcat.service.IFlightService;
 
 @RestController
@@ -71,15 +75,26 @@ public class FlightAPI {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
-	@GetMapping("/seachflights/{id}")
-	public ResponseEntity<List<FlightDTO>> getSeachFlight(@PathVariable("id") String id) {
-		List<FlightDTO> flightDTOs = flightService.getseachsFlights(id);
-		if (flightDTOs != null) {
-			return new ResponseEntity<List<FlightDTO>>(flightDTOs, HttpStatus.OK);
-		} else {
+	@GetMapping("/search")
+	public ResponseEntity<List<FlightDTO>> getSeachFlight(
+			@RequestParam(name="from",required=false) String from,
+			@RequestParam(name="to",required=false) String to,
+			@RequestParam(name="departureDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date departureDate,
+			@RequestParam(name="number",required=false) String number) {
+		//"DAD","HCM","2021-01-03(yyyy/MM/dd)","id seat")
+		if(from == null || to == null || departureDate == null || number == null)
+		{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		else
+		{
+			List<FlightDTO> flightDTOs = flightService.getFlights(from, to, departureDate, number);
+			if (flightDTOs != null) {
+				return new ResponseEntity<List<FlightDTO>>(flightDTOs, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}	
 	}
 }
