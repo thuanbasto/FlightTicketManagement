@@ -19,6 +19,14 @@ public class TicketDTO implements Serializable {
 	private SeatDTO seat;
 
 	private SignedluggageDTO signedluggage;
+	
+	private Integer customer_Id;
+	private Integer booking_Id;
+	private Integer flight_Id;
+	private String seat_Id;
+	private Integer signedLuggage_Id;
+	private Integer[] tax_Id;
+
 
 	private List<TaxDTO> taxs;
 
@@ -88,5 +96,56 @@ public class TicketDTO implements Serializable {
 	public void setTaxs(List<TaxDTO> taxs) {
 		this.taxs = taxs;
 	}
+
+	public Integer getCustomer_Id() {
+		return customer_Id;
+	}
+
+	public void setCustomer_Id(Integer customer_Id) {
+		this.customer_Id = customer_Id;
+	}
+
+
+	public Integer getBooking_Id() {
+		return booking_Id;
+	}
+
+	public void setBooking_Id(Integer booking_Id) {
+		this.booking_Id = booking_Id;
+	}
+
+	public Integer getFlight_Id() {
+		return flight_Id;
+	}
+
+	public void setFlight_Id(Integer flight_Id) {
+		this.flight_Id = flight_Id;
+	}
+
+	public String getSeat_Id() {
+		return seat_Id;
+	}
+
+	public void setSeat_Id(String seat_Id) {
+		this.seat_Id = seat_Id;
+	}
+
+	public Integer getSignedLuggage_Id() {
+		return signedLuggage_Id;
+	}
+
+	public void setSignedLuggage_Id(Integer signedLuggage_Id) {
+		this.signedLuggage_Id = signedLuggage_Id;
+	}
+
+	public Integer[] getTax_Id() {
+		return tax_Id;
+	}
+
+	public void setTax_Id(Integer[] tax_Id) {
+		this.tax_Id = tax_Id;
+	}
+
+	
 
 }
