@@ -1,69 +1,89 @@
+$('#ftab').trigger('click');
+
+function loadCitySelect() {
+    $.ajax({
+        url: "/FlightTicketManagement/api/cities",
+        async: false,
+        success: function(response) {
+            var htmlStr = `<option value="0"></option>`;
+            // lap qua ket qua tra ve & tao html theo mong muon
+            $(response).find("item").each(function() {
+                var cityId = $(this).find("city_Id").text();
+                var cityName = $(this).find("name").text();
+                htmlStr = htmlStr + `<option value="${cityId}">${cityName} (${cityId})</option>`;
+            });
+            //hien thi len
+            $("#fromCityData").html(htmlStr);
+            $("#toCityData").html(htmlStr);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+loadCitySelect();
+
+$('#fromCityData').on('change', function(e) { // hide fromcity when selected in tocity
+    $(`#toCityData option`).show();
+    var ctc = $(this).val();
+    $(`#toCityData option[value=${ctc}]`).hide();  
+    });
 
 
-$(document).ready(function() {
-	$('#ftab').trigger('click');
+
+var PassengersNumber = 1;
+$('.dropdown-content input').on('input', function(e) {
+    PassengersNumber = 0;
+    $(".dropdown-content input").each(function() {
+        PassengersNumber = PassengersNumber + Number($(this).val());
+    });
+    $('#PassengersNum').text(PassengersNumber + " Passengers")
+
 });
 
 
-{/* <script> */ }
-$(document).ready(function() {
-	var PassengersNumber = 1;
 
-	$('.dropdown-content input').on('input', function(e) {
-		PassengersNumber = 0;
-		$(".dropdown-content input").each(function() {
-			PassengersNumber = PassengersNumber + Number($(this).val());
-		});
-		$('#PassengersNum').text(PassengersNumber + " Passengers")
-
-	});
-
-});
-{/* </script> */ }
-// <script>
 $('.btn.btn-primary.dropdown-toggle').on('click', function(e) {
-	// e.stopPropagation();
-	console.log('sdsd');
+    // e.stopPropagation();
+    console.log('sdsd');
 });
-{/* </script>
 
-<script> */}
-$(document).ready(function() {
-	$('#ngayden').hide();
 
-	var chieu_ve = 'ow';
-	$('ul[data-tag="channelList"] > li').click(function() {
+$('#ngayden').hide();
 
-		$('ul[data-tag="channelList"] li').each(function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass("selected");
-			}
-		});
+var chieu_ve = 'ow';
+$('ul[data-tag="channelList"] > li').click(function() {
 
-		$(this).addClass("selected");
-		chieu_ve = $(this).data('id');
+    $('ul[data-tag="channelList"] li').each(function() {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass("selected");
+        }
+    });
 
-		if ($(this).data('id') == 'ow') {
-			$('#ngayden').hide();
-		} else {
-			$('#ngayden').show();
-		}
-		console.log($(this).val());
-	});
+    $(this).addClass("selected");
+    chieu_ve = $(this).data('id');
 
-	$('#search_btn').click(function() {
-		console.log('trunghieuclick');
-		console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
-		$.ajax({
-			type: "POST",
-			url: 'datve.php',
-			data: $('#testli').serialize() + '&chieuve=' + chieu_ve, // serializes the form's elements.
-			success: function(data) {
-				console.log(data); // show response from the php script.
-			}
-		});
+    if ($(this).data('id') == 'ow') {
+        $('#ngayden').hide();
+    } else {
+        $('#ngayden').show();
+    }
+    console.log($(this).val());
 
-	});
 
+    $('#search_btn').click(function() {
+        console.log('trunghieuclick');
+        console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
+        $.ajax({
+            type: "POST",
+            url: 'search',
+            data: $('#testli').serialize() + '&chieuve=' + chieu_ve, // serializes the form's elements.
+            success: function(data) {
+                console.log(data); // show response from the php script.
+            }
+        });
+
+    });
 });
-{/* </script> */ }
