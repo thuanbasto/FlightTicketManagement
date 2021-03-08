@@ -129,7 +129,11 @@ public class TicketConverter {
 		double taxPrice = 0;
 		
 		for(TaxDTO tax : ticketDTO.getTaxs()) {
-			 taxPrice += tax.getTaxPrices().get(0).getPrice();
+			if(tax.getTaxPrices().isEmpty()) {
+				taxPrice = 0;
+			}else {
+				taxPrice += tax.getTaxPrices().get(0).getPrice();
+			}
 		}
 		
 		ticketDTO.setTicket_PriceTotal(flightPrice + seatPrice + signedluggagePrice + taxPrice);
@@ -148,7 +152,12 @@ public class TicketConverter {
 		customer.setCustomer_Id(ticketDTO.getCustomer_Id());
 		
 		Booking booking = new Booking();
-		booking.setBooking_Id(ticketDTO.getBooking_Id());
+		if(ticketDTO.getBooking_Id() == null) {
+			ticket.setBooking(null);
+		}else {
+			booking.setBooking_Id(ticketDTO.getBooking_Id());
+			ticket.setBooking(booking);
+		}
 		
 		Flight flight = new Flight();
 		flight.setFlight_Id(ticketDTO.getFlight_Id());
@@ -167,7 +176,7 @@ public class TicketConverter {
 			taxs.add(tax);
 		}
 		
-		ticket.setBooking(booking);
+
 		ticket.setCustomer(customer);
 		ticket.setFlight(flight);
 		ticket.setSeat(seat);

@@ -113,4 +113,9 @@ public class AdminController {
 	public String luggageManagement() {
 		return "Luggage";
 	}
+	
+	@GetMapping(value= {"/ticket-management"})
+	public String ticketManagement() {
+		return "Ticket";
+	}
 }

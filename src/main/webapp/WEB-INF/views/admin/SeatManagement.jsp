@@ -33,7 +33,7 @@
     </div>
 </div>
 <!-- The Modal -->
-<div class="modal fade" id="updateSeatModal">
+<div class="modal fade" id="updateTicketModal">
     <div class="modal-dialog">
         <div class="modal-content">
             
