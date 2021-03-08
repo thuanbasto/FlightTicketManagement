@@ -18,9 +18,9 @@ public interface FlightRepository extends JpaRepository<Flight, Integer>{
 	
 	@Query(value="SELECT flight.*,s.Seat_Id, s.TravelClass_Id" + 
 			" FROM flight,seat s" + 
-			" where From_Airport_Id = (select Airport_Id from airport where airport.City_Id= ?1)" + 
-			" and To_Airport_Id = (select Airport_Id from airport where airport.City_Id= ?2)" + 
-			" and DepartureDate >= ?3" + 
+			" where From_Airport_Id = ?1" + 
+			" and To_Airport_Id = ?2" + 
+			" and DepartureDate = ?3" + 
 			" and Seat_Id not in (select Seat_Id from ticket where flight.Flight_Id = Flight_Id)" + 
 			" and ((select count(1) - (select count(1) from ticket,seat" + 
 			" where ticket.seat_Id = seat.seat_Id and TravelClass_Id = s.TravelClass_Id" + 
