@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
@@ -90,12 +91,18 @@ public class BookingConverter {
 			TravelClassDTO travelClassDTO = seatDTO.getTravelClass();
 			List<TravelClassPriceDTO> travelclassPriceDTOs = travelClassDTO.getTravelClassPrices();
 
-			// price
+			// travel class price
 			if (!travelclassPriceDTOs.isEmpty()) {
-				TravelClassPriceDTO travelClassPriceDTO = travelclassPriceDTOs.stream()
-						.max(Comparator.comparing(TravelClassPriceDTO::getModifiedDate)).get();
-				travelClassPriceDTO.setTravelclass(null);
-				travelClassDTO.setTravelClassPrices(Arrays.asList(travelClassPriceDTO));
+				travelclassPriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+				Optional<TravelClassPriceDTO> travelClassPriceDTO = 
+						travelclassPriceDTOs.stream().filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0).findFirst();
+				if(travelClassPriceDTO.isPresent()) {
+					TravelClassPriceDTO _travelClassPriceDTO = travelClassPriceDTO.get();
+					_travelClassPriceDTO.setTravelclass(null);
+					travelClassDTO.setTravelClassPrices(Arrays.asList(_travelClassPriceDTO));
+				}else {
+					travelClassDTO.setTravelClassPrices(null);
+				}
 			}
 			travelClassDTO.setSeats(null);
 			seatDTO.setTravelClass(travelClassDTO);
@@ -104,12 +111,18 @@ public class BookingConverter {
 			ticketDTO.setSeat(seatDTO); // set seat dto
 
 			SignedluggageDTO signedluggageDTO = modelMapper.map(ticket.getSignedluggage(), SignedluggageDTO.class);
-
-			// price
-			if(!signedluggageDTO.getSignedluggagePrices().isEmpty()) {
-				SignedluggagePriceDTO signedluggagePriceDTO = Collections.max(signedluggageDTO.getSignedluggagePrices(),
-						Comparator.comparing(SignedluggagePriceDTO::getModifiedDate));
-				signedluggageDTO.setSignedluggagePrices(Arrays.asList(signedluggagePriceDTO));
+			List<SignedluggagePriceDTO> signedluggagePriceDTOs = signedluggageDTO.getSignedluggagePrices();
+			// signed luggage price
+			if(signedluggagePriceDTOs.isEmpty()) {
+				signedluggagePriceDTOs.sort((obj1, obj2)->  obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+				Optional<SignedluggagePriceDTO> signedluggagePriceDTO = 
+						signedluggagePriceDTOs.stream().filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0).findFirst();
+				if(signedluggagePriceDTO.isPresent()) {
+					SignedluggagePriceDTO _signedluggagePriceDTO = signedluggagePriceDTO.get();
+					signedluggageDTO.setSignedluggagePrices(Arrays.asList(_signedluggagePriceDTO));
+				}else {
+					signedluggageDTO.setSignedluggagePrices(null);
+				}
 			}
 			signedluggageDTO.setTickets(null);
 			ticketDTO.setSignedluggage(signedluggageDTO); // set signed luggage dto
@@ -119,17 +132,23 @@ public class BookingConverter {
 			ticketDTO.setFlight(flightDTO); // set flight dto
 
 			// tax
-			Set<Tax> taxs = ticket.getTaxs();
+			Set<Tax> taxes = ticket.getTaxs();
 			List<TaxDTO> taxDTOs = new ArrayList<>();
-			taxs.forEach(tax -> {
+			taxes.forEach(tax -> {
 				tax.setTickets(null);
 				TaxDTO taxDTO = modelMapper.map(tax, TaxDTO.class);
 				List<TaxPriceDTO> taxPriceDTOs = taxDTO.getTaxPrices();
 				if (!taxPriceDTOs.isEmpty()) {
-					TaxPriceDTO taxPriceDTO = Collections.max(taxDTO.getTaxPrices(),
-							Comparator.comparing(TaxPriceDTO::getModifiedDate));
-					taxPriceDTO.setTax(null);
-					taxDTO.setTaxPrices(Arrays.asList(taxPriceDTO));
+					taxPriceDTOs.sort((obj1, obj2)-> obj1.getModifiedDate().compareTo(obj2.getModifiedDate())*-1);
+					Optional<TaxPriceDTO> taxPriceDTO = 
+							taxPriceDTOs.stream().filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0).findFirst();
+					if(taxPriceDTO.isPresent()) {
+						TaxPriceDTO _taxPriceDTO = taxPriceDTO.get();
+						_taxPriceDTO.setTax(null);
+						taxDTO.setTaxPrices(Arrays.asList(_taxPriceDTO));
+					}else {
+						taxDTO.setTaxPrices(null);
+					}
 				}
 				taxDTOs.add(taxDTO);
 			});
