@@ -16,4 +16,6 @@ public interface IFlightService {
 	public void delete(Integer id);
 	
 	public List<FlightDTO> getFlights(String from,String to,Date departureDate,String number);
+	
+	public List<FlightDTO> getFlights(String Flight_Id);
 }

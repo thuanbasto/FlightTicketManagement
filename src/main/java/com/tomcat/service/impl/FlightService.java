@@ -79,5 +79,29 @@ public class FlightService implements IFlightService{
 		return new ArrayList<FlightDTO>(flightDTOs.values());
 	}
 
+	@Override
+	public List<FlightDTO> getFlights(String Flight_Id) {
+		List<Object[]> objs = flightRepository.searchFlightSeat(Flight_Id);
+		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
+		objs.forEach(flight -> {
+			FlightDTO flightDTO = flightConverter.toDTOfindSeat(flight);
+			
+			if (flightDTOs.containsKey((flightDTO).getFlight_Id())) {
+				FlightDTO flightInMap = flightDTOs.get(flightDTO.getFlight_Id());
+				if (flightInMap.getSeat_Id() != flightDTO.getSeat_Id()) {
+					List<String> listOfSeat_Id = flightInMap.getListOfSeat_Id();
+					listOfSeat_Id.add(flightDTO.getSeat_Id());
+					
+					flightInMap.setListOfSeat_Id(listOfSeat_Id);
+					flightDTOs.put(flightDTO.getFlight_Id(),flightInMap);
+				}
+			} else {
+				flightDTOs.put(flightDTO.getFlight_Id(),flightDTO);
+			}
+		});
+		
+		return new ArrayList<FlightDTO>(flightDTOs.values());
+	}
+
 	
 }

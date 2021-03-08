@@ -96,4 +96,23 @@ public class FlightAPI {
 			}
 		}	
 	}
+	
+	@GetMapping("/searchSeat")
+	public ResponseEntity<List<FlightDTO>> getSeachFlightSeat(
+			@RequestParam(name="flight_Id",required=false) String flight_Id) {
+		// http://localhost:8083/FlightTicketManagement/api/searchSeat?flight_Id=5
+		if(flight_Id == null )
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			List<FlightDTO> flightDTOs = flightService.getFlights(flight_Id);
+			if (flightDTOs != null) {
+				return new ResponseEntity<List<FlightDTO>>(flightDTOs, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}	
+	}
 }
