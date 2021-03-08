@@ -79,7 +79,7 @@ public class FlightAPI {
 	public ResponseEntity<List<FlightDTO>> getSeachFlight(
 			@RequestParam(name="from",required=false) String from,
 			@RequestParam(name="to",required=false) String to,
-			@RequestParam(name="departureDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date departureDate,
+			@RequestParam(name="departureDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date departureDate,
 			@RequestParam(name="number",required=false) String number) {
 		// api/search?from=DAD&to=HAN&departureDate=2000-1-13 00:00:00&number=1
 		if(from == null || to == null || departureDate == null || number == null)

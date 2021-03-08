@@ -1,5 +1,16 @@
 $('#ftab').trigger('click');
 
+$('#search_btn').on('click', function(e) {
+    e.preventDefault();
+    let number = parseInt($('#adult').val()) + parseInt($('#child').val())
+    console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
+    window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
+
+});
+
+
+
+
 function loadCitySelect() {
     $.ajax({
         url: "/FlightTicketManagement/api/cities",
@@ -13,8 +24,8 @@ function loadCitySelect() {
                 htmlStr = htmlStr + `<option value="${cityId}">${cityName} (${cityId})</option>`;
             });
             //hien thi len
-            $("#fromCityData").html(htmlStr);
-            $("#toCityData").html(htmlStr);
+            $("#from").html(htmlStr);
+            $("#to").html(htmlStr);
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -25,10 +36,10 @@ function loadCitySelect() {
 
 loadCitySelect();
 
-$('#fromCityData').on('change', function(e) { // hide fromcity when selected in tocity
-    $(`#toCityData option`).show();
+$('#from').on('change', function(e) { // hide fromcity when selected in tocity
+    $(`#to option`).show();
     var ctc = $(this).val();
-    $(`#toCityData option[value=${ctc}]`).hide();
+    $(`#to option[value=${ctc}]`).hide();
 });
 
 
@@ -81,7 +92,7 @@ $('ul[data-tag="channelList"] > li').click(function() {
             url: 'search',
             data: $('#testli').serialize() + '&chieuve=' + chieu_ve, // serializes the form's elements.
             success: function(data) {
-                console.log(data); // show response from the php script.
+                // console.log(data); // show response from the php script.
             }
         });
 
