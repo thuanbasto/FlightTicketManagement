@@ -28,8 +28,8 @@ loadCitySelect();
 $('#fromCityData').on('change', function(e) { // hide fromcity when selected in tocity
     $(`#toCityData option`).show();
     var ctc = $(this).val();
-    $(`#toCityData option[value=${ctc}]`).hide();  
-    });
+    $(`#toCityData option[value=${ctc}]`).hide();
+});
 
 
 
