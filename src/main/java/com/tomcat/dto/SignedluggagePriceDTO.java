@@ -12,8 +12,10 @@ public class SignedluggagePriceDTO implements Serializable {
 	private Date modifiedDate;
 
 	private double price;
+	
+	private Integer signedLuggage_Id;
 
-	private SignedluggageDTO signedluggage;
+//	private SignedluggageDTO signedluggage;
 
 	public SignedluggagePriceDTO() {
 	}
@@ -42,12 +44,20 @@ public class SignedluggagePriceDTO implements Serializable {
 		this.price = price;
 	}
 
-	public SignedluggageDTO getSignedluggage() {
-		return this.signedluggage;
+	public Integer getSignedLuggage_Id() {
+		return signedLuggage_Id;
 	}
 
-	public void setSignedluggage(SignedluggageDTO signedluggage) {
-		this.signedluggage = signedluggage;
+	public void setSignedLuggage_Id(Integer signedLuggage_Id) {
+		this.signedLuggage_Id = signedLuggage_Id;
 	}
+
+//	public SignedluggageDTO getSignedluggage() {
+//		return this.signedluggage;
+//	}
+//
+//	public void setSignedluggage(SignedluggageDTO signedluggage) {
+//		this.signedluggage = signedluggage;
+//	}
 
 }

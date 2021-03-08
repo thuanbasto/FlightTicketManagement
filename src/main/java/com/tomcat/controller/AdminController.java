@@ -82,10 +82,6 @@ public class AdminController {
 		return "Tax";
 	}
 	
-	@GetMapping(value= {"/travelclass-management"})
-	public String travelClassManagement(HttpServletRequest request) {
-		return "TravelClass";
-	}
 	@GetMapping(value= {"/user-management"})
 	public String userManagement(HttpServletRequest request) {
 		Set<RoleDTO> roles = roleService.getRoleDTOList();
@@ -96,5 +92,34 @@ public class AdminController {
 	@GetMapping(value= {"/customer-management"})
 	public String customerManagement() {
 		return "Customer";
+	}
+	
+	@GetMapping(value= {"/seat-management"})
+	public String seatManagement() {
+		return "Seat";
+	}
+	
+	@GetMapping(value= {"/travelclass-management"})
+	public String travelClassManagement() {
+		return "TravelClass";
+	}
+		
+	@GetMapping(value= {"/flight-management"})
+	public String flightManagement() {
+		return "Flight";
+	}
+	
+	@GetMapping(value= {"/luggage-management"})
+	public String luggageManagement() {
+		return "Luggage";
+	}
+	
+	@GetMapping(value= {"/revenue"})
+	public String revenue() {
+		return "Revenue";
+	}
+	@GetMapping(value= {"/booking-management"})
+	public String bookingManagement() {
+		return "Booking";
 	}
 }

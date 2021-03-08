@@ -21,29 +21,7 @@ public class TaxPriceAPI {
 	@Autowired
 	ITaxPriceService taxpriceService;
 	
-	/*
-	 * @GetMapping("/taxprice") public List<TaxPriceDTO> getTaxPrice() { return
-	 * taxpriceService.getList(); }
-	 * 
-	 * 
-	 * @PostMapping("/taxprice") public TaxPriceDTO createTaxPrice (@RequestBody
-	 * TaxPriceDTO taxpriceDTO) { return taxpriceService.save(taxpriceDTO);
-	 * 
-	 * }
-	 * 
-	 * @PutMapping("/taxprice") public TaxPriceDTO updateTaxPrice (@RequestBody
-	 * TaxPriceDTO taxpriceDTO) { return taxpriceService.save(taxpriceDTO);
-	 * 
-	 * }
-	 * 
-	 * @DeleteMapping("/taxprice") public void deleteTaxPrice (@RequestBody int[]
-	 * ids) { taxpriceService.delete(ids);
-	 * 
-	 * }
-	 */
-	
-	
-	@RequestMapping(value = "/taxprice", method = RequestMethod.GET)
+	@RequestMapping(value = "/taxprices", method = RequestMethod.GET)
 	public ResponseEntity<List<TaxPriceDTO>> getAirports() {
 		List<TaxPriceDTO> taxpricecDTOs = taxpriceService.getList();
 		if(taxpricecDTOs.isEmpty()) {
@@ -52,7 +30,7 @@ public class TaxPriceAPI {
 		return new ResponseEntity<>(taxpricecDTOs, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/taxprice/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/taxprices/{id}", method = RequestMethod.GET)
 	public ResponseEntity<TaxPriceDTO> getAirport(@PathVariable("id") int id) {
 		TaxPriceDTO taxpricecDTO = taxpriceService.findbyid(id);
 		if(taxpricecDTO.getTax_Price_Id() == 0) {
@@ -61,14 +39,14 @@ public class TaxPriceAPI {
 		return new ResponseEntity<>(taxpricecDTO, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/taxprice", method = RequestMethod.POST)
+	@RequestMapping(value = "/taxprices", method = RequestMethod.POST)
 	public ResponseEntity<TaxPriceDTO> addAirport(@RequestBody TaxPriceDTO taxpriceDTO) {
 
 			taxpriceService.save(taxpriceDTO);
 			return new ResponseEntity<>(taxpriceDTO, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/taxprice/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/taxprices/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<HttpStatus> deleteAirport(@PathVariable int id) {
 		try{
 			taxpriceService.delete(id);
@@ -78,7 +56,7 @@ public class TaxPriceAPI {
 		}
 	}
 
-	@RequestMapping(value = "/taxprice/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/taxprices/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<TaxPriceDTO> updateAirport(@RequestBody TaxPriceDTO taxpriceDTO,
 			@PathVariable int id) {
 		TaxPriceDTO _taxpriceDTO = taxpriceService.findbyid(id);

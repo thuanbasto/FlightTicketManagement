@@ -2,6 +2,7 @@ package com.tomcat.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,14 @@ public class CityService implements ICityService{
 			return cityConverter.toCityDTO(city);
 		}
 		return new CityDTO();
+	}
+	
+
+	@Override
+	public Set<CityDTO> getCityDTOList() {
+		List<City> cities =  cityRepository.findAll();
+		Set<CityDTO> cityDTOs = cityConverter.toCityDTO(cities);
+		return cityDTOs;
 	}
 
 }

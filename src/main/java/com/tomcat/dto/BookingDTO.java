@@ -4,11 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BookingDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer booking_Id;
 
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+07:00")
 	private Date bookingDate;
 
 	private String email;
@@ -20,6 +27,10 @@ public class BookingDTO implements Serializable {
 	private UserDTO user;
 
 	private List<TicketDTO> tickets;
+	
+	private int numberOfTicket;
+	
+	private double totalPrice;
 
 	public BookingDTO() {
 	}
@@ -92,6 +103,22 @@ public class BookingDTO implements Serializable {
 		ticket.setBooking(null);
 
 		return ticket;
+	}
+
+	public int getNumberOfTicket() {
+		return numberOfTicket;
+	}
+
+	public void setNumberOfTicket(int numberOfTicket) {
+		this.numberOfTicket = numberOfTicket;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 }
