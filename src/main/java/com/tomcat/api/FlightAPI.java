@@ -96,4 +96,15 @@ public class FlightAPI {
 			}
 		}	
 	}
+	
+	@GetMapping("/flights/seat/{id}")
+	public ResponseEntity<FlightDTO> getEmptySeat(@PathVariable("id") String id) {
+		FlightDTO flightDTO = flightService.getEmptySeatOfFlight(id);
+		if (flightDTO == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<FlightDTO>(flightDTO, HttpStatus.OK);
+		}
+	}
+
 }

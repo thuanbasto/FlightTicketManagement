@@ -58,6 +58,7 @@ public class FlightService implements IFlightService{
 	@Override
 	public List<FlightDTO> getFlights(String from, String to, Date departureDate, String number) {
 		List<Object[]> objs = flightRepository.searchFlight(from, to, departureDate, number);
+		if (objs.size() == 0) return null;
 		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
 		objs.forEach(flight -> {
 			FlightDTO flightDTO = flightConverter.toDTO(flight);
@@ -79,5 +80,28 @@ public class FlightService implements IFlightService{
 		return new ArrayList<FlightDTO>(flightDTOs.values());
 	}
 
+	@Override
+	public FlightDTO getEmptySeatOfFlight(String id) {
+		List<Object[]> objs = flightRepository.getEmptySeatOfFlight(id);
+		if (objs.size() == 0) return null;
+		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
+		objs.forEach(flight -> {
+			FlightDTO flightDTO = flightConverter.toDTO(flight);
+			
+			if (flightDTOs.containsKey((flightDTO).getFlight_Id())) {
+				FlightDTO flightInMap = flightDTOs.get(flightDTO.getFlight_Id());
+				
+				List<String> seatNameList = flightInMap.getSeatNameList();
+				seatNameList.add(flightDTO.getSeatNameList().get(0));	
+				
+				flightInMap.setSeatNameList(seatNameList);
+				flightDTOs.put(flightDTO.getFlight_Id(),flightInMap);
+			} else {
+				flightDTOs.put(flightDTO.getFlight_Id(),flightDTO);
+			}
+		});
+		
+		return flightDTOs.get(Integer.valueOf(id));
+	}
 	
 }

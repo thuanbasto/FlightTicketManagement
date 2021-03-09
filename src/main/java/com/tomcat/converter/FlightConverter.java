@@ -16,23 +16,23 @@ import com.tomcat.service.IAirportService;
 
 @Component
 public class FlightConverter {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private AirplaneConverter airplaneConverter;
-	
-	@Autowired 
+
+	@Autowired
 	private AirportConverter airportConverter;
-	
+
 	@Autowired
 	private IAirportService airportService;
-	
+
 	public Flight toFlight(FlightDTO flightDTO) {
 		return modelMapper.map(flightDTO, Flight.class);
 	}
-	
+
 	public FlightDTO toFlightDTO(Flight flight) {
 		FlightDTO flightDTO = new FlightDTO();
 		flightDTO.setFlight_Id(flight.getFlight_Id());
@@ -45,7 +45,7 @@ public class FlightConverter {
 		return flightDTO;
 //		return modelMapper.map(flight, FlightDTO.class);
 	}
-	
+
 	/*
 	 * public FlightDTO toFlightDTO(Object[] obj) { FlightDTO flightDTO = new
 	 * FlightDTO(); flightDTO.setFlight_Id(Integer.valueOf(String.valueOf(obj[0])));
@@ -62,11 +62,11 @@ public class FlightConverter {
 	 * flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
 	 * flightDTO.setTickets(null); return flightDTO; }
 	 */
-	
+
 	public FlightDTO toDTO(Object[] obj) {
 		FlightDTO flightDTO = new FlightDTO();
 		flightDTO.setFlight_Id(Integer.valueOf(String.valueOf(obj[0])));
-		
+
 		AirportDTO fromAirport = airportService.get(String.valueOf(obj[1]));
 		flightDTO.setFromAirport(fromAirport);
 		AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
@@ -79,16 +79,17 @@ public class FlightConverter {
 		flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
 		/* flightDTO.setSeat_Id(String.valueOf(obj[7])); cos the lay */
 		flightDTO.setTravelClass_Id(Integer.valueOf(String.valueOf(obj[8])));
+
+		List<Integer> listOfTravelClass_Id = new ArrayList<Integer>();
+		listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
+		flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
 		
+		List<String> seatNameList = new ArrayList<String>();
+		seatNameList.add(String.valueOf(obj[7]));
 		
-		 List<Integer> listOfTravelClass_Id = new ArrayList<Integer>();
-		 listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
-		  
-		 flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
-		 
-		
+		flightDTO.setSeatNameList(seatNameList);
+
 		return flightDTO;
 	}
 
-	
 }
