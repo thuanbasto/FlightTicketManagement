@@ -20,7 +20,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Price</th>
+                                <th>Price (VND)</th>
                                 <th>Price modified date</th>
                                 <th>Action</th>
                             </tr>
@@ -55,7 +55,7 @@
                                 <input class="form-control" type="text" id="inpName">
                             </div>
                             <div class="price form-group">
-                                <label>Price</label>
+                                <label>Price (VND)</label>
                                 <input class="form-control" type="text" id="inpPrice">
                             </div>
                         </div>

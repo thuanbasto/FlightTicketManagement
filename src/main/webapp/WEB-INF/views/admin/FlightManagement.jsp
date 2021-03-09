@@ -27,7 +27,7 @@
 						<th>To Airport</th>
 						<th>Arrival Date</th>
 						<th>Departure Date</th>
-						<th>Price</th>
+						<th>Price (VND)</th>
 						<th>Airplane</th>
 						<th>Action</th>
 					</tr>

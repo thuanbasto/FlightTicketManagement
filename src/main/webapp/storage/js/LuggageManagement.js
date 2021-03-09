@@ -39,9 +39,11 @@ function LuggageList() {
 LuggageList();
 
 $('body').on('click', '#btnAdd', function() {
-
+    
     if ($("#luggageName").val() == '' || $("#luggageWeight").val() == '') {
         alert('Do not leave the field blank');
+    }else if(/^[0-9]*$/.test($("#luggageWeight").val()) == false){
+        alert('Invalid input value');
     } else {
         $.ajax({
             url: "/FlightTicketManagement/api/signedluggage",
@@ -78,26 +80,32 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 
 
 $('body').on('click', '#btnUpdate', function() {
-    $.ajax({
-        url: "/FlightTicketManagement/api/signedluggage/",
-        contentType: "application/json",
-        async: false,
-        type: "put",
-        data: JSON.stringify({
-            "signedLuggage_Id": $("#inpLuggageID").val(),
-            "name": $("#inpLuggageName").val(),
-            "weight": $("#inpLuggageWeight").val(),
-        }),
-        success: function(response) {
-            $('.close').click();
-            LuggageList();
-            $("#inpLuggageName").val('');
-            $("#inpLuggageWeight").val('');
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-        }
-    });
+    if ($("#inpLuggageName").val() == '' || $("#inpLuggageWeight").val() == '') {
+        alert('Do not leave the field blank');
+    }else if(/^[0-9]*$/.test($("#inpLuggageWeight").val()) == false){
+        alert('Invalid input value');
+    }else{
+        $.ajax({
+            url: "/FlightTicketManagement/api/signedluggage/",
+            contentType: "application/json",
+            async: false,
+            type: "put",
+            data: JSON.stringify({
+                "signedLuggage_Id": $("#inpLuggageID").val(),
+                "name": $("#inpLuggageName").val(),
+                "weight": $("#inpLuggageWeight").val(),
+            }),
+            success: function(response) {
+                $('.close').click();
+                LuggageList();
+                $("#inpLuggageName").val('');
+                $("#inpLuggageWeight").val('');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
 });
 
 

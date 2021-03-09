@@ -35,8 +35,8 @@
                                         <tr>
                                             <th>Luggage Code</th>
                                             <th>Luggage Name</th>
-                                            <th>Luggage weight</th>
-                                            <th>Luggage price</th>
+                                            <th>Luggage weight (KG)</th>
+                                            <th>Luggage Price (VND)</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

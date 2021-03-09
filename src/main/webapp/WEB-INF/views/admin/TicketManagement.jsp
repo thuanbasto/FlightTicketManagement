@@ -7,7 +7,7 @@
 <div class="row mt-3 mb-4">
 	<div class="col-lg-4">
 		<button id="btnAdd" class="btn btn-success" data-toggle="modal"
-			data-target="#updateTaxModal">Add Ticket (PAUSE)</button>
+			data-target="#updateTaxModal">Add Ticket</button>
 	</div>
 </div>
 <div class="card shadow mb-4">
@@ -24,11 +24,11 @@
 						<th>Customer Name</th>
 						<th>Booking Code</th>
 						<th>Flight</th>
-						<th>DepartureDate</th>
-						<th>Seat</th>
+						<th>Departure Date</th>
+						<th>Seat Code</th>
 						<th>Signed luggage</th>
-						<th>Tax Name</th>
-						<th>Price</th>
+						<th>Taxs Name</th>
+						<th>Price (VND)</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -56,6 +56,11 @@
 					<div class="seat_Id form-group">
 						<label>ID</label> <input class="form-control" type="text"
 							id="inpTicket_Id" disabled>
+					</div>
+
+					<div class="customer_Id form-group">
+						<label>Booking Code</label>
+						<select class="browser-default custom-select" id="inpBookingClass" required></select>
 					</div>
 					
 					<div class="customer_Id form-group">

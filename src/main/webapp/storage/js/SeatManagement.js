@@ -65,6 +65,8 @@ $('#tbodyData').on('click', '#btnEdit', function() {
     // $("#inpPrice").val("")
 
     // fill input with value
+    $("#inpSeat_Id").prop("disabled", true);
+
     seatList.forEach(seat => {
         if (seat.seat_Id == $(this).data("id")){
             $("#inpSeat_Id").val(seat.seat_Id)
@@ -84,6 +86,7 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 // before adding seat
 $('#btnAdd').on('click', function() {
     // make empty input
+    $("#inpSeat_Id").prop("disabled", false);
     $("#inpSeat_Id").val("")
     $("#inpTravelClass").val("")
     $("#inpPrice").val("")
@@ -183,3 +186,5 @@ $('#inpTravelClass').on('change', function (event) {
         }
     })
 });
+$(".toast").toast('show');
+        $(".toast").toast('hide');

@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" href='<c:url value="/storage/css/Booking.css"></c:url>'>
+<link rel="stylesheet" href='<c:url value="/storage/css/Book.css"></c:url>'>
+<c:url value="/storage/js/Book.js" var="jsUrl"/>
 
 <div class="container ">
     <div class="row" style="margin-top:70px;">
@@ -37,18 +38,21 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+                                        	<option>Địa điểm đi</option>
+                                        	<c:forEach items="${citis}" var="citis">
+                                        		<option value="${citis.city_Id}">${citis.name}</option>
+                                        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+                                        <option>Địa điểm đến</option>
+                                        <c:forEach items="${citis}" var="citis">
+                                        		<option  value="${citis.city_Id}" >${citis.name}</option>
+                                        	</c:forEach>
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -118,5 +122,6 @@
         </div>
     </div>
 </div>
-<script src="<c:url value="/storage/js/Booking.js"></c:url>"></script>
+
+<script src="${jsUrl}"></script>
 

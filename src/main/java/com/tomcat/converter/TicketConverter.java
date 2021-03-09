@@ -2,7 +2,9 @@ package com.tomcat.converter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ public class TicketConverter {
 
 		if (ticketDTO.getBooking() != null) {
 			ticketDTO.getBooking().setTickets(null);
+			ticketDTO.getBooking().setUser(null);
 
 		}
 
@@ -87,8 +90,8 @@ public class TicketConverter {
 					taxPriceDTOs.addAll(taxDTO.getTaxPrices());
 					Collections.reverse(taxPriceDTOs);
 					for (TaxPriceDTO taxPriceDTO : taxPriceDTOs) {
+							taxPriceDTO.setTax(null);
 						if (taxPriceDTO.getModifiedDate().compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
-							taxPriceDTO.setTaxDTO(null);
 							List<TaxPriceDTO> taxPriceDTOs1 = new ArrayList<TaxPriceDTO>();
 							taxPriceDTOs1.add(taxPriceDTO);
 							taxDTO.setTaxPrices(taxPriceDTOs1);
@@ -107,8 +110,7 @@ public class TicketConverter {
 				signedluggagePriceDTOs.addAll(ticketDTO.getSignedluggage().getSignedluggagePrices());
 				Collections.reverse(signedluggagePriceDTOs);
 				for (SignedluggagePriceDTO signedluggagePriceDTO : signedluggagePriceDTOs) {
-					if (signedluggagePriceDTO.getModifiedDate()
-							.compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
+					if (signedluggagePriceDTO.getModifiedDate().compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
 						List<SignedluggagePriceDTO> signedluggagePriceDTOs1 = new ArrayList<SignedluggagePriceDTO>();
 						signedluggagePriceDTOs1.add(signedluggagePriceDTO);
 						ticketDTO.getSignedluggage().setSignedluggagePrices(signedluggagePriceDTOs1);
@@ -168,7 +170,7 @@ public class TicketConverter {
 		Signedluggage signedluggage = new Signedluggage();
 		signedluggage.setSignedLuggage_Id(ticketDTO.getSignedLuggage_Id());
 		
-		List<Tax> taxs = new ArrayList<Tax>();
+		Set<Tax> taxs = new LinkedHashSet<Tax>();
 		
 		for(Integer integer : ticketDTO.getTax_Id()) {
 			Tax tax = new Tax();

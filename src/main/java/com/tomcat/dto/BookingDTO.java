@@ -30,6 +30,10 @@ public class BookingDTO implements Serializable {
 	private UserDTO user;
 
 	private List<TicketDTO> tickets;
+	
+	private int numberOfTicket;
+	
+	private double totalPrice;
 
 	public BookingDTO() {
 	}
@@ -102,6 +106,22 @@ public class BookingDTO implements Serializable {
 		ticket.setBooking(null);
 
 		return ticket;
+	}
+
+	public int getNumberOfTicket() {
+		return numberOfTicket;
+	}
+
+	public void setNumberOfTicket(int numberOfTicket) {
+		this.numberOfTicket = numberOfTicket;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 }

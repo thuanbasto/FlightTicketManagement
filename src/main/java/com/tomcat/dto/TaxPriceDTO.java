@@ -54,11 +54,11 @@ public class TaxPriceDTO implements Serializable {
 		this.price = price;
 	}
 
-	public TaxDTO getTaxDTO() {
+	public TaxDTO getTax() {
 		return taxDTO;
 	}
 
-	public void setTaxDTO(TaxDTO taxDTO) {
+	public void setTax(TaxDTO taxDTO) {
 		this.taxDTO = taxDTO;
 	}
 

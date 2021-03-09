@@ -69,6 +69,11 @@ public class User implements Serializable {
 
 	public User() {
 	}
+	
+	public User(Integer id) {
+		this.user_Id = id;
+	}
+
 
 	public Byte getEnable() {
 		return enable;

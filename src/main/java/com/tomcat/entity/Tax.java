@@ -1,8 +1,17 @@
 package com.tomcat.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -26,7 +35,7 @@ public class Tax implements Serializable {
 
 	//bi-directional many-to-many association to Ticket
 	@ManyToMany(mappedBy="taxs")
-	private List<Ticket> tickets;
+	private Set<Ticket> tickets;
 
 	public Tax() {
 	}
@@ -69,11 +78,11 @@ public class Tax implements Serializable {
 		return taxPrice;
 	}
 
-	public List<Ticket> getTickets() {
+	public Set<Ticket> getTickets() {
 		return this.tickets;
 	}
 
-	public void setTickets(List<Ticket> tickets) {
+	public void setTickets(Set<Ticket> tickets) {
 		this.tickets = tickets;
 	}
 
