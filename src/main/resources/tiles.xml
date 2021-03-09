@@ -35,7 +35,8 @@
   </definition>
   <definition name="GenerateAccountAdmin" extends="home-difinition">
     <put-attribute name="body" value="/WEB-INF/views/home/GenerateAccountAdmin.jsp" />
-  </definition>
+  </definition>  
+  
   <!-- staff-difinition -->
 
   <!-- admin-difinition -->
