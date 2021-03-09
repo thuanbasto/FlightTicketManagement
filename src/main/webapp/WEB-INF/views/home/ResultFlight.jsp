@@ -3,6 +3,16 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
         <c:url value="/storage/js/ResultFlight.js" var="jsUrl"></c:url>
+        <style>
+            .modal-dialog {
+                overflow-y: initial !important
+            }
+            
+            .modal-body {
+                height: 400px;
+                overflow-y: auto;
+            }
+        </style>
         <div class="container mt-5">
             <h1 id="testt"></h1>
             <table class="table table-hover">
@@ -21,27 +31,24 @@
             </table>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg" style="overflow-y: scroll; max-height:60%;  margin-top: 50px; margin-bottom:50px;">
                     <div class="modal-content">
-
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h2 class="modal-title">BOOK TICKET</h2>
+
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div id="demo" class="carousel slide" data-ride="carousel">
-
-
                                 <!-- The slideshow -->
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <h3>Flight Detail</h3>
                                         <table class="table">
                                             <tbody id="tbodyModalData">
-	
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -69,15 +76,18 @@
 
                                     </div>
                                     <div class="carousel-item">
-                                    <jsp:include page="ViewSeat.jsp"/>
+                                        <select id="customerListDDL">
+
+                                        </select>
+                                        <jsp:include page="ViewSeat.jsp" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" href="#demo" data-slide="prev">Prev</button>
-                            <button type="button" class="btn btn-success" href="#demo" data-slide="next">Next</button>
+                            <button type="button" class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
+                            <button type="button" class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
                         </div>
                     </div>
                 </div>

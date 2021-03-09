@@ -92,6 +92,12 @@ ol {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    width: 100%;
+}
+
+.row_ct {
+    margin-right: 0px;
+    margin-left: 0px
 }
 
 .seat {

@@ -3,6 +3,8 @@ totalTaxPrice = 0;
 travelClassList = [];
 flightList = [];
 signedLuggageList = [];
+index = 1;
+customerList = [];
 
 function loadSignedLuggageList() {
     $.ajax({
@@ -125,8 +127,9 @@ $('body').on('click', '#choose', function() {
 
     let number = parseInt($("#url").val().substring($("#url").val().lastIndexOf("=") + 1));
     let htmlStrCusInfo = ``;
+    let htmlStrCusDDL = `select id = "CUS" >`;
 
-    let htmlStrDDL = `<select class="form-control" class="signedLuggage">`;
+    let htmlStrDDL = `<select class="signedLuggage form-control">`;
     signedLuggageList.forEach(signedLuggage => {
         htmlStrDDL +=
             `<option value="${signedLuggage.signedLuggage_Id}">
@@ -141,38 +144,72 @@ $('body').on('click', '#choose', function() {
         htmlStrCusInfo +=
             `
         <h6>Passenger ${i+1}:<h6>
-        <div class="row">
-            <div class="col-sm-6">
-                <input class="form-control mb-2" type="text"
-                    placeholder="First Name">
+        <div class="customerInfo">
+            <div class="row name">
+                <div class="col-sm-6">
+                    <input class="firstName form-control mb-2" type="text" placeholder="First Name" name="cusFristName${i+1}">
+                </div>
+                <div class="col-sm-6 mb-2">
+                    <input class="lastName form-control" type="text" placeholder="Last Name" name="cusLastName${i+1}">
+                </div>
             </div>
-            <div class="col-sm-6 mb-2">
-                <input class="form-control" type="text"
-                    placeholder="Last Name">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <input class="form-control" type="date">
-            </div>
-            <div class="col-sm-6">
-                ${htmlStrDDL}  
+            <div class="row birthdayAndSignedLuggage">
+                <div class="col-sm-6">
+                    <input class="birthday form-control" max="9999-01-01" type="date">
+                </div>
+                <div class="col-sm-6">
+                    ${htmlStrDDL}  
+                </div>
             </div>
         </div>`;
-
-
-
     }
-
-
 
     $('#customerData').html(htmlStrCusInfo);
     $('#tbodyModalData').html(htmlStr);
     console.log(flight)
 })
 
+$("#btnNext").on("click", function() {
+    if (index < 3) {
+        index++;
+    }
+
+    if (index == 3) {
+        customerList = [];
+
+
+
+        let htmlStrSeat = ``;
+        $(".customerInfo").each(function(index) {
+            let customer = {
+            	cus_Id:index,
+                firstName: $(this).find(".firstName").val(),
+                lastName: $(this).find(".lastName").val(),
+                birthDay: $(this).find(".birthday").val(),
+                signedLuggage: $(this).find(".signedLuggage").val(),
+                seat_Id: ""
+            };
+            htmlStrSeat +=
+                `<option value="${index}">
+                    ${customer.firstName} ${customer.lastName}
+                </option>`
+            customerList.push(customer)
+        })
+        console.log(JSON.stringify(customerList))
+            // #customerListDDL
+        $("#customerListDDL").html(htmlStrSeat);
+    }
+
+
+})
+
+$("#btnPrev").on("click", function() {
+    if (index > 1)
+        index--;
+    console.log(index)
+})
+
 $('.carousel').carousel({
     interval: false,
     wrap: false
 });
-
