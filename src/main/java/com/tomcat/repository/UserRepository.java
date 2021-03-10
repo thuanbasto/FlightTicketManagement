@@ -11,7 +11,7 @@ import com.tomcat.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	User findOneByUsername(String username);
-	@Query(value = "SELECT u.*,r.Role_Id,r.Name FROM flightticketmanagement.user u " + 
+	@Query(value = "SELECT u.*,r.Role_Id,r.Name FROM user u " + 
 			"INNER JOIN role_user ru ON u.User_Id = ru.User_Id " + 
 			"INNER JOIN role r ON r.Role_Id = ru.Role_Id;"
 			,nativeQuery=true)

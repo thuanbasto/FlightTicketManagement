@@ -58,6 +58,7 @@ public class FlightService implements IFlightService{
 	@Override
 	public List<FlightDTO> getFlights(String from, String to, Date departureDate, String number) {
 		List<Object[]> objs = flightRepository.searchFlight(from, to, departureDate, number);
+		if (objs.size() == 0) return null;
 		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
 		objs.forEach(flight -> {
 			FlightDTO flightDTO = flightConverter.toDTO(flight);
@@ -79,5 +80,4 @@ public class FlightService implements IFlightService{
 		return new ArrayList<FlightDTO>(flightDTOs.values());
 	}
 
-	
 }

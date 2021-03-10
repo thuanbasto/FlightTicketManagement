@@ -47,5 +47,13 @@ public class SeatService implements ISeatService{
 	public void delete(String id) {
 		seatRepository.delete(id);
 	}
-	
+
+	@Override
+	public List<SeatDTO> getBookedSeats(String id) {
+		List<Object[]> objs = seatRepository.getBookedSeats(id);
+		if (objs.size() == 0) return null;
+		List<SeatDTO> seatDTOs = new ArrayList<SeatDTO>();
+		objs.forEach(seat -> seatDTOs.add(seatConverter.toDTO(seat)));
+		return seatDTOs;
+	}
 }

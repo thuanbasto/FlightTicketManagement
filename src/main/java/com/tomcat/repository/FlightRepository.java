@@ -28,4 +28,11 @@ public interface FlightRepository extends JpaRepository<Flight, Integer>{
 			,nativeQuery=true)
 	public List<Object[]> searchFlight(String from,String to, Date departureDate,String number);
 	
+	@Query(value="SELECT flight.*,s.Seat_Id, s.TravelClass_Id" + 
+			" FROM flight,seat s" + 
+			" where flight.flight_Id = ?1" + 
+			" and Seat_Id not in (select Seat_Id from ticket where flight.Flight_Id = Flight_Id)"
+			,nativeQuery=true)
+	public List<Object[]> getEmptySeatOfFlight(String id);
+	
 }

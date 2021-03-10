@@ -13,4 +13,6 @@ public interface ISeatService {
 	public void save(SeatDTO seatDTO);
 
 	public void delete(String id);
+	
+	public List<SeatDTO> getBookedSeats(String id);
 }
