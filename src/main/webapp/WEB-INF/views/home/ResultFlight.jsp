@@ -76,27 +76,38 @@
 
                                     </div>
                                     <div class="carousel-item">
-                                        <select id="customerListDDL">
+                                        <div class="row">
+                                            <div class="col-2 mx-auto" style="margin-top: 261px;">
+                                                <h6>Travel Class Map</h6>
+                                            </div>
+                                            <div class="col-5 mx-auto">
+                                                <jsp:include page="ViewSeat.jsp" />
+                                            </div>
+                                            <div class="col-5 mx-auto">
+                                                <div class="col-10 mx-auto" style="margin-top: 261px; margin-bottom: 50px;">
+                                                    <select class="form-control" id="customerListDDL" style="text-align-last: center;">
+                                                </select>
+                                                </div>
+                                                <div id="seatInfo" style="border : 1px solid #ced4da;padding : 10px;height:100px">
 
-                                        </select>
-                                        <jsp:include page="ViewSeat.jsp" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
+                                    <button type="button" class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
-                            <button type="button" class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <input hidden value="${url}" id="url" name="url" />
+                <input hidden value="${url}" id="url" name="url" />
 
 
-        <script src="${jsUrl}">
-        </script>
+                <script src="${jsUrl}">
+                </script>

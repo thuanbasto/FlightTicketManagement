@@ -168,6 +168,7 @@ $('body').on('click', '#choose', function() {
     $('#tbodyModalData').html(htmlStr);
     console.log(flight)
 })
+var customerList;
 
 $("#btnNext").on("click", function() {
     if (index < 3) {
@@ -175,19 +176,18 @@ $("#btnNext").on("click", function() {
     }
 
     if (index == 3) {
+
         customerList = [];
-
-
 
         let htmlStrSeat = ``;
         $(".customerInfo").each(function(index) {
             let customer = {
-            	cus_Id:index,
+                cusId: index,
                 firstName: $(this).find(".firstName").val(),
                 lastName: $(this).find(".lastName").val(),
                 birthDay: $(this).find(".birthday").val(),
                 signedLuggage: $(this).find(".signedLuggage").val(),
-                seat_Id: ""
+                cusSeat: ""
             };
             htmlStrSeat +=
                 `<option value="${index}">
@@ -199,8 +199,6 @@ $("#btnNext").on("click", function() {
             // #customerListDDL
         $("#customerListDDL").html(htmlStrSeat);
     }
-
-
 })
 
 $("#btnPrev").on("click", function() {
