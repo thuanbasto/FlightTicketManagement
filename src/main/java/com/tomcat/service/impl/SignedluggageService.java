@@ -27,12 +27,9 @@ public class SignedluggageService implements ISignedluggageService {
 	@Override
 	public List<SignedluggageDTO> getList() {
 		List<SignedluggageDTO> signedluggageDTOs = new ArrayList<>();
-		List<Signedluggage> signedluggages = SignedLuggageRepository.findAll();
-
-		for (Signedluggage signedluggage : signedluggages) {
-			SignedluggageDTO signedluggageDTO = signedLuggageConverter.toDTO(signedluggage);
-			signedluggageDTOs.add(signedluggageDTO);
-		}
+		List<Object[]> objs = SignedLuggageRepository.getSignedLuggages();
+		
+		objs.forEach(luggage -> signedluggageDTOs.add(signedLuggageConverter.toDTO(luggage)));
 
 		return signedluggageDTOs;
 	}
@@ -40,10 +37,11 @@ public class SignedluggageService implements ISignedluggageService {
 	@Transactional
 	@Override
 	public SignedluggageDTO findById(Integer id) {
-		Signedluggage signedluggage = SignedLuggageRepository.findOne(id);
-		SignedluggageDTO signedluggageDTO = new SignedluggageDTO();
-		signedluggageDTO = signedLuggageConverter.toDTO(signedluggage);
-		
+		Object[] obj = SignedLuggageRepository.getSignedLuggage(id);
+		if(obj.length == 0) {
+			return null;
+		}
+		SignedluggageDTO signedluggageDTO = signedLuggageConverter.toDTO((Object[]) obj[0]);
 		return signedluggageDTO;
 			 
 	}
@@ -57,7 +55,7 @@ public class SignedluggageService implements ISignedluggageService {
 		}else {
 			signedluggage = signedLuggageConverter.toEntity(signedluggageDTO);
 		}
-		return signedLuggageConverter.toDTO(SignedLuggageRepository.save(signedluggage));
+		return null;
 	}
 	
 	@Override

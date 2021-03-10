@@ -26,7 +26,7 @@ public class SignedluggagePriceDTO implements Serializable {
 	
 	private Integer signedLuggage_Id;
 
-//	private SignedluggageDTO signedluggage;
+	//private SignedluggageDTO signedluggage;
 
 	public SignedluggagePriceDTO() {
 	}
