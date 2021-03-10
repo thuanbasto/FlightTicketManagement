@@ -32,6 +32,14 @@ public class SeatAPI {
 		return new ResponseEntity<>(seatDTOs,HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/seats/flights/{id}")
+	public ResponseEntity<List<SeatDTO>> getBookedSeats(@PathVariable("id") String id){
+		List<SeatDTO> seatDTOs = seatService.getBookedSeats(id);
+		if (seatDTOs == null)
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(seatDTOs,HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/seats/{id}")
 	public ResponseEntity<SeatDTO> getSeat(@PathVariable("id") String id){
 		SeatDTO seatDTO = seatService.getSeat(id);

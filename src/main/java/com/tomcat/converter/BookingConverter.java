@@ -42,8 +42,12 @@ public class BookingConverter {
 	@Autowired
 	private FlightConverter flightConverter;
 
+	
+	
 	public Booking toBooking(BookingDTO bookingDTO) {
 		return modelMapper.map(bookingDTO, Booking.class);
+		
+		
 	}
 
 	public BookingDTO toBookingDTO(Booking booking) {

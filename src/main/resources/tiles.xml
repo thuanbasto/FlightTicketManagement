@@ -36,6 +36,9 @@
   <definition name="GenerateAccountAdmin" extends="home-difinition">
     <put-attribute name="body" value="/WEB-INF/views/home/GenerateAccountAdmin.jsp" />
   </definition>  
+  <definition name="ResultFlight" extends="home-difinition">
+    <put-attribute name="body" value="/WEB-INF/views/home/ResultFlight.jsp" />
+  </definition>  
   
   <!-- staff-difinition -->
 

@@ -17,5 +17,4 @@ public interface IFlightService {
 	
 	public List<FlightDTO> getFlights(String from,String to,Date departureDate,String number);
 	
-	public FlightDTO getEmptySeatOfFlight(String id);
 }

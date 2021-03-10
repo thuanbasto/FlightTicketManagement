@@ -12,6 +12,7 @@ import com.tomcat.dto.AirplaneDTO;
 import com.tomcat.dto.AirportDTO;
 import com.tomcat.dto.FlightDTO;
 import com.tomcat.entity.Flight;
+import com.tomcat.service.IAirplaneService;
 import com.tomcat.service.IAirportService;
 
 @Component
@@ -28,6 +29,9 @@ public class FlightConverter {
 
 	@Autowired
 	private IAirportService airportService;
+	
+	@Autowired
+	private IAirplaneService airplaneService;
 
 	public Flight toFlight(FlightDTO flightDTO) {
 		return modelMapper.map(flightDTO, Flight.class);
@@ -71,8 +75,9 @@ public class FlightConverter {
 		flightDTO.setFromAirport(fromAirport);
 		AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
 		flightDTO.setToAirport(toAirport);
-		AirplaneDTO airplaneDTO = new AirplaneDTO();
-		airplaneDTO.setAirplane_Id(String.valueOf(obj[6]));
+		
+		AirplaneDTO airplaneDTO = airplaneService.getAirplane(String.valueOf(obj[6]));
+	
 		flightDTO.setAirplane(airplaneDTO);
 		flightDTO.setArrivalDate((Date) obj[4]);
 		flightDTO.setDepartureDate((Date) obj[3]);
@@ -84,10 +89,6 @@ public class FlightConverter {
 		listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
 		flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
 		
-		List<String> seatNameList = new ArrayList<String>();
-		seatNameList.add(String.valueOf(obj[7]));
-		
-		flightDTO.setSeatNameList(seatNameList);
 
 		return flightDTO;
 	}

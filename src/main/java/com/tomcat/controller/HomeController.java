@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tomcat.dto.CityDTO;
 import com.tomcat.service.ICityService;
-import com.tomcat.service.IFlightService;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.IUserService;
 
@@ -31,9 +30,6 @@ public class HomeController {
 	
 	@Autowired
 	ICityService cityService;
-	
-	@Autowired
-	private IFlightService flightService;
 	
 	@GetMapping(value= {"/home","/"})
 	public String homePage(HttpServletRequest request) {
