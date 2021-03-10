@@ -10,13 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.tomcat.converter.CustomerConverter;
 import com.tomcat.converter.TicketConverter;
-import com.tomcat.dto.CustomerDTO;
 import com.tomcat.dto.TicketDTO;
 import com.tomcat.entity.Customer;
 import com.tomcat.entity.Ticket;
 import com.tomcat.repository.CustomerRepository;
 import com.tomcat.repository.TicketRepository;
-import com.tomcat.service.ICustomerService;
 import com.tomcat.service.ITicketService;
 
 @Service
@@ -64,7 +62,7 @@ public class TicketService implements ITicketService {
 
 	@Override
 //	@Transactional
-	public TicketDTO save(TicketDTO ticketDTO) {
+	public void save(TicketDTO ticketDTO) {
 		Ticket ticket = ticketConverter.toEntity(ticketDTO);
 		
 		Customer customer = ticket.getCustomer();
@@ -72,11 +70,6 @@ public class TicketService implements ITicketService {
 		ticket.setCustomer(customer);
 		ticketRepository.save(ticket);
 		
-		CustomerDTO customerDTO = customerConverter.toDTO(customer);
-		ticketDTO.setCustomer(customerDTO);
-		ticketDTO.setTicket_Id(ticket.getTicket_Id());
-		
-		return ticketDTO;
 	}
 
 	@Override
