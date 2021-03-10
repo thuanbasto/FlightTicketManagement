@@ -10,40 +10,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.BookingConverter;
 import com.tomcat.dto.BookingDTO;
+import com.tomcat.dto.TicketDTO;
 import com.tomcat.entity.Booking;
 import com.tomcat.entity.User;
 import com.tomcat.repository.BookingRepository;
 import com.tomcat.service.IBookingService;
+import com.tomcat.service.ITicketService;
 
 @Service
-public class BookingService implements IBookingService{
-	
+public class BookingService implements IBookingService {
+
 	@Autowired
 	private BookingRepository bookingRepository;
-	
+
 	@Autowired
 	private BookingConverter bookingConverter;
-	
+
+	@Autowired
+	private ITicketService ticketService;
+
 	@Override
 	@Transactional
 	public List<BookingDTO> getBookings() {
 		List<Booking> bookings = bookingRepository.findAll();
 		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		bookings.forEach(booking ->{
-			 BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
-			 bookingDTOs.add(bookingDTO);
+		bookings.forEach(booking -> {
+			BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
+			bookingDTOs.add(bookingDTO);
 		});
 		return bookingDTOs;
 	}
-	
+
 	@Override
 	@Transactional
 	public List<BookingDTO> getBookings(Date fromDate, Date toDate) {
-		List<Booking> bookings = bookingRepository.findByBookingDateBetween(fromDate,toDate);
+		List<Booking> bookings = bookingRepository.findByBookingDateBetween(fromDate, toDate);
 		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		bookings.forEach(booking ->{
-			 BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
-			 bookingDTOs.add(bookingDTO);
+		bookings.forEach(booking -> {
+			BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
+			bookingDTOs.add(bookingDTO);
 		});
 		return bookingDTOs;
 	}
@@ -52,17 +57,35 @@ public class BookingService implements IBookingService{
 	@Transactional
 	public BookingDTO getBooking(Integer id) {
 		Booking booking = bookingRepository.findOne(id);
-		if(booking != null) {
+		if (booking != null) {
 			BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
 			return bookingDTO;
-		}
-		else return new BookingDTO();
+		} else
+			return new BookingDTO();
 	}
 
 	@Override
+//	@Transactional
 	public void save(BookingDTO bookingDTO) {
+		
 		Booking booking = bookingConverter.toBooking(bookingDTO);
+		booking.setTickets(null);
 		bookingRepository.save(booking);
+		
+		// save list ticket and customer
+		List<TicketDTO> ticketDTOs = new ArrayList<TicketDTO>();
+		bookingDTO.getTickets().forEach(ticketDTO ->{
+			ticketDTOs.add(ticketService.save(ticketDTO));
+		});
+
+		// update booking id in ticket
+		ticketDTOs.forEach(ticketDTO -> {
+
+			BookingDTO _bookingDTO = new BookingDTO();
+			_bookingDTO.setBooking_Id(booking.getBooking_Id());
+			ticketDTO.setBooking(_bookingDTO);
+			ticketService.save(ticketDTO);
+		});
 	}
 
 	@Override
@@ -75,9 +98,9 @@ public class BookingService implements IBookingService{
 	public List<BookingDTO> getBookings(String user_Id) {
 		List<Booking> bookings = bookingRepository.findByUser(new User(Integer.valueOf(user_Id)));
 		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		bookings.forEach(booking ->{
-			 BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
-			 bookingDTOs.add(bookingDTO);
+		bookings.forEach(booking -> {
+			BookingDTO bookingDTO = bookingConverter.toBookingDTO(booking);
+			bookingDTOs.add(bookingDTO);
 		});
 		return bookingDTOs;
 	}

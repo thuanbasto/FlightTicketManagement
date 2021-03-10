@@ -7,7 +7,7 @@ import com.tomcat.dto.TicketDTO;
 public interface ITicketService {
 	public List<TicketDTO> getList();
 
-	void save(TicketDTO dto);
+	TicketDTO save(TicketDTO dto);
 
 	TicketDTO getTicket(Integer id);
 	

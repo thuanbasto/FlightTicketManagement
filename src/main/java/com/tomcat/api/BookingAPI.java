@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,7 @@ public class BookingAPI {
 			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
 	}
 	
-	@GetMapping("/bookings/{id}")
+	@GetMapping(value="/bookings/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingDTO> getBooking(@PathVariable("id") String id) {
 		BookingDTO bookingDTO = bookingService.getBooking(Integer.valueOf(id));
 		if (bookingDTO != null) {
@@ -58,7 +59,7 @@ public class BookingAPI {
 		}
 	}
 
-	@PostMapping("/bookings")
+	@PostMapping(value = "/bookings", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO bookingDTO) {
 		bookingService.save(bookingDTO);
 		return new ResponseEntity<BookingDTO>(bookingDTO, HttpStatus.OK);

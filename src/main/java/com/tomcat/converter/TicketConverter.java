@@ -1,25 +1,28 @@
 package com.tomcat.converter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tomcat.dto.BookingDTO;
+import com.tomcat.dto.CustomerDTO;
+import com.tomcat.dto.FlightDTO;
+import com.tomcat.dto.SeatDTO;
+import com.tomcat.dto.SignedluggageDTO;
 import com.tomcat.dto.SignedluggagePriceDTO;
 import com.tomcat.dto.TaxDTO;
 import com.tomcat.dto.TaxPriceDTO;
 import com.tomcat.dto.TicketDTO;
+import com.tomcat.dto.TravelClassDTO;
 import com.tomcat.dto.TravelClassPriceDTO;
 import com.tomcat.entity.Booking;
-import com.tomcat.entity.Customer;
-import com.tomcat.entity.Flight;
-import com.tomcat.entity.Seat;
-import com.tomcat.entity.Signedluggage;
 import com.tomcat.entity.Tax;
 import com.tomcat.entity.Ticket;
 
@@ -28,170 +31,132 @@ public class TicketConverter {
 
 	@Autowired
 	ModelMapper mapper;
-
+	
 	@Autowired
-	private AirportConverter airportConverter;
+	private CustomerConverter customerConverter;
+	
+	@Autowired
+	private FlightConverter flightConverter;
+	
+	@Autowired
+	private BookingConverter bookingConverter;
+	
 
 	public TicketDTO toDTO(Ticket ticket) {
 
-		TicketDTO ticketDTO = mapper.map(ticket, TicketDTO.class);
+		TicketDTO ticketDTO = new TicketDTO();
 
-		if (ticketDTO.getBooking() != null) {
-			ticketDTO.getBooking().setTickets(null);
-			ticketDTO.getBooking().setUser(null);
-
+		ticketDTO.setTicket_Id(ticket.getTicket_Id());
+		ticketDTO.setTicket_PriceTotal(ticket.getTicket_PriceTotal());
+		
+		if(ticket.getBooking() != null) {
+			BookingDTO bookingDTO = bookingConverter.toBookingDTO(ticket.getBooking());
+			bookingDTO.setTickets(null);
+			ticketDTO.setBooking(bookingDTO); 
 		}
 
-		if (ticketDTO.getCustomer() != null) {
-			ticketDTO.getCustomer().setTickets(null);
-		}
+		CustomerDTO customerDTO = customerConverter.toDTO(ticket.getCustomer());
+		customerDTO.setTickets(null);
+		ticketDTO.setCustomer(customerDTO);// set customer dto
 
-		if (ticketDTO.getSeat() != null) {
-			ticketDTO.getSeat().setTickets(null);
-			if (ticketDTO.getSeat().getTravelClass() != null) {
-				ticketDTO.getSeat().getTravelClass().setSeats(null);
-				List<TravelClassPriceDTO> travelClassPrices = new ArrayList<TravelClassPriceDTO>();
-				travelClassPrices.addAll(ticketDTO.getSeat().getTravelClass().getTravelClassPrices());
-				Collections.reverse(travelClassPrices);
-				for (TravelClassPriceDTO travelClassPriceDTO : travelClassPrices) {
-					if (travelClassPriceDTO.getModifiedDate().compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
-						travelClassPriceDTO.setTravelclass(null);
-						List<TravelClassPriceDTO> travelClassPrices1 = new ArrayList<TravelClassPriceDTO>();
-						travelClassPrices1.add(travelClassPriceDTO);
-						ticketDTO.getSeat().getTravelClass().setTravelClassPrices(travelClassPrices1);
-						break;
-					}
+		SeatDTO seatDTO = mapper.map(ticket.getSeat(), SeatDTO.class);
+		TravelClassDTO travelClassDTO = seatDTO.getTravelClass();
+		List<TravelClassPriceDTO> travelclassPriceDTOs = travelClassDTO.getTravelClassPrices();
+
+		double travleClassPrice = 0;
+		double signedLuggagePrice=0;
+		double taxPrice = 0 ;
+		
+		// travel class price
+		if (!travelclassPriceDTOs.isEmpty() && ticket.getBooking() !=null) {
+			travelclassPriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+			Optional<TravelClassPriceDTO> travelClassPriceDTO = travelclassPriceDTOs.stream()
+					.filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0)
+					.findFirst();
+			
+			
+			
+			if (travelClassPriceDTO.isPresent() ) {
+				TravelClassPriceDTO _travelClassPriceDTO = travelClassPriceDTO.get();
+				travleClassPrice = _travelClassPriceDTO.getPrice(); // travle class price
+				_travelClassPriceDTO.setTravelclass(null);
+				travelClassDTO.setTravelClassPrices(Arrays.asList(_travelClassPriceDTO));
+			} else {
+				travelClassDTO.setTravelClassPrices(null);
+			}
+		}else {
+			travelClassDTO.setTravelClassPrices(null);
+		}
+		travelClassDTO.setSeats(null);
+		seatDTO.setTravelClass(travelClassDTO);
+
+		seatDTO.setTickets(null);
+		ticketDTO.setSeat(seatDTO); // set seat dto
+
+		SignedluggageDTO signedluggageDTO = mapper.map(ticket.getSignedluggage(), SignedluggageDTO.class);
+		List<SignedluggagePriceDTO> signedluggagePriceDTOs = signedluggageDTO.getSignedluggagePrices();
+		// signed luggage price
+		if (!signedluggagePriceDTOs.isEmpty() && ticket.getBooking() !=null) {
+			signedluggagePriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+			Optional<SignedluggagePriceDTO> signedluggagePriceDTO = signedluggagePriceDTOs.stream()
+					.filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0)
+					.findFirst();
+			if (signedluggagePriceDTO.isPresent()) {
+				SignedluggagePriceDTO _signedluggagePriceDTO = signedluggagePriceDTO.get();
+				signedLuggagePrice = _signedluggagePriceDTO.getPrice();
+				signedluggageDTO.setSignedluggagePrices(Arrays.asList(_signedluggagePriceDTO));
+			} else {
+				signedluggageDTO.setSignedluggagePrices(null);
+			}
+		}else {
+			signedluggageDTO.setSignedluggagePrices(null);
+		}
+		signedluggageDTO.setTickets(null);
+		ticketDTO.setSignedluggage(signedluggageDTO); // set signed luggage dto
+
+		FlightDTO flightDTO = flightConverter.toFlightDTO(ticket.getFlight());
+		flightDTO.setTickets(null);
+		ticketDTO.setFlight(flightDTO); // set flight dto
+		double flightPrice = flightDTO.getFlight_Price();
+
+		// tax
+		Set<Tax> taxes = ticket.getTaxs();
+		List<TaxDTO> taxDTOs = new ArrayList<>();
+		
+		for(Tax tax : taxes){
+			tax.setTickets(null);
+			TaxDTO taxDTO = mapper.map(tax, TaxDTO.class);
+			List<TaxPriceDTO> taxPriceDTOs = taxDTO.getTaxPrices();
+			if (!taxPriceDTOs.isEmpty() && ticket.getBooking() !=null) {
+				taxPriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+				Optional<TaxPriceDTO> taxPriceDTO = taxPriceDTOs.stream()
+						.filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0)
+						.findFirst();
+				
+				if (taxPriceDTO.isPresent()) {
+					TaxPriceDTO _taxPriceDTO = taxPriceDTO.get();
+					
+					 taxPrice += _taxPriceDTO.getPrice();
+					
+					_taxPriceDTO.setTax(null);
+					taxDTO.setTaxPrices(Arrays.asList(_taxPriceDTO));
+				} else {
+					taxDTO.setTaxPrices(null);
 				}
-
-			}
-		}
-
-		if (ticketDTO.getFlight() != null) {
-			ticketDTO.getFlight().setTickets(null);
-			if (ticketDTO.getFlight().getAirplane() != null) {
-				ticketDTO.getFlight().getAirplane().setFlights(null);
-			}
-			if (ticketDTO.getFlight().getFromAirport() != null) {
-				ticketDTO.getFlight()
-						.setFromAirport(airportConverter.toAirportDTO(ticket.getFlight().getFromAirport()));
-				ticketDTO.getFlight().getFromAirport().setCity(null);
-			}
-			if (ticketDTO.getFlight().getToAirport() != null) {
-				ticketDTO.getFlight().setToAirport(airportConverter.toAirportDTO(ticket.getFlight().getToAirport()));
-				ticketDTO.getFlight().getToAirport().setCity(null);
-			}
-		}
-
-		if (ticketDTO.getTaxs() != null) {
-			for (TaxDTO taxDTO : ticketDTO.getTaxs()) {
-				taxDTO.setTickets(null);
-				if (taxDTO.getTaxPrices() != null) {
-					List<TaxPriceDTO> taxPriceDTOs = new ArrayList<TaxPriceDTO>();
-					taxPriceDTOs.addAll(taxDTO.getTaxPrices());
-					Collections.reverse(taxPriceDTOs);
-					for (TaxPriceDTO taxPriceDTO : taxPriceDTOs) {
-							taxPriceDTO.setTax(null);
-						if (taxPriceDTO.getModifiedDate().compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
-							List<TaxPriceDTO> taxPriceDTOs1 = new ArrayList<TaxPriceDTO>();
-							taxPriceDTOs1.add(taxPriceDTO);
-							taxDTO.setTaxPrices(taxPriceDTOs1);
-							break;
-						}
-					}
-				}
-			}
-
-		}
-
-		if (ticketDTO.getSignedluggage() != null) {
-			ticketDTO.getSignedluggage().setTickets(null);
-			if (ticketDTO.getSignedluggage().getSignedluggagePrices() != null) {
-				List<SignedluggagePriceDTO> signedluggagePriceDTOs = new ArrayList<SignedluggagePriceDTO>();
-				signedluggagePriceDTOs.addAll(ticketDTO.getSignedluggage().getSignedluggagePrices());
-				Collections.reverse(signedluggagePriceDTOs);
-				for (SignedluggagePriceDTO signedluggagePriceDTO : signedluggagePriceDTOs) {
-					if (signedluggagePriceDTO.getModifiedDate().compareTo(ticketDTO.getBooking().getBookingDate()) < 0) {
-						List<SignedluggagePriceDTO> signedluggagePriceDTOs1 = new ArrayList<SignedluggagePriceDTO>();
-						signedluggagePriceDTOs1.add(signedluggagePriceDTO);
-						ticketDTO.getSignedluggage().setSignedluggagePrices(signedluggagePriceDTOs1);
-						break;
-					}
-				}
-
-			}
-		}
-		
-		double flightPrice = ticketDTO.getFlight().getFlight_Price();
-		
-		double seatPrice = ticketDTO.getSeat().getTravelClass().getTravelClassPrices().get(0).getPrice();
-		
-		double signedluggagePrice = ticketDTO.getSignedluggage().getSignedluggagePrices().get(0).getPrice();
-		
-		
-		double taxPrice = 0;
-		
-		for(TaxDTO tax : ticketDTO.getTaxs()) {
-			if(tax.getTaxPrices().isEmpty()) {
-				taxPrice = 0;
 			}else {
-				taxPrice += tax.getTaxPrices().get(0).getPrice();
+				taxDTO.setTaxPrices(null);
 			}
+			taxDTOs.add(taxDTO);
 		}
+		ticketDTO.setTaxs(taxDTOs);
 		
-		ticketDTO.setTicket_PriceTotal(flightPrice + seatPrice + signedluggagePrice + taxPrice);
-
+		ticketDTO.setTicket_PriceTotal( travleClassPrice + signedLuggagePrice + taxPrice + flightPrice);
+		
 		return ticketDTO;
 	}
 	
 	public Ticket toEntity(TicketDTO ticketDTO) {
-		Ticket ticket = new Ticket();
-		
-		if(ticketDTO.getTicket_Id() != null) {
-			ticket.setTicket_Id(ticketDTO.getTicket_Id());
-		}
-		
-		Customer customer = new Customer();
-		customer.setCustomer_Id(ticketDTO.getCustomer_Id());
-		
-		Booking booking = new Booking();
-		if(ticketDTO.getBooking_Id() == null) {
-			ticket.setBooking(null);
-		}else {
-			booking.setBooking_Id(ticketDTO.getBooking_Id());
-			ticket.setBooking(booking);
-		}
-		
-		Flight flight = new Flight();
-		flight.setFlight_Id(ticketDTO.getFlight_Id());
-		
-		Seat seat = new Seat();
-		seat.setSeat_Id(ticketDTO.getSeat_Id());
-		
-		Signedluggage signedluggage = new Signedluggage();
-		signedluggage.setSignedLuggage_Id(ticketDTO.getSignedLuggage_Id());
-		
-		Set<Tax> taxs = new LinkedHashSet<Tax>();
-		
-		for(Integer integer : ticketDTO.getTax_Id()) {
-			Tax tax = new Tax();
-			tax.setTax_Id(integer);
-			taxs.add(tax);
-		}
-		
-
-		ticket.setCustomer(customer);
-		ticket.setFlight(flight);
-		ticket.setSeat(seat);
-		ticket.setSignedluggage(signedluggage);
-		ticket.setTaxs(taxs);
-		return ticket;
-	}
-	
-	public Ticket toEntity(TicketDTO ticketDTO, Ticket ticket) {
-
-		ticket = mapper.map(ticketDTO, Ticket.class);
-
-		return ticket;
+		return mapper.map(ticketDTO, Ticket.class);
 	}
 
 }

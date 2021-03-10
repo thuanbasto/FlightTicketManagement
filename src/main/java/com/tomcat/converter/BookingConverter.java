@@ -85,6 +85,7 @@ public class BookingConverter {
 			ticketDTO.setBooking(null); // set null booking
 
 			CustomerDTO customerDTO = customerConverter.toDTO(ticket.getCustomer());
+			customerDTO.setTickets(null);
 			ticketDTO.setCustomer(customerDTO);// set customer dto
 
 			SeatDTO seatDTO = modelMapper.map(ticket.getSeat(), SeatDTO.class);

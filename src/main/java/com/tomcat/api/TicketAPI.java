@@ -31,7 +31,7 @@ public class TicketAPI {
 		return new ResponseEntity<>(ticketDTOs, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/ticket/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> getTicket(@PathVariable("id") Integer id) {
 		TicketDTO ticketDTO = ticketService.getTicket(id);
 		if (ticketDTO.getTicket_Id() == null) {
@@ -42,7 +42,7 @@ public class TicketAPI {
 		}
 	}
 
-	@RequestMapping(value = "/ticket", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/tickets", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> addticket(@RequestBody TicketDTO ticketDTO) {
 
 		ticketService.save(ticketDTO);
@@ -50,7 +50,7 @@ public class TicketAPI {
 		return new ResponseEntity<>(ticketDTO, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/ticket/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> updateticket(@RequestBody TicketDTO ticketDTO, @PathVariable Integer id) {
 		TicketDTO _ticketDTO = ticketService.getTicket(id);
 		if (_ticketDTO.getTicket_Id() != null) {
@@ -61,7 +61,7 @@ public class TicketAPI {
 		}
 	}
 
-	@RequestMapping(value = "/ticket/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteTicket(@PathVariable("id") Integer id) {
 
 		try {
