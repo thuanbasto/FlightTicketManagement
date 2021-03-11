@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.tomcat.converter.SignedLuggagePriceConverter;
 import com.tomcat.dto.SignedluggagePriceDTO;
-import com.tomcat.entity.Signedluggage;
 import com.tomcat.entity.SignedluggagePrice;
 import com.tomcat.repository.SignedLuggagePriceRepository;
 import com.tomcat.repository.SignedLuggageRepository;
@@ -51,33 +50,21 @@ public class SignedLuggagePriceServices implements ISignedLuggagePriceServices {
 	public SignedluggagePriceDTO findById(Integer id) {
 		SignedluggagePrice signedluggagePrice = signedLuggagePriceRepository.findOne(id);
 		
-		SignedluggagePriceDTO signedluggagePriceDTO = new SignedluggagePriceDTO();
+		if(signedluggagePrice != null) {
+			SignedluggagePriceDTO signedluggagePriceDTO = signedLuggagePriceConverter.toDTO(signedluggagePrice);
+			return signedluggagePriceDTO;
+		}
 		
-		signedluggagePriceDTO = signedLuggagePriceConverter.toDTO(signedluggagePrice);
-		
-		return signedluggagePriceDTO;
+		return new SignedluggagePriceDTO();
 	}
 	
 	@Transactional
 	@Override
-	public SignedluggagePriceDTO save(SignedluggagePriceDTO SignedluggagePriceDTO) {
-		
-		SignedluggagePrice SignedluggagePrice = new SignedluggagePrice();
-		
-		if(SignedluggagePriceDTO.getPrice_Id() != null && SignedluggagePriceDTO.getSignedLuggage_Id() != null ) {
-			SignedluggagePrice oldSignedluggagePrice = signedLuggagePriceRepository.findOne(SignedluggagePriceDTO.getPrice_Id());				
-			SignedluggagePrice = signedLuggagePriceConverter.toEntity(SignedluggagePriceDTO,oldSignedluggagePrice);
-			Signedluggage Signedluggage = signedLuggageRepository.findOne(SignedluggagePriceDTO.getSignedLuggage_Id());
-			SignedluggagePrice.setSignedluggage(Signedluggage);
-		}else if (SignedluggagePriceDTO.getPrice_Id() != null && SignedluggagePriceDTO.getSignedLuggage_Id() == null) {
-			SignedluggagePrice oldSignedluggagePrice = signedLuggagePriceRepository.findOne(SignedluggagePriceDTO.getPrice_Id());	
-			SignedluggagePrice = signedLuggagePriceConverter.toEntity(SignedluggagePriceDTO,oldSignedluggagePrice);
-		}else {
-			SignedluggagePrice = signedLuggagePriceConverter.toEntity(SignedluggagePriceDTO);
-			Signedluggage Signedluggage = signedLuggageRepository.findOne(SignedluggagePriceDTO.getSignedLuggage_Id());
-			SignedluggagePrice.setSignedluggage(Signedluggage);
-		}
-		return signedLuggagePriceConverter.toDTO(signedLuggagePriceRepository.save(SignedluggagePrice));
+	public SignedluggagePriceDTO save(SignedluggagePriceDTO signedluggagePriceDTO) {
+		SignedluggagePrice signedluggagePrice = signedLuggagePriceConverter.toEntity(signedluggagePriceDTO);
+		signedluggagePrice = signedLuggagePriceRepository.save(signedluggagePrice);
+		signedluggagePriceDTO.setPrice_Id(signedluggagePrice.getPrice_Id());
+		return signedluggagePriceDTO;
 	}
 
 
