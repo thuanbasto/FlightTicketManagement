@@ -24,7 +24,7 @@ public class SignedLuggageAPI {
 	@Autowired
 	ISignedluggageService signedLuggageService;
 
-	@RequestMapping(value = "/signedluggage", method = RequestMethod.GET ,produces = {
+	@RequestMapping(value = "/signedluggage", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<SignedluggageDTO>> getLuggages() {
 		List<SignedluggageDTO> signedluggageDTOs = signedLuggageService.getList();
@@ -46,41 +46,35 @@ public class SignedLuggageAPI {
 
 	@RequestMapping(value = "/signedluggage", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<SignedluggageDTO> createLuggage(@RequestBody SignedluggageDTO signedluggageDTO) {
-		SignedluggageDTO _signedluggageDTO = signedLuggageService.save(signedluggageDTO);
-
-		if (_signedluggageDTO == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(_signedluggageDTO, HttpStatus.OK);
-
+	public ResponseEntity<SignedluggageDTO> addLuggage(@RequestBody SignedluggageDTO signedluggageDTO) {
+		signedluggageDTO = signedLuggageService.save(signedluggageDTO);
+		return new ResponseEntity<>(signedluggageDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggage", method = RequestMethod.PUT, produces = {
+	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<SignedluggageDTO> updateLuggage(@RequestBody SignedluggageDTO signedluggageDTO) {
-		SignedluggageDTO _signedluggageDTO = signedLuggageService.save(signedluggageDTO);
+	public ResponseEntity<SignedluggageDTO> updateLuggage(@RequestBody SignedluggageDTO signedluggageDTO,@PathVariable("id") Integer id) {
+		
+		SignedluggageDTO _signedluggageDTO = signedLuggageService.findById(id);
 
-		if (_signedluggageDTO == null) {
+		if (_signedluggageDTO != null) {
+			signedLuggageService.save(signedluggageDTO);
+			return new ResponseEntity<>(signedluggageDTO,HttpStatus.OK);
+		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<>(_signedluggageDTO, HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> updateLuggage(@PathVariable("id") Integer id) {
-		
+	public ResponseEntity<String> deleteLuggage(@PathVariable("id") Integer id) {
 		try {
 			signedLuggageService.delete(id);
-			return new ResponseEntity<>("deleted successfully",HttpStatus.OK);
+			return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("deleted found",HttpStatus.NOT_FOUND);
 		}
-		
+
 	}
 
 }
-

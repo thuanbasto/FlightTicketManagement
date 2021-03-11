@@ -39,10 +39,12 @@ public class SignedLuggageConverter {
 	}
 
 	public Signedluggage toEntity(SignedluggageDTO signedluggageDTO) {
-
-		Signedluggage signedluggage = mapper.map(signedluggageDTO, Signedluggage.class);
-
+		Signedluggage signedluggage = new Signedluggage();		
+		signedluggage.setName(signedluggageDTO.getName());
+		signedluggage.setSignedLuggage_Id(signedluggageDTO.getSignedLuggage_Id());
+		signedluggage.setWeight(signedluggageDTO.getWeight());		
 		return signedluggage;
+		
 	}
 
 	public Signedluggage toEntity(SignedluggageDTO signedluggageDTO, Signedluggage signedluggage) {

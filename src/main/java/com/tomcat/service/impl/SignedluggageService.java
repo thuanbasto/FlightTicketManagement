@@ -18,7 +18,7 @@ import com.tomcat.service.ISignedluggageService;
 public class SignedluggageService implements ISignedluggageService {
 
 	@Autowired
-	SignedLuggageRepository SignedLuggageRepository;
+	SignedLuggageRepository signedLuggageRepository;
 
 	@Autowired
 	SignedLuggageConverter signedLuggageConverter;
@@ -27,7 +27,7 @@ public class SignedluggageService implements ISignedluggageService {
 	@Override
 	public List<SignedluggageDTO> getList() {
 		List<SignedluggageDTO> signedluggageDTOs = new ArrayList<>();
-		List<Object[]> objs = SignedLuggageRepository.getSignedLuggages();
+		List<Object[]> objs = signedLuggageRepository.getSignedLuggages();
 		
 		objs.forEach(luggage -> signedluggageDTOs.add(signedLuggageConverter.toDTO(luggage)));
 
@@ -37,7 +37,7 @@ public class SignedluggageService implements ISignedluggageService {
 	@Transactional
 	@Override
 	public SignedluggageDTO findById(Integer id) {
-		Object[] obj = SignedLuggageRepository.getSignedLuggage(id);
+		Object[] obj = signedLuggageRepository.getSignedLuggage(id);
 		if(obj.length == 0) {
 			return null;
 		}
@@ -48,22 +48,16 @@ public class SignedluggageService implements ISignedluggageService {
 	
 	@Override
 	public SignedluggageDTO save(SignedluggageDTO signedluggageDTO) {
-		Signedluggage signedluggage = new Signedluggage();
-		if(signedluggageDTO.getSignedLuggage_Id() != null) {
-			Signedluggage oldSignedluggage = SignedLuggageRepository.findOne(signedluggageDTO.getSignedLuggage_Id());
-			signedluggage = signedLuggageConverter.toEntity(signedluggageDTO, oldSignedluggage);
-		}else {
-			signedluggage = signedLuggageConverter.toEntity(signedluggageDTO);
-		}
-		return null;
+		Signedluggage signedluggage = signedLuggageConverter.toEntity(signedluggageDTO);
+		signedluggage = signedLuggageRepository.save(signedluggage);		
+		signedluggageDTO.setSignedLuggage_Id(signedluggage.getSignedLuggage_Id());
+		return signedluggageDTO;
 	}
 	
 	@Override
 	@Transactional
 	public void delete(Integer id) {
-		
-			SignedLuggageRepository.delete(id);
-	
+		signedLuggageRepository.delete(id);	
 	}
 
 }
