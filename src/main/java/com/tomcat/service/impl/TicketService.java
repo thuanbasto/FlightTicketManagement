@@ -2,6 +2,7 @@ package com.tomcat.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.tomcat.converter.CustomerConverter;
 import com.tomcat.converter.TicketConverter;
+import com.tomcat.dto.TaxDTO;
 import com.tomcat.dto.TicketDTO;
 import com.tomcat.entity.Customer;
+import com.tomcat.entity.Tax;
 import com.tomcat.entity.Ticket;
 import com.tomcat.repository.CustomerRepository;
+import com.tomcat.repository.TaxRepository;
 import com.tomcat.repository.TicketRepository;
+import com.tomcat.service.ITaxService;
 import com.tomcat.service.ITicketService;
 
 @Service
@@ -25,6 +30,12 @@ public class TicketService implements ITicketService {
 
 	@Autowired
 	TicketConverter ticketConverter;
+	
+	@Autowired
+	ITaxService taxService;
+	
+	@Autowired
+	TaxRepository taxRepository;
 	
 	@Autowired
 	CustomerRepository customerRepository;
@@ -60,14 +71,21 @@ public class TicketService implements ITicketService {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 //	@Transactional
 	public void save(TicketDTO ticketDTO) {
+		
+//		List<TaxDTO> taxes = taxService.getTaxes();
+//		ticketDTO.setTaxs(taxes);
 		Ticket ticket = ticketConverter.toEntity(ticketDTO);
+		List<Tax> taxes = taxRepository.findAll();
+		ticket.setTaxs((Set<Tax>) taxes);
 		
 		Customer customer = ticket.getCustomer();
 		customerRepository.save(customer);
 		ticket.setCustomer(customer);
+		
 		ticketRepository.save(ticket);
 		
 	}

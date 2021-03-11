@@ -1,5 +1,6 @@
 package com.tomcat.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +31,9 @@ public class BookingService implements IBookingService {
 	@Autowired
 	private BookingConverter bookingConverter;
 
-	
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private TicketRepository ticketRepository;
 
@@ -76,25 +76,30 @@ public class BookingService implements IBookingService {
 	@Transactional
 	public void save(BookingDTO bookingDTO) {
 		
+		Date date = new Date();
+
 		Booking booking = bookingConverter.toBooking(bookingDTO);
+
 		List<Ticket> tickets = new ArrayList<Ticket>();
-		booking.getTickets().forEach(ticket ->{
+		booking.getTickets().forEach(ticket -> {
 			Customer customer = ticket.getCustomer();
 			customerRepository.save(customer);
-			
+
 			ticket.setCustomer(customer);
 			ticketRepository.save(ticket);
 			tickets.add(ticket);
 		});
 		booking.setTickets(null);
-		bookingRepository.save(booking);
+		booking.setBookingDate(date);
 		
-	// update booking id in ticket
-		tickets.forEach(ticket->{
+		bookingRepository.save(booking);
+
+		// update booking id in ticket
+		tickets.forEach(ticket -> {
 			ticket.setBooking(booking);
 			ticketRepository.save(ticket);
 		});
-		
+
 	}
 
 	@Override
