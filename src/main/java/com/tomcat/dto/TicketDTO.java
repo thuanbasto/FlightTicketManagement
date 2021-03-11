@@ -88,5 +88,4 @@ public class TicketDTO implements Serializable {
 	public void setTaxs(List<TaxDTO> taxs) {
 		this.taxs = taxs;
 	}
-
 }
