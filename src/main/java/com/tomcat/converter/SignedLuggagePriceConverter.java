@@ -1,5 +1,7 @@
 package com.tomcat.converter;
 
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,21 +19,14 @@ public class SignedLuggagePriceConverter {
 
 		SignedluggagePriceDTO signedluggagePriceDTO = mapper.map(signedluggagePrice, SignedluggagePriceDTO.class);
 
-		// signedluggagePriceDTO.setSignedLuggage_Id(null);
-
-		/*
-		 * if(signedluggagePrice.getSignedluggage() != null) {
-		 * signedluggagePriceDTO.setSignedLuggage_Id(signedluggagePrice.getSignedluggage
-		 * ().getSignedLuggage_Id()); }else {
-		 * signedluggagePriceDTO.setSignedLuggage_Id(null); }
-		 */
-
 		return signedluggagePriceDTO;
 	}
 
 	public SignedluggagePrice toEntity(SignedluggagePriceDTO signedluggagePriceDTO) {
 
 		SignedluggagePrice signedluggage = mapper.map(signedluggagePriceDTO, SignedluggagePrice.class);
+		
+		signedluggage.setModifiedDate(new Date());
 
 		return signedluggage;
 	}
@@ -40,8 +35,6 @@ public class SignedLuggagePriceConverter {
 			SignedluggagePrice signedluggagePrice) {
 
 		signedluggagePrice = mapper.map(signedluggagePriceDTO, SignedluggagePrice.class);
-
-		// signedluggagePriceDTO.setSignedLuggage_Id(signedluggagePrice.getSignedluggage().getSignedLuggage_Id());
 
 		return signedluggagePrice;
 	}
