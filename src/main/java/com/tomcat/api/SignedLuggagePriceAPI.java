@@ -36,7 +36,7 @@ public class SignedLuggagePriceAPI {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggagePriceDTO> getLuggagePrice(@PathVariable("id") Integer id) {
 		SignedluggagePriceDTO signedluggagePriceDTO = signedLuggagePriceServices.findById(id);
-		if (signedluggagePriceDTO == null) {
+		if (signedluggagePriceDTO.getPrice_Id() == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(signedluggagePriceDTO, HttpStatus.OK);
@@ -46,25 +46,22 @@ public class SignedLuggagePriceAPI {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggagePriceDTO> createLuggagePrice(
 			@RequestBody SignedluggagePriceDTO signedluggagePriceDTO) {
-		SignedluggagePriceDTO _signedluggagePriceDTO = signedLuggagePriceServices.save(signedluggagePriceDTO);
-
-		if (_signedluggagePriceDTO == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(_signedluggagePriceDTO, HttpStatus.OK);
+		signedluggagePriceDTO = signedLuggagePriceServices.save(signedluggagePriceDTO);
+		return new ResponseEntity<>(signedluggagePriceDTO, HttpStatus.OK);
 
 	}
 
-	@RequestMapping(value = "/signedluggageprice", method = RequestMethod.PUT, produces = {
+	@RequestMapping(value = "/signedluggageprice/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<SignedluggagePriceDTO> updateLuggagePrice(
-			@RequestBody SignedluggagePriceDTO signedluggagePriceDTO) {
-		SignedluggagePriceDTO _signedluggagePriceDTO = signedLuggagePriceServices.save(signedluggagePriceDTO);
+	public ResponseEntity<SignedluggagePriceDTO> updateLuggagePrice(@RequestBody SignedluggagePriceDTO signedluggagePriceDTO, @PathVariable("id") Integer id) {
+		
+		SignedluggagePriceDTO _signedluggagePriceDTO = signedLuggagePriceServices.findById(id);
 
-		if (_signedluggagePriceDTO == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if (_signedluggagePriceDTO != null) {
+			signedLuggagePriceServices.save(signedluggagePriceDTO);
+			return new ResponseEntity<>(signedluggagePriceDTO, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(_signedluggagePriceDTO, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 	}
 
