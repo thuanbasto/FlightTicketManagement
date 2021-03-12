@@ -1,27 +1,32 @@
 $('#ftab').trigger('click');
 
-$('#search_btn').on('click', function(e) {
+$('#btnSearch').on('click', function(e) {
     e.preventDefault();
-    let number = parseInt($('#adult').val()) + parseInt($('#child').val())
-    console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
-    window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
-
+    if ($("#from").val() == 0 || $("#to").val() == 0 || $("#departureDate").val() == "" || $("#adult").val() == 0){
+        alert("Please fill full field!")
+    } else {
+        let number = parseInt($('#adult').val()) + parseInt($('#child').val())
+        // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
+        window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
+    }
 });
 
 
 
 
-function loadCitySelect() {
+function loadCities() {
     $.ajax({
-        url: "/FlightTicketManagement/api/cities",
+        url: "/FlightTicketManagement/api/airports",
         async: false,
+        dataType: "JSON",
         success: function(response) {
-            var htmlStr = `<option value="0"></option>`;
+            var htmlStr = `<option value="0">Select city</option>`;
             // lap qua ket qua tra ve & tao html theo mong muon
-            $(response).find("item").each(function() {
-                var cityId = $(this).find("city_Id").text();
-                var cityName = $(this).find("name").text();
-                htmlStr = htmlStr + `<option value="${cityId}">${cityName} (${cityId})</option>`;
+            $.each(response,function(index,value){
+                var airport_Id = value.airport_Id;
+                var cityName = value.city.name;
+
+                htmlStr = htmlStr + `<option value="${airport_Id}">${cityName} (${airport_Id})</option>`;
             });
             //hien thi len
             $("#from").html(htmlStr);
@@ -34,7 +39,7 @@ function loadCitySelect() {
     });
 }
 
-loadCitySelect();
+loadCities();
 
 $('#from').on('change', function(e) { // hide fromcity when selected in tocity
     $(`#to option`).show();
@@ -58,13 +63,13 @@ $('.dropdown-content input').on('input', function(e) {
 
 $('.btn.btn-primary.dropdown-toggle').on('click', function(e) {
     // e.stopPropagation();
-    console.log('sdsd');
+    // console.log('sdsd');
 });
 
 
 $('#ngayden').hide();
 
-var chieu_ve = 'ow';
+var chieu_ve = 'oneway';
 $('ul[data-tag="channelList"] > li').click(function() {
 
     $('ul[data-tag="channelList"] li').each(function() {
@@ -76,17 +81,17 @@ $('ul[data-tag="channelList"] > li').click(function() {
     $(this).addClass("selected");
     chieu_ve = $(this).data('id');
 
-    if ($(this).data('id') == 'ow') {
+    if ($(this).data('id') == 'oneway') {
         $('#ngayden').hide();
     } else {
         $('#ngayden').show();
     }
-    console.log($(this).val());
+    // console.log($(this).val());
 
 
-    $('#search_btn').click(function() {
-        console.log('trunghieuclick');
-        console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
+    $('#btnSearch').click(function() {
+        // console.log('trunghieuclick');
+        // console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
         $.ajax({
             type: "POST",
             url: 'search',

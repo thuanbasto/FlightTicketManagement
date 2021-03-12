@@ -34,7 +34,6 @@ function getUser() {
             user = response;
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
         }
     })
 }

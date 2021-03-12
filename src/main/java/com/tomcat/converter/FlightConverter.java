@@ -93,5 +93,33 @@ public class FlightConverter {
 
 		return flightDTO;
 	}
+	
+	public FlightDTO toDTOfindSeat(Object[] obj) {
+		FlightDTO flightDTO = new FlightDTO();
+		flightDTO.setFlight_Id(Integer.valueOf(String.valueOf(obj[0])));
+		
+		AirportDTO fromAirport = airportService.get(String.valueOf(obj[1]));
+		flightDTO.setFromAirport(fromAirport);
+		AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
+		flightDTO.setToAirport(toAirport);
+		AirplaneDTO airplaneDTO = new AirplaneDTO();
+		airplaneDTO.setAirplane_Id(String.valueOf(obj[6]));
+		flightDTO.setAirplane(airplaneDTO);
+		flightDTO.setArrivalDate((Date) obj[4]);
+		flightDTO.setDepartureDate((Date) obj[3]);
+		flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
+		flightDTO.setSeat_Id(String.valueOf(obj[7]));
+		flightDTO.setTravelClass_Id(Integer.valueOf(String.valueOf(obj[8])));
+		
+		
+		 List<String> listOfSeat_Id = new ArrayList<String>();
+		 listOfSeat_Id.add(flightDTO.getSeat_Id());
+		  
+		 flightDTO.setListOfSeat_Id(listOfSeat_Id);
+		 
+		
+		return flightDTO;
+	}
+
 
 }
