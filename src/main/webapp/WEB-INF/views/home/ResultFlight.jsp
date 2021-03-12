@@ -31,10 +31,13 @@
 
                 </tbody>
             </table>
+            <div class="text-center notFound">
+                                            
+            </div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-lg"
-                    style="overflow-y: scroll; max-height:60%;  margin-top: 50px; margin-bottom:50px;">
+                    style="overflow-y: scroll; max-height:60%; max-width: 80%; margin-top: 50px; margin-bottom:50px;">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
@@ -61,10 +64,10 @@
                                                 <h6>Contact Info</h6>
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <input class="form-control" id="phone" type="number" required placeholder="Phone Number">
+                                                        <input class="form-control" maxlength="10" id="phone" type="text" placeholder="Phone Number">
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <input class="form-control" id="email" type="email" required placeholder="Email">
+                                                        <input class="form-control" id="email" type="email" placeholder="Email">
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,15 +85,12 @@
                                                 <jsp:include page="ViewSeat.jsp" />
                                             </div>
                                             <div class="col-5 mx-auto">
-                                                <div class="col-10 mx-auto"
-                                                    style="margin-top: 261px; margin-bottom: 50px;">
-                                                    <select class="form-control" id="customerListDDL"
-                                                        style="text-align-last: center;">
+                                                <div class="col-10 mx-auto" style="margin-top: 261px; margin-bottom: 50px;">
+                                                    <select class="form-control" id="customerListDDL" style="text-align-last: center;">
           
                                                     </select>
                                                 </div>
-                                                <div id="seatInfo"
-                                                    style="border : 1px solid #ced4da;padding : 10px;height:100px">
+                                                <div id="seatInfo" style="height:100px">
                                                 </div>
                                             </div>
                                         </div>
@@ -103,12 +103,11 @@
                         </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="btnPrev" href="#demo"
-                                data-slide="prev">Prev</button>
-                            <button type="button" hidden class="btn btn-success" id="btnNext" href="#demo"
-                                data-slide="next">Next</button>
-                                <button type="button" class="btn btn-success" id="btnCheckNext"
-                                >Next__</button>
+                            <button type="button" hidden class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
+                            <button type="button" hidden class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
+                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button> 
+                            <button type="button" class="btn btn-secondary" id="btnCheckPrev">Prev</button>
+                            <button type="button" class="btn btn-success" id="btnCheckNext">Next</button>
                         </div>
                     </div>
                 </div>

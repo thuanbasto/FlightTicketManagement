@@ -5,10 +5,11 @@ var signedLuggageList = [];
 var seatList = [];
 var bookedSeatList = [];
 var customerList = [];
-var ticketList = [];
+var tickets = [];
 var chosenFlight = {};
 var bookingList = [];
 var chosenBooking = {}; 
+var user = {};
 
 var choose = false; // check if false create customer field
 var flight_Id = 0;
@@ -21,7 +22,22 @@ loadSignedLuggages();
 loadTravelClasses();
 loadTaxes();
 loadSearchResults();
+getUser();
 
+function getUser() {
+    $.ajax({
+        url: "/FlightTicketManagement/api/users/" + $(".username").data("username"),
+        async: false,
+        type: "get",
+        dataType: "JSON",
+        success: function(response) {
+            user = response;
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    })
+}
 
 function loadSignedLuggages() {
     $.ajax({
@@ -137,6 +153,7 @@ function loadBookedSeat(id) {
     })
 
     $(".cabin").html(htmlCabin)
+
 }
 
 function loadSearchResults() {
@@ -146,33 +163,30 @@ function loadSearchResults() {
         type: "get",
         dataType: "JSON",
         success: function(response) {
-
             var htmlStr = '';
             for (var i = 0; i < response.length; i++) {
                 bookingList.push({
-                    ticketList : ticketList,
+                    tickets : tickets,
                     flight_Id : response[i].flight_Id
                 });
 
                 flightList.push(response[i]);
                 htmlStr +=
                     `<tr>
-                <td>${response[i].flight_Id}</td>
+                <td>✈${response[i].flight_Id}</td>
                 <td>${response[i].departureDate}</td>
                 <td>${response[i].arrivalDate}</td>
                 <td>-----</td>
                 <td>
-                	<button id="choose" data-id="${response[i].flight_Id}" class="btn btn-outline-warning" data-toggle="modal" data-target="#myModal">Choose</button>
+                    <button id="choose" data-id="${response[i].flight_Id}" class="btn btn-info" data-toggle="modal" data-target="#myModal">Choose</button>
                 </td>
             </tr>`;
-
             }
             $('#tbodyData').html(htmlStr)
-
-
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
+            $(".notFound").html("<h2>Not found flight 😢</h2>")
         }
 
     })
@@ -181,7 +195,7 @@ function loadSearchResults() {
 $('#myModal').on('hidden.bs.modal', function () {
     bookingList.forEach(booking => {
         if (booking.flight_Id == flight_Id){
-            booking.ticketList = ticketList;
+            booking.tickets = tickets;
         }
     })
 });
@@ -189,10 +203,11 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 $('body').on('click', '#choose', function() {
     index = 1;
-    
+    $("#btnPay").hide();
+
     bookingList.forEach(booking => {
         if (booking.flight_Id == $(this).data("id")){
-            ticketList = booking.ticketList;
+            tickets = booking.tickets;
         }
     })
 
@@ -209,22 +224,45 @@ $('body').on('click', '#choose', function() {
         }
     }
     // load informate of flight
+    
     let htmlFlightData =
     `<tr>
         <td><b>From:</b> ${flight.fromAirport.city.name} (${flight.fromAirport.city.city_Id})</td>
-        <td><b>To</b> ${flight.departureDate}</td>
-        <td><b>Flight name</b> ${flight.fromAirport.name} (${flight.fromAirport.airport_Id})</td>
+        <td><b>Departure:</b> ${flight.departureDate}</td>
+        <td><b>From airport</b> ${flight.fromAirport.name} (${flight.fromAirport.airport_Id})</td>
     </tr>
     <tr>
-        <td>${flight.toAirport.city.name} (${flight.toAirport.city.city_Id})</td>
-        <td>${flight.arrivalDate}</td>
-        <td>${flight.toAirport.name} (${flight.toAirport.airport_Id})</td>
+        <td><b>To:</b> ${flight.toAirport.city.name} (${flight.toAirport.city.city_Id})</td>
+        <td><b>Arrival:</b> ${flight.arrivalDate}</td>
+        <td><b>To airport:</b> ${flight.toAirport.name} (${flight.toAirport.airport_Id})</td>
     </tr>
     <tr>
-        <td>${flight.airplane.name}</td>
-        <td>Tax Price: ${formatVND(totalTaxPrice)}</td>
-        <td>Basic Price: ${formatVND(flight.flight_Price)}</td>
+        <td><b>Flight name:</b> ${flight.airplane.name}</td>
+        <td><b>Tax Price:</b> ${formatVND(totalTaxPrice)}</td>
+        <td><b>Flight Price:</b> ${formatVND(flight.flight_Price)}</td>
     </tr>`;
+
+    // let htmlTravelClass = `
+    //     <div class="row">
+    //         <div class="col-sm-4">
+    //             <b>Travel class</b>
+    //         </div>
+    //         <div class="col-sm-8">
+    //             <table class="table">
+    //                 <tbody>`;
+    // travelClassList.forEach(travelClass => {
+    //     htmlTravelClass += `
+    //         <tr>
+    //             <td>${travelClass.name}: ${formatVND(travelClass.travelClassPrices[0].price)}<td>
+    //         </tr>`
+    // })
+    // htmlTravelClass += 
+    //                 `</tbody>
+    //             </table>
+    //         </div>
+    //     </div>`
+
+    // htmlFlightData += htmlTravelClass;
 
     if (choose == false){
         choose = true;
@@ -236,7 +274,7 @@ $('body').on('click', '#choose', function() {
     let htmlSeatInfo = ``;
     bookingList.forEach(booking => {
         if (booking.flight_Id == $(this).data('id')){
-            booking.ticketList.forEach(ticket => {
+            booking.tickets.forEach(ticket => {
                 if (ticket.seat.seat_Id != ""){
                     $(`#${ticket.seat.seat_Id}`).prop('checked', true);
                 }
@@ -247,7 +285,6 @@ $('body').on('click', '#choose', function() {
     $("#seatInfo").html(htmlSeatInfo);
 
     $('#tbodyModalData').html(htmlFlightData);
-    console.log(flight)
 })
 
 function loadCustomerField() {
@@ -274,15 +311,15 @@ function loadCustomerField() {
         <div class="customerInfo">
             <div class="row name">
                 <div class="col-sm-6">
-                    <input class="firstName form-control mb-2" required type="text" placeholder="First Name">
+                    <input class="firstName form-control mb-2" type="text" placeholder="First Name">
                 </div>
                 <div class="col-sm-6 mb-2">
-                    <input class="lastName form-control" required type="text" placeholder="Last Name">
+                    <input class="lastName form-control" type="text" placeholder="Last Name">
                 </div>
             </div>
             <div class="row birthdayAndSignedLuggage">
                 <div class="col-sm-6">
-                    <input class="birthday form-control" required max="9999-01-01" type="date">
+                    <input class="birthday form-control" max="9999-01-01" type="date">
                 </div>
                 <div class="col-sm-6">
                     ${htmlSignedLuggageDDL}  
@@ -293,7 +330,21 @@ function loadCustomerField() {
     $('#customerData').html(htmlCustomerInfo);
 }
 
+function delayButton() {
+    $("#btnCheckNext").prop("disabled", true);
+    setTimeout(() => {
+        $("#btnCheckNext").prop("disabled", false);
+    }, 1000);
+    
+    $("#btnCheckPrev").prop("disabled", true);
+    setTimeout(() => {
+        $("#btnCheckPrev").prop("disabled", false);
+    }, 1000);
+}
+
 $("#btnCheckNext").on("click", function() {
+    delayButton()
+
     if (index == 2){
         if ($("#email").val() != "" && $("#phone").val() != ""){
             let check = true;
@@ -326,41 +377,72 @@ $("#btnCheckNext").on("click", function() {
     }
 
     if (index == 3) {
-        if (ticketList.length == 0)
-            loadChooseSeat();
+        loadChooseSeat();
         $("#btnNext").click();
     }
-
+    $("#btnPay").hide();
     if (index == 4) {
-        loadPay();
-        $("#btnNext").click();
+        if (checkSeatSelection() == false) {
+            index --; // if have not selected a seat
+            alert("Please select a seat!")
+        }
+        else {
+            loadPay();
+            $("#btnNext").click();
+            bookingList.forEach(booking => {
+                if (booking.flight_Id == flight_Id){
+                    booking.tickets = tickets;
+                }
+            })
+            $("#btnPay").show();
+            // $("#btnCheckNext").prop("disabled", true);
+        }
     }
 })
 
-$("#btnPrev").on("click", function() {
+$("#btnCheckPrev").on("click", function() {
+    $("#btnPay").hide();
+    $("#btnPrev").click();
+    delayButton()
     if (index > 1){
+        // $("#btnCheckNext").prop("disabled", false);
         index--;
     }
-})  
+})
+
+function checkSeatSelection() {
+    for (i in tickets) {
+        if (tickets[i].seat.seat_Id == "" || tickets[i].seat.seat_Id == undefined) {
+            return false;
+        }
+    }
+    return true;
+}
 
 function loadChooseSeat() {
     customerList = [];
-    ticketList = [];
+    
+    let seats = [];
+    if (tickets.length > 0){
+        for (i in tickets){
+            seats.push(tickets[i].seat.seat_Id)
+        }
+    }
+
+    tickets = [];
     
     let htmlCustomer = ``;
+
     $(".customerInfo").each(function(i) {
         let price = 0;
         signedLuggageList.forEach(signedLuggage =>{
             if (signedLuggage.signedLuggage_Id == $(this).find(".signedLuggage").val())
                 price = signedLuggage.signedluggagePrices[0].price;
-            else {
-                price = 0;
-            }
         })
 
         let ticket = {
             seat: {
-                seat_Id: ""
+                seat_Id: seats[i]
             },
             signedluggage: {
                 signedLuggage_Id : $(this).find(".signedLuggage").val(),
@@ -373,7 +455,7 @@ function loadChooseSeat() {
             firstName: $(this).find(".firstName").val(),
             lastName: $(this).find(".lastName").val(),
             birthDay: $(this).find(".birthday").val(),
-            customer_Id : i
+            id : i
         };
 
         ticket.flight = chosenFlight;
@@ -381,9 +463,12 @@ function loadChooseSeat() {
         htmlCustomer += `<option value="${i}">${customer.firstName} ${customer.lastName}</option>`
         
         customerList.push(customer)
+        tickets.push(ticket);
         ticket.customer = customer;
-        ticketList.push(ticket);
     })
+    
+
+    // loadSeatInfo()
     // #customerListDDL
     $("#customerListDDL").html(htmlCustomer);
 }
@@ -400,7 +485,7 @@ function loadPay() {
         }
     })
 
-    ticketList.forEach(ticket =>{
+    tickets.forEach(ticket =>{
 
         travelClassPrice = 0;
         travelClassName = "";
@@ -467,9 +552,9 @@ function loadPay() {
     htmlPay = `
         <table class="table">
             <tr>
-                <td><b>Email: ${email}</b></td>
-                <td><b>Phone: ${phone}</b></td>
-                <td><b>Total booking price: ${formatVND(totalBookingPrice)}</b></td> 
+                <td><b>Email:</b> ${email}</td>
+                <td><b>Phone:</b> ${phone}</td>
+                <td><b>Total booking price:</b> ${formatVND(totalBookingPrice)}</td> 
             </tr>
             </table>
     ` + htmlPay;
@@ -478,6 +563,35 @@ function loadPay() {
     $(".pay").html(htmlPay);
 }
 
+$("#btnPay").on("click", function () {
+    bookingList.forEach(booking => {
+        if (chosenFlight.flight_Id == booking.flight_Id){
+            // if not select signed luggage , delete it
+            booking.tickets.forEach(ticket =>{
+                if (ticket.signedluggage.signedLuggage_Id == "0"){
+                    delete ticket.signedluggage;
+                }
+            })
+            if (user.user_Id != undefined)
+                booking.user_Id = user.user_Id;
+
+            $.ajax({
+                url: "/FlightTicketManagement/api/bookings",
+                contentType: "application/json",
+                async: false,
+                method: "POST",
+                dataType: "JSON",
+                data: JSON.stringify(booking),
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            })
+        }
+    })
+})
 
 $('.carousel').carousel({
     interval: false,  // set auto next slide = false

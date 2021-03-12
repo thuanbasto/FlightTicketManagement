@@ -76,18 +76,19 @@ public class FlightConverter {
 		AirportDTO toAirport = airportService.get(String.valueOf(obj[2]));
 		flightDTO.setToAirport(toAirport);
 		
-		AirplaneDTO airplaneDTO = airplaneService.getAirplane(String.valueOf(obj[6]));
-	
-		flightDTO.setAirplane(airplaneDTO);
-		flightDTO.setArrivalDate((Date) obj[4]);
 		flightDTO.setDepartureDate((Date) obj[3]);
+		flightDTO.setArrivalDate((Date) obj[4]);
 		flightDTO.setFlight_Price(Double.valueOf(String.valueOf(obj[5])));
-		/* flightDTO.setSeat_Id(String.valueOf(obj[7])); cos the lay */
-		flightDTO.setTravelClass_Id(Integer.valueOf(String.valueOf(obj[8])));
 
-		List<Integer> listOfTravelClass_Id = new ArrayList<Integer>();
-		listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
-		flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
+		AirplaneDTO airplaneDTO = airplaneService.getAirplane(String.valueOf(obj[6]));
+		flightDTO.setAirplane(airplaneDTO);
+	
+		/* flightDTO.setSeat_Id(String.valueOf(obj[7])); cos the lay */
+//		flightDTO.setTravelClass_Id(Integer.valueOf(String.valueOf(obj[8])));
+//
+//		List<Integer> listOfTravelClass_Id = new ArrayList<Integer>();
+//		listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
+//		flightDTO.setListOfTravelClass_Id(listOfTravelClass_Id);
 		
 
 		return flightDTO;

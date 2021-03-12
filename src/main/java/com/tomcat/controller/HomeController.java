@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tomcat.dto.CityDTO;
+import com.tomcat.entity.User;
 import com.tomcat.service.ICityService;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.IUserService;
@@ -34,7 +35,6 @@ public class HomeController {
 	@GetMapping(value= {"/home","/"})
 	public String homePage(HttpServletRequest request) {
 		request.setAttribute("listCity", cityService.getList());
-		
 		return "Home";
 	}
 	

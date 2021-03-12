@@ -186,5 +186,3 @@ $('#inpTravelClass').on('change', function (event) {
         }
     })
 });
-$(".toast").toast('show');
-        $(".toast").toast('hide');

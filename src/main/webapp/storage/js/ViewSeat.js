@@ -28,16 +28,16 @@ $("body").on("click", "input[type=checkbox]", function() {
 	
 	if (check_existSeat(seat_Id) != true) { // ghế có sẵn
 		chosenSeatList = []; // arr ghế đang được chọn trong phiên
-		for (i in ticketList) {
-			if (ticketList[i].customer.customer_Id == customer_Id){
-				ticketList[i].seat.seat_Id = seat_Id;
+		for (i in tickets) {
+			if (tickets[i].customer.id == customer_Id){
+				tickets[i].seat.seat_Id = seat_Id;
 			}
-			chosenSeatList.push(ticketList[i].seat.seat_Id);
+			chosenSeatList.push(tickets[i].seat.seat_Id);
 		}
 		
 		// alert('Chọn ghế thành công!')
 	} else {
-		alert('Ghế này đã được chọn!')
+		alert('Seat is selected!')
 	}
 	$(this).prop('checked', true);
 
@@ -49,10 +49,10 @@ function loadSeatInfo(){
 	var seatInfo = '';
 
 	for (i in chosenSeatList) { // cap nhat lai mang arrNot(những giá trị trong mảng này k bị xóa checked)
-		if (ticketList[i].seat.seat_Id != "") {
+		if (tickets[i].seat.seat_Id != "") {
 			checkedList.push(`#${chosenSeatList[i]}`)
 		}
-		seatInfo += `<h2 style='color:teal'>${ticketList[i].customer.firstName} ${ticketList[i].customer.lastName} (${ticketList[i].seat.seat_Id})</h2>`
+		seatInfo += `<h2 style='color:teal'>${tickets[i].customer.firstName} ${tickets[i].customer.lastName} (${tickets[i].seat.seat_Id != null ? tickets[i].seat.seat_Id : ""})</h2>`
 
 	}
 	//xóa những checked của các check box k có trong checkedList
