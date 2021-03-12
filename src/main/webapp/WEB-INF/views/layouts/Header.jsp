@@ -35,10 +35,9 @@
 				<security:authentication property="principal" var="user" />
 				<li class="nav-item"><a class="nav-link" 
 					href="${dashboardUrl}">Dashboard</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" style="color: teal" href="#"
-					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> ${user.username} </a>
+				<li class="nav-item dropdown">
+					<a class="username nav-link dropdown-toggle" style="color: teal" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" data-username="${user.username}" aria-expanded="false"> ${user.username} </a>
 					<div class="dropdown-menu dropdown-menu-right"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="${logoutUrl}">Logout</a>

@@ -33,7 +33,7 @@
     </div>
 </div>
 <!-- The Modal -->
-<div class="modal fade" id="updateTicketModal">
+<div class="modal fade" id="updateSeatModal">
     <div class="modal-dialog">
         <div class="modal-content">
             
@@ -50,9 +50,12 @@
                         <label>ID</label>
                         <input class="form-control" type="text" id="inpSeat_Id"> 
                     </div>
-                    <select class="browser-default custom-select" id="inpTravelClass" required>
+                    <div class="form-group">
+                        <label>Travel class</label>
+                        <select class="browser-default custom-select" id="inpTravelClass" required>
+                        </select>
+                    </div>
 
-                    </select>
                     <div class="price form-group">
                         <label>Price (VND)</label>
                         <input class="form-control" type="text" id="inpPrice" disabled>

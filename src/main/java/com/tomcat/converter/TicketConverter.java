@@ -2,7 +2,6 @@ package com.tomcat.converter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,7 +21,6 @@ import com.tomcat.dto.TaxPriceDTO;
 import com.tomcat.dto.TicketDTO;
 import com.tomcat.dto.TravelClassDTO;
 import com.tomcat.dto.TravelClassPriceDTO;
-import com.tomcat.entity.Booking;
 import com.tomcat.entity.Tax;
 import com.tomcat.entity.Ticket;
 

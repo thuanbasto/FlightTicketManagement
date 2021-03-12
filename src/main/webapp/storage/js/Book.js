@@ -1,69 +1,105 @@
+$('#ftab').trigger('click');
 
-
-$(document).ready(function() {
-	$('#ftab').trigger('click');
+$('#btnSearch').on('click', function(e) {
+    e.preventDefault();
+    if ($("#from").val() == 0 || $("#to").val() == 0 || $("#departureDate").val() == "" || $("#adult").val() == 0){
+        alert("Please fill full field!")
+    } else {
+        let number = parseInt($('#adult').val()) + parseInt($('#child').val())
+        // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
+        window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
+    }
 });
 
 
-{/* <script> */ }
-$(document).ready(function() {
-	var PassengersNumber = 1;
 
-	$('.dropdown-content input').on('input', function(e) {
-		PassengersNumber = 0;
-		$(".dropdown-content input").each(function() {
-			PassengersNumber = PassengersNumber + Number($(this).val());
-		});
-		$('#PassengersNum').text(PassengersNumber + " Passengers")
 
-	});
+function loadCities() {
+    $.ajax({
+        url: "/FlightTicketManagement/api/airports",
+        async: false,
+        dataType: "JSON",
+        success: function(response) {
+            var htmlStr = `<option value="0">Select city</option>`;
+            // lap qua ket qua tra ve & tao html theo mong muon
+            $.each(response,function(index,value){
+                var airport_Id = value.airport_Id;
+                var cityName = value.city.name;
+
+                htmlStr = htmlStr + `<option value="${airport_Id}">${cityName} (${airport_Id})</option>`;
+            });
+            //hien thi len
+            $("#from").html(htmlStr);
+            $("#to").html(htmlStr);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+loadCities();
+
+$('#from').on('change', function(e) { // hide fromcity when selected in tocity
+    $(`#to option`).show();
+    var ctc = $(this).val();
+    $(`#to option[value=${ctc}]`).hide();
+});
+
+
+
+var PassengersNumber = 1;
+$('.dropdown-content input').on('input', function(e) {
+    PassengersNumber = 0;
+    $(".dropdown-content input").each(function() {
+        PassengersNumber = PassengersNumber + Number($(this).val());
+    });
+    $('#PassengersNum').text(PassengersNumber + " Passengers")
 
 });
-{/* </script> */ }
-// <script>
+
+
+
 $('.btn.btn-primary.dropdown-toggle').on('click', function(e) {
-	// e.stopPropagation();
-	console.log('sdsd');
+    // e.stopPropagation();
+    // console.log('sdsd');
 });
-{/* </script>
 
-<script> */}
-$(document).ready(function() {
-	$('#ngayden').hide();
 
-	var chieu_ve = 'ow';
-	$('ul[data-tag="channelList"] > li').click(function() {
+$('#ngayden').hide();
 
-		$('ul[data-tag="channelList"] li').each(function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass("selected");
-			}
-		});
+var chieu_ve = 'oneway';
+$('ul[data-tag="channelList"] > li').click(function() {
 
-		$(this).addClass("selected");
-		chieu_ve = $(this).data('id');
+    $('ul[data-tag="channelList"] li').each(function() {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass("selected");
+        }
+    });
 
-		if ($(this).data('id') == 'ow') {
-			$('#ngayden').hide();
-		} else {
-			$('#ngayden').show();
-		}
-		console.log($(this).val());
-	});
+    $(this).addClass("selected");
+    chieu_ve = $(this).data('id');
 
-	$('#search_btn').click(function() {
-		console.log('trunghieuclick');
-		console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
-		$.ajax({
-			type: "POST",
-			url: 'datve.php',
-			data: $('#testli').serialize() + '&chieuve=' + chieu_ve, // serializes the form's elements.
-			success: function(data) {
-				console.log(data); // show response from the php script.
-			}
-		});
+    if ($(this).data('id') == 'oneway') {
+        $('#ngayden').hide();
+    } else {
+        $('#ngayden').show();
+    }
+    // console.log($(this).val());
 
-	});
 
+    $('#btnSearch').click(function() {
+        // console.log('trunghieuclick');
+        // console.log($('#testli').serialize() + '&chieuve=' + chieu_ve);
+        $.ajax({
+            type: "POST",
+            url: 'search',
+            data: $('#testli').serialize() + '&chieuve=' + chieu_ve, // serializes the form's elements.
+            success: function(data) {
+                // console.log(data); // show response from the php script.
+            }
+        });
+
+    });
 });
-{/* </script> */ }

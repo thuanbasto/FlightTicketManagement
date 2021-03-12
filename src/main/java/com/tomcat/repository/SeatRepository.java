@@ -21,4 +21,11 @@ public interface SeatRepository extends JpaRepository<Seat, String>{
 			"WHERE s.Seat_Id = ?1 AND s.TravelClass_Id = tc.TravelClass_Id AND tc.TravelClass_Id = tcp.TravelClass_Id ORDER BY(Price_Id) desc Limit 1"
 			,nativeQuery=true)
 	Object[] getSeat(String seat_Id);
+	
+	@Query(value = "SELECT s.Seat_Id,tc.name,tc.TravelClass_Id,quantity,price_Id,price,ModifiedDate FROM seat s,travelclass tc,travelclass_price tcp, ticket t " +
+			"WHERE s.seat_Id = t.seat_Id AND Flight_Id = ?1 " +
+			"AND s.TravelClass_Id = tc.TravelClass_Id AND tc.TravelClass_Id = tcp.TravelClass_Id " +
+			"AND Price_Id = (SELECT Max(Price_Id) FROM travelclass_price WHERE tc.TravelClass_Id = TravelClass_Id)"
+			,nativeQuery=true)
+	List<Object[]> getBookedSeats(String id);
 }
