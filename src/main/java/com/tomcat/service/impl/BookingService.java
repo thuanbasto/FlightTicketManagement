@@ -1,9 +1,10 @@
 package com.tomcat.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tomcat.converter.BookingConverter;
 import com.tomcat.dto.BookingDTO;
-import com.tomcat.dto.TicketDTO;
 import com.tomcat.entity.Booking;
 import com.tomcat.entity.Customer;
+import com.tomcat.entity.Tax;
 import com.tomcat.entity.Ticket;
 import com.tomcat.entity.User;
 import com.tomcat.repository.BookingRepository;
 import com.tomcat.repository.CustomerRepository;
+import com.tomcat.repository.TaxRepository;
 import com.tomcat.repository.TicketRepository;
 import com.tomcat.service.IBookingService;
-import com.tomcat.service.ITicketService;
 
 @Service
 public class BookingService implements IBookingService {
@@ -36,6 +37,9 @@ public class BookingService implements IBookingService {
 
 	@Autowired
 	private TicketRepository ticketRepository;
+	
+	@Autowired
+	private TaxRepository taxRepository;
 
 	@Override
 	@Transactional
@@ -79,16 +83,20 @@ public class BookingService implements IBookingService {
 		Date date = new Date();
 
 		Booking booking = bookingConverter.toBooking(bookingDTO);
+		
+		Set<Tax> taxes = new HashSet<Tax>(taxRepository.findAll());
 
 		List<Ticket> tickets = new ArrayList<Ticket>();
 		booking.getTickets().forEach(ticket -> {
 			Customer customer = ticket.getCustomer();
 			customerRepository.save(customer);
 
+			ticket.setTaxs(taxes);
 			ticket.setCustomer(customer);
 			ticketRepository.save(ticket);
 			tickets.add(ticket);
 		});
+		
 		booking.setTickets(null);
 		booking.setBookingDate(date);
 		

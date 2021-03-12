@@ -86,14 +86,14 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 			 	<h3>Ticket #${value.ticket_Id}</h3>
 				<table class="table">
 					<tr>
-						<td><b>${value.flight.fromAirport.name}</b></td>
-						<td><b>${value.flight.toAirport.name}</b></td>
-						<td><b>${value.flight.flight_Id}-${value.flight.airplane.name}</b></td> 
+						<td><b>From: </b>${value.flight.fromAirport.name}</td>
+						<td><b>To: </b>${value.flight.toAirport.name}</td>
+						<td><b>Flight Code: </b>${value.flight.flight_Id}-${value.flight.airplane.name}</td> 
 					</tr>
 					<tr>
-						<td><b>${value.flight.arrivalDate}</b></td>
-						<td><b>${value.flight.departureDate}</b></td>
-						<td><b>${value.seat.seat_Id} - ${value.seat.travelClass.name}</b></td>
+						<td><b>Arrival Date: </b>${value.flight.arrivalDate}</td>
+						<td><b>Departure Date: </b>${value.flight.departureDate}</td>
+						<td><b>Seat: </b>${value.seat.seat_Id} - ${value.seat.travelClass.name}</td>
 					</tr>
 				</table>
 				<div class="row">
@@ -108,12 +108,12 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 						<h5>Customer Information</h5>
 						<table class="table">
 							<tr>
-								<td>Mr/Mrs: ${value.customer.firstName} ${value.customer.lastName}</td>
-								<td>Address: ${value.customer.address}</td>
+								<td><b>Mr/Mrs: </b> ${value.customer.firstName} ${value.customer.lastName}</td>
+								<td><b>Address: </b>${value.customer.address}</td>
 							</tr>
 							<tr>
-								<td>Birthday: ${value.customer.birthDay}</td>
-								<td>Identity Number: ${value.customer.identityNumber}</td>
+								<td><b>Birthday: </b>${value.customer.birthDay}</td>
+								<td><b>Identity Number: </b>${value.customer.identityNumber !=null ? value.customer.identityNumber : ""}</td>
 							</tr>
 						</table>
 					</div>
