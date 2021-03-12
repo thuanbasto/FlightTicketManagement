@@ -241,7 +241,7 @@ $('body').on('click', '#choose', function() {
                 if (ticket.seat.seat_Id != "") {
                     $(`#${ticket.seat.seat_Id}`).prop('checked', true);
                 }
-                htmlSeatInfo += `<h2 style='color:teal'>${ticket.customer.firstName} ${ticket.customer.lastName} (${ticket.seat.seat_Id})</h2>`
+                htmlSeatInfo += `<h3 style='color:teal'>${ticket.customer.firstName} ${ticket.customer.lastName} (${ticket.seat.seat_Id})</h3>`
             })
         }
     })

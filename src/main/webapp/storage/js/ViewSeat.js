@@ -53,11 +53,13 @@ function loadSeatInfo() {
         if (ticketList[i].seat.seat_Id != "") {
             checkedList.push(`#${chosenSeatList[i]}`)
         }
-        seatInfo += `<h2 style='color:teal'>${ticketList[i].customer.firstName} ${ticketList[i].customer.lastName} (${ticketList[i].seat.seat_Id})</h2>`
+        seatInfo += `<h3 style='color:teal'>${ticketList[i].customer.firstName} ${ticketList[i].customer.lastName} (${ticketList[i].seat.seat_Id})</h3>`
 
     }
     //xóa những checked của các check box k có trong checkedList
     $("input[type=checkbox]").not(checkedList.join(',')).prop('checked', false);
 
-    $('#seatInfo').html(seatInfo)
+    $('#seatInfo').html(seatInfo);
+    $("#seatInfo").css("height", "");
+
 }

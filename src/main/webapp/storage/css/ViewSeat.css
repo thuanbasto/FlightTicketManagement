@@ -8,6 +8,7 @@ html {
     font-size: 16px;
 }
 
+
 label {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -48,14 +49,14 @@ label {
     margin: 100px auto 35px auto;
 }
 
-.exit {
+.business {
     position: relative;
     height: 50px;
 }
 
-.exit:before,
-.exit:after {
-    content: "EXIT";
+.business:before,
+.business:after {
+    content: "Business Class";
     font-size: 14px;
     line-height: 18px;
     padding: 0px 2px;
@@ -68,11 +69,11 @@ label {
     transform: translate(0, -50%);
 }
 
-.exit:before {
+.business:before {
     left: 0;
 }
 
-.exit:after {
+.business:after {
     right: 0;
 }
 

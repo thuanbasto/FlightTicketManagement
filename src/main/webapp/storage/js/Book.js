@@ -5,8 +5,8 @@ $('#search_btn').on('click', function(e) {
     let number = parseInt($('#adult').val()) + parseInt($('#child').val())
     console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
     window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
-
 });
+
 
 
 

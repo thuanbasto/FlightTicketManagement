@@ -39,7 +39,10 @@
   <definition name="ResultFlight" extends="home-difinition">
     <put-attribute name="body" value="/WEB-INF/views/home/ResultFlight.jsp" />
   </definition>
-  
+    <definition name="Bill" extends="home-difinition">
+   <put-attribute name="header" value="" />
+    <put-attribute name="body" value="/WEB-INF/views/home/Bill.jsp" />
+  </definition>
   
   <!-- staff-difinition -->
 
@@ -89,5 +92,7 @@
   <definition name="Booking" extends="admin-difinition">
     <put-attribute name="body" value="/WEB-INF/views/admin/BookingManagement.jsp"/>
   </definition>
+  
+  
   
 </tiles-definitions>

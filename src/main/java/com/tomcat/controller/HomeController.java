@@ -74,6 +74,9 @@ public class HomeController {
 		return "Book";
 	}
 	
+	
+	
+	
 	@GetMapping(value= {"/accountadmin"})
 	public String generateAccountAdmin(HttpServletRequest request) {
 		if(userService.generateAccountAdmin()) request.setAttribute("generated", 1);
@@ -93,5 +96,14 @@ public class HomeController {
 		String url = "from=" + from + "&to=" + to + "&departureDate=" + strDate + "&number=" + number;
 		request.setAttribute("url", url);
 		return "ResultFlight";
+	}
+	
+	@GetMapping(value= {"/bill"})
+	public String Bill(HttpServletRequest request,
+			@RequestParam(name="email",required=true) String email,
+			@RequestParam(name="bookingId",required=true) String bookingId){
+		String url = "email=" + email + "&bookingId=" + bookingId  ;
+		request.setAttribute("url", url);
+		return "Bill";
 	}
 }

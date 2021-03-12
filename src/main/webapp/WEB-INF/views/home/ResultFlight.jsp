@@ -95,11 +95,6 @@
                                         <div></div>
                                     </div>
                                 </div>
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
-                                    <button type="button" class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
-                                </div>
                             </div>
                         </div>
                         <!-- Modal footer -->

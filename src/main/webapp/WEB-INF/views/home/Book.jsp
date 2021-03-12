@@ -4,7 +4,24 @@
 
         <link rel="stylesheet" href='<c:url value="/storage/css/Book.css"></c:url>'>
         <c:url value="/storage/js/Book.js" var="jsUrl" />
+        <c:url value="/storage/img/bookBG.jpg" var="imgUrl" />
 
+        <style>
+            body,
+            html {
+                height: 100%;
+            }
+            
+            body {
+                background-image: url("${imgUrl}");
+                /* Full height */
+                height: 100%;
+                /* Center and scale the image nicely */
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
         <div class="container ">
             <div class="row" style="margin-top:70px;">
                 <div class="col-sm-7">
@@ -21,9 +38,12 @@
                     </ul>
 
 
-                    <div class="tab-content" style="border: 1px solid #F7F7F7;border-radius: 0 4px 4px 4px;padding: 40px 10px 60px 10px;background-color:#f7c4ff;padding-bottom: 20px;">
-                        <form id="flightSearchForm">
-                            <div id="home" class="tab-pane fade in active">
+
+
+
+                    <div class="tab-content" style="border: 1px solid #F7F7F7;border-radius: 0 4px 4px 4px;padding: 40px 10px 60px 10px;background-image: linear-gradient(to right bottom, #f7c4ff, #ffaddf, #ff9ba8, #ff9b64, #ffab00);padding-bottom: 20px;">
+                        <div id="home" class="tab-pane fade in active">
+                            <form id="flightSearchForm">
                                 <div class="form-group">
 
                                     <div class="form-group chieu">
@@ -75,9 +95,9 @@
                                                         <div class="form-group">
                                                             <input min="1" max="9" placeholder="Adult" type="number" value="0" class="form-control" id="adult">
                                                         </div>
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <input min="0" max="8" placeholder="Child" type="number" value="0" class="form-control" id="child">
-                                                        </div>
+                                                        </div> -->
 
                                                     </div>
                                                 </div>
@@ -93,8 +113,9 @@
                                     <!-- </div> -->
 
                                 </div>
-                            </div>
-                        </form>
+
+                            </form>
+                        </div>
 
                         <div id="menu1" class="tab-pane fade">
                             <h3>Menu 1</h3>
