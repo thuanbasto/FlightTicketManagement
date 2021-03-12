@@ -1,6 +1,7 @@
 var ticketList = [];
-var action = ""; 
-var price = ""; 
+var action = "";
+var price = "";
+
 function loadTicketList() {
     $.ajax({
         method: "GET",
@@ -17,10 +18,6 @@ function loadTicketList() {
                 var flight = value.flight.fromAirport.name + " - " + value.flight.toAirport.name;
                 var departureDate = value.flight.departureDate;
                 var signedLuggage = value.signedluggage.name;
-                var taxs = "";
-                value.taxs.forEach(e => {
-                    taxs += " - " + e.taxName
-                });
                 var seat = value.seat.seat_Id;
                 var price = value.ticket_PriceTotal;
 
@@ -34,7 +31,6 @@ function loadTicketList() {
                     <td>${departureDate}</td>
                     <td>${seat}</td>
                     <td>${signedLuggage}</td>
-                    <td>${taxs}</td>
                     <td>${price}</td>
                     <td>
                         <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
@@ -51,30 +47,11 @@ function loadTicketList() {
 }
 
 
-var CustomerList = [];
-
-function loadCustomerClassList() {
-    $.ajax({
-        url: "/FlightTicketManagement/api/customers",
-        method: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            $.each(response, function (index, value) {
-                CustomerList.push(value);
-                Customer = value.customer_Id + "-" + value.firstName + " " + value.lastName
-                $("#inpCustomerClass").append(`<option value='${value.customer_Id}'>${Customer}</option>`)
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-        }
-    });
-}
 
 var BookingList = [];
 
 function loadBookingClassList() {
+
     $.ajax({
         url: "/FlightTicketManagement/api/bookings",
         method: "GET",
@@ -184,43 +161,41 @@ function loadTaxesClassList() {
 
 
 
-loadCustomerClassList();
-loadBookingClassList()
+loadBookingClassList();
 loadFlightClassList();
 loadSeatClassList();
 loadLuggageClassList();
-loadTaxesClassList()
+loadTaxesClassList();
 loadTicketList();
-
 
 $('#tbodyData').on('click', '#btnEdit', function () {
 
-    $.ajax({
-        method: "GET",
-        url: "/FlightTicketManagement/api/ticket/" + $(this).data('id'),
-        async: false,
-        success: function (response) {
+    // fill input with value
+    ticketList.forEach(ticket => {
+        if (ticket.ticket_Id == $(this).data("id")) {
             $("#form-check-tax input").each(function () {
                 $(this).prop('checked', false);
             })
-            $("#inpTicket_Id").val(response.ticket_Id);
-            $("#inpCustomerClass").val(response.customer.customer_Id)
-            $("#inpBookingClass").val(response.booking.booking_Id)
-            $("#inpFlightClass").val(response.flight.flight_Id)
-            $("#inpSeatClass").val(response.seat.seat_Id)
-            $("#inpLuggageClass").val(response.signedluggage.signedLuggage_Id)
-            response.taxs.forEach(tax => {
+            $("#inpTicket_Id").val(ticket.ticket_Id);
+            $("#inpFirstName").val(ticket.customer.firstName)
+            $("#inpLastName").val(ticket.customer.lastName)
+            $("#inpAddress").val(ticket.customer.address)
+            $("#inpBirthday").val(ticket.customer.birthDay)
+            $("#inpBookingClass").val(ticket.booking.booking_Id)
+            $("#inpFlightClass").val(ticket.flight.flight_Id)
+            $("#inpSeatClass").val(ticket.seat.seat_Id)
+            $("#inpLuggageClass").val(ticket.signedluggage.signedLuggage_Id)
+            ticket.taxs.forEach(tax => {
                 $("#form-check-tax input").each(function () {
                     if ($(this).val() == tax.tax_Id) {
                         $(this).prop('checked', true);
                     }
                 })
             })
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
         }
-    });
+    })
+
+
 
     action = "update";
 
@@ -231,7 +206,7 @@ $('#tbodyData').on('click', '#btnEdit', function () {
 });
 
 
-$('#btnAdd').on('click', function() {
+$('#btnAdd').on('click', function () {
     $("#inpTicket_Id").val("");
     $("#inpCustomerClass").val("");
     $("#inpBookingClass").val("")
@@ -249,60 +224,80 @@ $('#btnAdd').on('click', function() {
     $("#btnUpdate").html("Add");
 });
 
-$('body').on('click', '#btnUpdate', function() {
+$('body').on('click', '#btnUpdate', function () {
 
-    let tax_Id = []
+    let taxs_Id = []
 
     $("#form-check-tax input").each(function () {
-        if($(this).is(":checked")){
-        tax_Id.push($(this).val()) 
+        if ($(this).is(":checked")) {
+            var tax_Id = {
+                "tax_Id": parseInt($(this).val())
+            }
+            taxs_Id.push(tax_Id)
         }
     })
 
-    console.log(tax_Id);
+    console.log(taxs_Id);
 
     let ticketForAdd = {
         ticket_PriceTotal: 0,
-        customer_Id:  $("#inpCustomerClass").val(),
+        customer_Id: $("#inpCustomerClass").val(),
         booking_Id: $("#inpBookingClass").val(),
-        flight_Id:  $("#inpFlightClass").val(),
+        flight_Id: $("#inpFlightClass").val(),
         seat_Id: $("#inpSeatClass").val(),
-        signedLuggage_Id:  $("#inpLuggageClass").val(),
-        tax_Id : tax_Id
+        signedLuggage_Id: $("#inpLuggageClass").val(),
+        tax_Id: taxs_Id
     };
 
     let ticketForUpdate = {
-        ticket_Id: $("#inpTicket_Id").val(),
+        ticket_Id: parseInt($("#inpTicket_Id").val()),
         ticket_PriceTotal: 0,
-        customer_Id:  $("#inpCustomerClass").val(),
-        booking_Id: $("#inpBookingClass").val(),
-        flight_Id:  $("#inpFlightClass").val(),
-        seat_Id: $("#inpSeatClass").val(),
-        signedLuggage_Id:  $("#inpLuggageClass").val(),
-        tax_Id : tax_Id
+        booking: {
+            booking_Id: parseInt($("#inpBookingClass").val())
+        },
+        customer: {
+            address: $("#inpAddress").val(),
+            birthDay: $("#inpBirthday").val(),
+            firstName: $("#inpFirstName").val(),
+            lastName: $("#inpLastName").val()
+        },
+        flight: {
+            flight_Id: parseInt($("#inpFlightClass").val())
+        },
+        seat: {
+            seat_Id: $("#inpSeatClass").val()
+        },
+        signedluggage: {
+            signedLuggage_Id: parseInt($("#inpLuggageClass").val())
+        },
+
+        taxs: taxs_Id
     };
 
+    console.log(ticketForUpdate);
 
-    if (action == "update"){
+
+    if (action == "update") {
         $.ajax({
             method: "PUT",
-            url: "/FlightTicketManagement/api/ticket/" + $("#inpTicket_Id").val(),
+            url: "/FlightTicketManagement/api/tickets/" + $("#inpTicket_Id").val(),
             contentType: "application/json",
             async: false,
             data: JSON.stringify(ticketForUpdate),
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.close').click();
                 $('.successToast').toast('show');
-                ticketList = []; 
+                ticketList = [];
                 loadTicketList();
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });
-    } else if (action == "add"){
+        console.log(ticketForUpdate);
+    } else if (action == "add") {
         $.ajax({
             method: "POST",
             url: "/FlightTicketManagement/api/ticket",
@@ -310,13 +305,13 @@ $('body').on('click', '#btnUpdate', function() {
             async: false,
             data: JSON.stringify(ticketForAdd),
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.close').click();
                 $('.successToast').toast('show');
                 ticketList = []; // 
                 loadTicketList();
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -324,20 +319,19 @@ $('body').on('click', '#btnUpdate', function() {
     }
 });
 
-$('#tbodyData').on('click', '#btnDelete', function() {
-    console.log("xoa");
+$('#tbodyData').on('click', '#btnDelete', function () {
     if (confirm(`You want to delete Ticket with id = ${$(this).data('id')}?`)) {
         let tr = $(this).closest('tr');
         $.ajax({
             method: "DELETE",
-            url: "/FlightTicketManagement/api/ticket/" + $(this).data('id'),
+            url: "/FlightTicketManagement/api/tickets/" + $(this).data('id'),
             contentType: "application/json",
             async: false,
-            success: function(response) {
+            success: function (response) {
                 tr.remove();
                 $('.successToast').toast('show');
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -345,7 +339,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
     } else {}
 });
 
-$('#updateTicketModal').on("keyup", function(event) {
+$('#updateTicketModal').on("keyup", function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         $('#btnUpdate').click();

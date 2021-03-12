@@ -90,6 +90,7 @@ $('#btnAdd').on('click', function() {
     $("#inpSeat_Id").val("")
     $("#inpTravelClass").val("")
     $("#inpPrice").val("")
+    console.log("11111");
 
     action = "add";
 
