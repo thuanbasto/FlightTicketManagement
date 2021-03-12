@@ -76,39 +76,44 @@ $('#tbodyData').on('click', '#btnEdit', function() {
         dataType: "json",
 		success: function(response) {
 			var htmlStr = ``;
+			let totalTaxPrice = 0;
 			response.tickets.forEach(function(value) {
-				console.log(value)
+				value.taxs.forEach(tax=>{
+					if(tax.taxPrices != null)
+						totalTaxPrice += tax.taxPrices[0].price
+				})
 				htmlStr = htmlStr + `
 			 	<h3>Ticket #${value.ticket_Id}</h3>
 				<table class="table">
 					<tr>
-						<td><b>${value.flight.fromAirport.name}</b></td>
-						<td><b>${value.flight.toAirport.name}</b></td>
-						<td><b>${value.flight.flight_Id}-${value.flight.airplane.name}</b></td> 
+						<td><b>From: </b>${value.flight.fromAirport.name}</td>
+						<td><b>To: </b>${value.flight.toAirport.name}</td>
+						<td><b>Flight Code: </b>${value.flight.flight_Id}-${value.flight.airplane.name}</td> 
 					</tr>
 					<tr>
-						<td><b>${value.flight.arrivalDate}</b></td>
-						<td><b>${value.flight.departureDate}</b></td>
-						<td><b>${value.seat.seat_Id} - ${value.seat.travelClass.name}</b></td>
+						<td><b>Arrival Date: </b>${value.flight.arrivalDate}</td>
+						<td><b>Departure Date: </b>${value.flight.departureDate}</td>
+						<td><b>Seat: </b>${value.seat.seat_Id} - ${value.seat.travelClass.name}</td>
 					</tr>
 				</table>
 				<div class="row">
 					<div class="col-sm-4" style="padding-left: 40px;">
-						<h6>Flight Price: ${value.flight.flight_Price}</h6>
-						<h6>Tax: </h6>
-						<h6>Signed Luggage: </h6>
+						<h6><b>Flight Price:</b> ${value.flight.flight_Price}</h6>
+						<h6><b>Tax:</b> ${totalTaxPrice}</h6>
+						<h6><b>Signed Luggage:</b> ${value.signedluggage.signedluggagePrices[0].price}</h6>
+						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices[0].price}</h6>
 						<h6><b>Total Price:</b> ${value.ticket_PriceTotal}</h6>
 					</div>
 					<div class="col-sm-8">
 						<h5>Customer Information</h5>
 						<table class="table">
 							<tr>
-								<td>Mr/Mrs: ${value.customer.firstName} ${value.customer.lastName}</td>
-								<td>Address: ${value.customer.address}</td>
+								<td><b>Mr/Mrs: </b> ${value.customer.firstName} ${value.customer.lastName}</td>
+								<td><b>Address: </b>${value.customer.address}</td>
 							</tr>
 							<tr>
-								<td>Birthday: ${value.customer.birthDay}</td>
-								<td>Identity Number: ${value.customer.identityNumber}</td>
+								<td><b>Birthday: </b>${value.customer.birthDay}</td>
+								<td><b>Identity Number: </b>${value.customer.identityNumber !=null ? value.customer.identityNumber : ""}</td>
 							</tr>
 						</table>
 					</div>
