@@ -496,8 +496,9 @@ function loadPay() {
             }
         })
 
-        totalTicketPrice = ticket.flight.flight_Price + totalTaxPrice +
-            ticket.signedluggage.signedluggagePrices[0].price + travelClassPrice;
+        let signedLuggagePrice = ticket.signedluggage != undefined ? ticket.signedluggage.signedluggagePrices[0].price : 0;
+
+        totalTicketPrice = ticket.flight.flight_Price + totalTaxPrice + signedLuggagePrice + travelClassPrice;
         totalBookingPrice += totalTicketPrice;
 
         ticket.ticket_PriceTotal = totalTicketPrice;
@@ -528,10 +529,10 @@ function loadPay() {
                 <h5>Customer Information</h5>
                 <table class="table">
                     <tr>
-                        <td>Mr/Mrs: ${ticket.customer.firstName} ${ticket.customer.lastName}</td>
+                        <td><b>Mr/Mrs:</b> ${ticket.customer.firstName} ${ticket.customer.lastName}</td>
                     </tr>
                     <tr>
-                        <td>Birthday: ${ticket.customer.birthDay}</td>
+                        <td><b>Birthday:</b> ${ticket.customer.birthDay}</td>
                     </tr>
                 </table>
             </div>
