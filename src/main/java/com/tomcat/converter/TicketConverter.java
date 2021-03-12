@@ -38,10 +38,6 @@ public class TicketConverter {
 	@Autowired
 	private FlightConverter flightConverter;
 	
-	@Autowired
-	private BookingConverter bookingConverter;
-	
-
 	public TicketDTO toDTO(Ticket ticket) {
 
 		TicketDTO ticketDTO = new TicketDTO();
@@ -50,7 +46,8 @@ public class TicketConverter {
 		ticketDTO.setTicket_PriceTotal(ticket.getTicket_PriceTotal());
 		
 		if(ticket.getBooking() != null) {
-			BookingDTO bookingDTO = bookingConverter.toBookingDTO(ticket.getBooking());
+			BookingDTO bookingDTO = mapper.map(ticket.getBooking(), BookingDTO.class);
+			bookingDTO.getUser().setRoles(null);
 			bookingDTO.setTickets(null);
 			ticketDTO.setBooking(bookingDTO); 
 		}
@@ -156,6 +153,7 @@ public class TicketConverter {
 	}
 	
 	public Ticket toEntity(TicketDTO ticketDTO) {
+		
 		return mapper.map(ticketDTO, Ticket.class);
 	}
 
