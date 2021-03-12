@@ -1,6 +1,7 @@
 package com.tomcat.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -71,16 +72,11 @@ public class TicketService implements ITicketService {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-//	@Transactional
 	public void save(TicketDTO ticketDTO) {
-		
-//		List<TaxDTO> taxes = taxService.getTaxes();
-//		ticketDTO.setTaxs(taxes);
 		Ticket ticket = ticketConverter.toEntity(ticketDTO);
-		List<Tax> taxes = taxRepository.findAll();
-		ticket.setTaxs((Set<Tax>) taxes);
+		Set<Tax> taxes = new HashSet<Tax>(taxRepository.findAll());
+		ticket.setTaxs(taxes);
 		
 		Customer customer = ticket.getCustomer();
 		customerRepository.save(customer);

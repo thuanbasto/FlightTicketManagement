@@ -76,8 +76,12 @@ $('#tbodyData').on('click', '#btnEdit', function() {
         dataType: "json",
 		success: function(response) {
 			var htmlStr = ``;
+			let totalTaxPrice = 0;
 			response.tickets.forEach(function(value) {
-				console.log(value)
+				value.taxs.forEach(tax=>{
+					if(tax.taxPrices != null)
+						totalTaxPrice += tax.taxPrices[0].price
+				})
 				htmlStr = htmlStr + `
 			 	<h3>Ticket #${value.ticket_Id}</h3>
 				<table class="table">
@@ -94,9 +98,10 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 				</table>
 				<div class="row">
 					<div class="col-sm-4" style="padding-left: 40px;">
-						<h6>Flight Price: ${value.flight.flight_Price}</h6>
-						<h6>Tax: </h6>
-						<h6>Signed Luggage: </h6>
+						<h6><b>Flight Price:</b> ${value.flight.flight_Price}</h6>
+						<h6><b>Tax:</b> ${totalTaxPrice}</h6>
+						<h6><b>Signed Luggage:</b> ${value.signedluggage.signedluggagePrices[0].price}</h6>
+						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices[0].price}</h6>
 						<h6><b>Total Price:</b> ${value.ticket_PriceTotal}</h6>
 					</div>
 					<div class="col-sm-8">

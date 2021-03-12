@@ -175,7 +175,7 @@ public class BookingConverter {
 				taxDTOs.add(taxDTO);
 			}
 			ticketDTO.setTaxs(taxDTOs);
-			ticket.setBooking(null);
+			ticketDTO.setBooking(null);
 			
 			ticketDTO.setTicket_PriceTotal( travleClassPrice + signedLuggagePrice + taxPrice + flightPrice);
 			ticketDTOs.add(ticketDTO);
