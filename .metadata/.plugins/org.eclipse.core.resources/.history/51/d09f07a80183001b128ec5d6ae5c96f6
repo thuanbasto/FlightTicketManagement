@@ -1,0 +1,64 @@
+package com.dasuo.entity;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "chat")
+public class Chat {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer chat_Id;
+	@Column(name = "nguoinhan_id")
+	private TaiKhoan nguoiNhan_Id;
+	@Column(name = "nguoigui_id")
+	private TaiKhoan nguoiGui_Id;
+	
+	private List<TinNhan> tinNhan;
+
+	public Chat() {
+		super();
+	}
+
+	public Integer getChat_Id() {
+		return chat_Id;
+	}
+
+	public void setChat_Id(Integer chat_Id) {
+		this.chat_Id = chat_Id;
+	}
+
+	public TaiKhoan getNguoiNhan_Id() {
+		return nguoiNhan_Id;
+	}
+
+	public void setNguoiNhan_Id(TaiKhoan nguoiNhan_Id) {
+		this.nguoiNhan_Id = nguoiNhan_Id;
+	}
+
+	public TaiKhoan getNguoiGui_Id() {
+		return nguoiGui_Id;
+	}
+
+	public void setNguoiGui_Id(TaiKhoan nguoiGui_Id) {
+		this.nguoiGui_Id = nguoiGui_Id;
+	}
+
+	public List<TinNhan> getTinNhan() {
+		return tinNhan;
+	}
+
+	public void setTinNhan(List<TinNhan> tinNhan) {
+		this.tinNhan = tinNhan;
+	}
+	
+	
+	
+
+}

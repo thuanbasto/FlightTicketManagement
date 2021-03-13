@@ -1,0 +1,52 @@
+package com.dasuo.entity;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "chude")
+public class ChuDe {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer chuDe_Id;
+	@Column
+	private String tenChuDe;
+	
+	private List<BaiDang> baiDang;
+
+	public ChuDe() {
+		super();
+	}
+
+	public Integer getChuDe_Id() {
+		return chuDe_Id;
+	}
+
+	public void setChuDe_Id(Integer chuDe_Id) {
+		this.chuDe_Id = chuDe_Id;
+	}
+
+	public String getTenChuDe() {
+		return tenChuDe;
+	}
+
+	public void setTenChuDe(String tenChuDe) {
+		this.tenChuDe = tenChuDe;
+	}
+
+	public List<BaiDang> getBaiDang() {
+		return baiDang;
+	}
+
+	public void setBaiDang(List<BaiDang> baiDang) {
+		this.baiDang = baiDang;
+	} 
+	
+
+}

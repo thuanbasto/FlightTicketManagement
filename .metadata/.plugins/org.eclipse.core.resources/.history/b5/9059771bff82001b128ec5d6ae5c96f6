@@ -1,0 +1,24 @@
+package com.dasuo.entity;
+
+public class BaiDang_TaiKhoan {
+	private BaiDang baiDang;
+	private TaiKhoan taiKhoan;
+	public BaiDang_TaiKhoan() {
+		super();
+	}
+	public BaiDang getBaiDang() {
+		return baiDang;
+	}
+	public void setBaiDang(BaiDang baiDang) {
+		this.baiDang = baiDang;
+	}
+	public TaiKhoan getTaiKhoan() {
+		return taiKhoan;
+	}
+	public void setTaiKhoan(TaiKhoan taiKhoan) {
+		this.taiKhoan = taiKhoan;
+	}
+	
+	
+
+}

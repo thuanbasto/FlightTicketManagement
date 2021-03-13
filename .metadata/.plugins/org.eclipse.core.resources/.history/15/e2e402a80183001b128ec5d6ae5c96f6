@@ -1,0 +1,117 @@
+package com.dasuo.entity;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "lop")
+public class Lop {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer lop_Id;
+	@Column
+	private Date ngayNhan;
+	@Column(name = "nguoihoc_id")
+	private TaiKhoan nguoiHoc_Id;
+	@Column(name = "nguoiday_id")
+	private TaiKhoan nguoiDay_Id;
+	@Column
+	private double tienHoc;
+	@Column
+	private Integer gioHoc;
+	
+	private List<LichHoc> lichHoc;
+	
+	private List<BaiKiemTra> baiKiemTra;
+	
+	private List<GiaoTrinh> giaoTrinh;
+
+	public Lop() {
+		super();
+	}
+	
+
+	public Integer getGioHoc() {
+		return gioHoc;
+	}
+
+
+	public void setGioHoc(Integer gioHoc) {
+		this.gioHoc = gioHoc;
+	}
+
+
+	public Integer getLop_Id() {
+		return lop_Id;
+	}
+
+	public void setLop_Id(Integer lop_Id) {
+		this.lop_Id = lop_Id;
+	}
+
+	public Date getNgayNhan() {
+		return ngayNhan;
+	}
+
+	public void setNgayNhan(Date ngayNhan) {
+		this.ngayNhan = ngayNhan;
+	}
+
+	public TaiKhoan getNguoiHoc_Id() {
+		return nguoiHoc_Id;
+	}
+
+	public void setNguoiHoc_Id(TaiKhoan nguoiHoc_Id) {
+		this.nguoiHoc_Id = nguoiHoc_Id;
+	}
+
+	public TaiKhoan getNguoiDay_Id() {
+		return nguoiDay_Id;
+	}
+
+	public void setNguoiDay_Id(TaiKhoan nguoiDay_Id) {
+		this.nguoiDay_Id = nguoiDay_Id;
+	}
+
+	public double getTienHoc() {
+		return tienHoc;
+	}
+
+	public void setTienHoc(double tienHoc) {
+		this.tienHoc = tienHoc;
+	}
+
+	public List<LichHoc> getLichHoc() {
+		return lichHoc;
+	}
+
+	public void setLichHoc(List<LichHoc> lichHoc) {
+		this.lichHoc = lichHoc;
+	}
+
+	public List<BaiKiemTra> getBaiKiemTra() {
+		return baiKiemTra;
+	}
+
+	public void setBaiKiemTra(List<BaiKiemTra> baiKiemTra) {
+		this.baiKiemTra = baiKiemTra;
+	}
+
+	public List<GiaoTrinh> getGiaoTrinh() {
+		return giaoTrinh;
+	}
+
+	public void setGiaoTrinh(List<GiaoTrinh> giaoTrinh) {
+		this.giaoTrinh = giaoTrinh;
+	}
+	
+	
+
+}

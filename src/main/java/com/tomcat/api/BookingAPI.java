@@ -86,4 +86,31 @@ public class BookingAPI {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping("/bookinginyear")
+	public ResponseEntity<List<BookingDTO>> getBookingInYear() {
+		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+		bookingDTOs = bookingService.getBookingPriceInYear();
+		if(bookingDTOs!=null)
+		{
+			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+			
+	}
+	
+	@GetMapping("/bookinginmonthyear")
+	public ResponseEntity<List<BookingDTO>> getBookingInMonthAndYear() {
+		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+		bookingDTOs = bookingService.getBookingPriceInYearAndMonth();
+		if(bookingDTOs!=null)
+		{
+			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

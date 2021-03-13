@@ -1,0 +1,145 @@
+package com.dasuo.entity;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "baidang")
+public class BaiDang {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer baiDang_Id;
+	
+	private String tomTatYeuCau;
+	
+	private Mon monHoc;
+	
+	private double hocPhi;
+	
+	private String sdt;
+	
+	private String moTa;
+	
+	private boolean gioiTinh;
+	
+	private Integer soBuoi;
+	
+	private Date ngayBatDau;
+	
+	private Integer thoiGianDayTheoThang;
+	
+	private ChuDe chuDe;
+	
+	private List<BaiDang_TaiKhoan> baiDang_TaiKhoan;
+
+	public BaiDang() {
+		super();
+	}
+
+	public Integer getBaiDang_Id() {
+		return baiDang_Id;
+	}
+
+	public void setBaiDang_Id(Integer baiDang_Id) {
+		this.baiDang_Id = baiDang_Id;
+	}
+
+	public String getTomTatYeuCau() {
+		return tomTatYeuCau;
+	}
+
+	public void setTomTatYeuCau(String tomTatYeuCau) {
+		this.tomTatYeuCau = tomTatYeuCau;
+	}
+
+	public Mon getMonHoc() {
+		return monHoc;
+	}
+
+	public void setMonHoc(Mon monHoc) {
+		this.monHoc = monHoc;
+	}
+
+	public double getHocPhi() {
+		return hocPhi;
+	}
+
+	public void setHocPhi(double hocPhi) {
+		this.hocPhi = hocPhi;
+	}
+
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
+	public boolean isGioiTinh() {
+		return gioiTinh;
+	}
+
+	public void setGioiTinh(boolean gioiTinh) {
+		this.gioiTinh = gioiTinh;
+	}
+
+	public Integer getSoBuoi() {
+		return soBuoi;
+	}
+
+	public void setSoBuoi(Integer soBuoi) {
+		this.soBuoi = soBuoi;
+	}
+
+	public Date getNgayBatDau() {
+		return ngayBatDau;
+	}
+
+	public void setNgayBatDau(Date ngayBatDau) {
+		this.ngayBatDau = ngayBatDau;
+	}
+
+	public Integer getThoiGianDayTheoThang() {
+		return thoiGianDayTheoThang;
+	}
+
+	public void setThoiGianDayTheoThang(Integer thoiGianDayTheoThang) {
+		this.thoiGianDayTheoThang = thoiGianDayTheoThang;
+	}
+
+	public ChuDe getChuDe() {
+		return chuDe;
+	}
+
+	public void setChuDe(ChuDe chuDe) {
+		this.chuDe = chuDe;
+	}
+
+	public List<BaiDang_TaiKhoan> getBaiDang_TaiKhoan() {
+		return baiDang_TaiKhoan;
+	}
+
+	public void setBaiDang_TaiKhoan(List<BaiDang_TaiKhoan> baiDang_TaiKhoan) {
+		this.baiDang_TaiKhoan = baiDang_TaiKhoan;
+	}
+
+	
+	
+	
+
+}

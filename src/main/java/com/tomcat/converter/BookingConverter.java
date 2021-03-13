@@ -186,5 +186,12 @@ public class BookingConverter {
 		});
 		return ticketDTOs;
 	}
+	
+	public BookingDTO toDTO (Object[] obj){
+		BookingDTO bookingDTO = new BookingDTO();
+		bookingDTO.setBooking_Id(Integer.valueOf(String.valueOf(obj[0])));
+		
+		return bookingDTO;
+	}
 
 }

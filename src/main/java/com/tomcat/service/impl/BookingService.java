@@ -1,6 +1,7 @@
 package com.tomcat.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.tomcat.dto.BookingDTO;
 import com.tomcat.entity.Booking;
 import com.tomcat.entity.Customer;
 import com.tomcat.entity.Tax;
+import com.tomcat.entity.TaxPrice;
 import com.tomcat.entity.Ticket;
 import com.tomcat.entity.User;
 import com.tomcat.repository.BookingRepository;
@@ -126,5 +128,57 @@ public class BookingService implements IBookingService {
 		});
 		return bookingDTOs;
 	}
+
+	@Override
+	@Transactional
+	public List<BookingDTO> getBookingPriceInYear() {
+		Calendar cal = Calendar.getInstance();
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		List<Object[]> objs = bookingRepository.findByBookingDateYear(year);
+		
+		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+		for (Object[] item : objs) {
+			BookingDTO _booking = bookingConverter.toDTO(item);
+			if(_booking != null)
+			{
+				 Booking bookingEntity = bookingRepository.findOne(_booking.getBooking_Id());
+				 BookingDTO bookingDTO = bookingConverter.toBookingDTO(bookingEntity);
+				 bookingDTOs.add(bookingDTO);
+			}
+		}
+		
+		return bookingDTOs;
+	}
+
+	@Override
+	@Transactional
+	public List<BookingDTO> getBookingPriceInYearAndMonth() {
+		Calendar cal = Calendar.getInstance();
+		String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		List<Object[]> objs = bookingRepository.findByBookingDateMonth(year, month);
+		if(objs == null)
+		{
+			return null;
+		}
+		else 
+		{
+			List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+			for (Object[] item : objs) {
+				BookingDTO _booking = bookingConverter.toDTO(item);
+				if(_booking != null)
+				{
+					 Booking bookingEntity = bookingRepository.findOne(_booking.getBooking_Id());
+					 BookingDTO bookingDTO = bookingConverter.toBookingDTO(bookingEntity);
+					 bookingDTOs.add(bookingDTO);
+				}
+			}
+			
+			return bookingDTOs;
+		}
+		
+	}
+	
+	
 
 }
