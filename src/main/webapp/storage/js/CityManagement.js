@@ -52,12 +52,10 @@ $('body').on('click', '#btnAdd', function() {
 			// }
 			error: function(response) {
 				let errorHtml = ``;
-				response.responseJSON.errors.forEach(error => {
-					errorHtml += `<li>${error}</li>`
-				});
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
+			console.log(response.responseJSON)
 				$('.failedToast').children('.toast-body').html(errorHtml)
 				$('.failedToast').toast('show');
-				console.log(response.responseJSON.errors);
 			}
 		});
 });
@@ -90,12 +88,9 @@ $('body').on('click', '#btnUpdate', function() {
 		},
 		error: function(response, textStatus, errorThrown) {
 			let errorHtml = ``;
-			response.responseJSON.errors.forEach(error => {
-				errorHtml += `<li>${error}</li>`
-			});
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
 			$('.failedToast').children('.toast-body').html(errorHtml)
 			$('.failedToast').toast('show');
-			console.log(response.responseJSON.errors);
 			console.log(textStatus, errorThrown);
 		}
 	});

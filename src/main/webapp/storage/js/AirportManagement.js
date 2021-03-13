@@ -77,12 +77,9 @@ $('body').on('click', '#btnAdd', function () {
 		},
 		error: function (response, textStatus, errorThrown) {
 			let errorHtml = ``;
-			response.responseJSON.errors.forEach(error => {
-				errorHtml += `<li>${error}</li>`
-			});
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
 			$('.failedToast').children('.toast-body').html(errorHtml)
 			$('.failedToast').toast('show');
-			console.log(response.responseJSON.errors);
 			console.log(textStatus, errorThrown);
 		}
 	});
@@ -130,14 +127,11 @@ $('body').on('click', '#btnUpdate', function () {
 			$('.successToast').toast('show');
 			$("#inpAirportName").val('');
 		},
-		error: function (jqXHR, textStatus, errorThrown) {
+		error: function (response, textStatus, errorThrown) {
 			let errorHtml = ``;
-			jqXHR.responseJSON.errors.forEach(error => {
-				errorHtml += `<li>${error}</li>`
-			});
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
 			$('.failedToast').children('.toast-body').html(errorHtml)
 			$('.failedToast').toast('show');
-			console.log(response.responseJSON.errors);
 			console.log(textStatus, errorThrown);
 		}
 	});
