@@ -8,6 +8,9 @@ $('#printInvoice').click(function() {
 });
 
 function formatVND(money) {
+    if (money == null) {
+        money = 0
+    }
     return (money).toLocaleString('vi', {
         style: 'currency',
         currency: 'VND',
@@ -27,6 +30,7 @@ $.ajax({
         let htmlContact = ''
         let htmlBookingTotal = ''
 
+        // load contact infomation
         htmlContact = `<div class="col invoice-to">
             <div class="text-gray-light">INVOICE TO:</div>
             <h2 class="to">${result.tickets[0].customer.firstName} ${result.tickets[0].customer.lastName}</h2>
@@ -46,22 +50,32 @@ $.ajax({
 
         result.tickets.forEach(element => {
             // console.log(element)
-            let total_signedLuggaPrice = 0;
+            // let total_signedLuggaPrice = 0; truoc khi merge main
+            // let total_taxPrice = 0;
+
+            // element.signedluggage.signedluggagePrices.forEach(e => {
+            //     total_signedLuggaPrice += e.price
+            // });
+
+            // element.taxs.forEach(tax => {
+            //     tax.taxPrices.forEach(taxPrice => {
+            //         total_taxPrice += taxPrice.price
+            //     });
+
+            // }); truoc khi merge main
+
+            let total_signedLuggaPrice = element.signedluggage.signedluggagePrices;
             let total_taxPrice = 0;
 
-            element.signedluggage.signedluggagePrices.forEach(e => {
-                total_signedLuggaPrice += e.price
-            });
-
             element.taxs.forEach(tax => {
-                tax.taxPrices.forEach(taxPrice => {
-                    total_taxPrice += taxPrice.price
-                });
-
+                total_taxPrice += tax.taxPrices
             });
 
             let total_Price = element.flight.flight_Price + total_taxPrice + total_signedLuggaPrice;
             total_bookingPrice += total_Price;
+
+
+            // load ticket infomation
 
             htmlTicket += `
                 <div class="row">
@@ -90,6 +104,7 @@ $.ajax({
             <hr>`;
         });
 
+        // load booking total
         htmlBookingTotal = `<tr>
         <td><b>Booking Date</b></td>
         <td>${result.bookingDate}</td>
