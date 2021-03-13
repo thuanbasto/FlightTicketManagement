@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,16 +42,10 @@ public class CityAPI {
 		return new ResponseEntity<>(cityDTO, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/cities", method = RequestMethod.POST)
-	public ResponseEntity<CityDTO> addCity(@RequestBody CityDTO cityDTO){
-		CityDTO _cityDTO = cityService.get(cityDTO.getCity_Id());
-		if(_cityDTO.getCity_Id() == null) {
+	@RequestMapping(value = "/cities", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CityDTO> addCity(@Valid @RequestBody CityDTO cityDTO){
 			cityService.save(cityDTO);
-			return new ResponseEntity<>(cityDTO, HttpStatus.CREATED);
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+			return new ResponseEntity<CityDTO>(cityDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/cities/{id}", method = RequestMethod.DELETE)
@@ -61,8 +58,8 @@ public class CityAPI {
 		}
 	}
 	
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<CityDTO> updateCity(@RequestBody CityDTO cityDTO) {
+	@RequestMapping(value = "/cities/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CityDTO> updateCity(@Valid @RequestBody CityDTO cityDTO) {
 		CityDTO _cityDTO = cityService.get(cityDTO.getCity_Id());
 		if(_cityDTO.getCity_Id() != null) {
 			cityService.save(cityDTO);
