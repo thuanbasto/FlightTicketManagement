@@ -19,9 +19,9 @@ public interface IBookingService {
 	
 	public void delete(Integer id);
 	
-	public List<BookingDTO> getBookingPriceInYear();
+	public Double getBookingPriceInYear();
 	
-	public List<BookingDTO> getBookingPriceInYearAndMonth();
+	public Double getBookingPriceInYearAndMonth();
 	
 	
 }

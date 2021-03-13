@@ -131,35 +131,14 @@ public class BookingService implements IBookingService {
 
 	@Override
 	@Transactional
-	public List<BookingDTO> getBookingPriceInYear() {
+	public Double getBookingPriceInYear() {
 		Calendar cal = Calendar.getInstance();
 		String year = String.valueOf(cal.get(Calendar.YEAR));
 		List<Object[]> objs = bookingRepository.findByBookingDateYear(year);
-		
-		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		for (Object[] item : objs) {
-			BookingDTO _booking = bookingConverter.toDTO(item);
-			if(_booking != null)
-			{
-				 Booking bookingEntity = bookingRepository.findOne(_booking.getBooking_Id());
-				 BookingDTO bookingDTO = bookingConverter.toBookingDTO(bookingEntity);
-				 bookingDTOs.add(bookingDTO);
-			}
-		}
-		
-		return bookingDTOs;
-	}
-
-	@Override
-	@Transactional
-	public List<BookingDTO> getBookingPriceInYearAndMonth() {
-		Calendar cal = Calendar.getInstance();
-		String month = String.valueOf(cal.get(Calendar.MONTH)+1);
-		String year = String.valueOf(cal.get(Calendar.YEAR));
-		List<Object[]> objs = bookingRepository.findByBookingDateMonth(year, month);
+		Double totalBookingPrice = 0.0;
 		if(objs == null)
 		{
-			return null;
+			return totalBookingPrice;
 		}
 		else 
 		{
@@ -174,7 +153,43 @@ public class BookingService implements IBookingService {
 				}
 			}
 			
-			return bookingDTOs;
+			for (int i = 0; i < bookingDTOs.size(); i++) {
+				totalBookingPrice += bookingDTOs.get(i).getTotalPrice();
+			}
+			return totalBookingPrice;
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public Double getBookingPriceInYearAndMonth() {
+		Calendar cal = Calendar.getInstance();
+		String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		List<Object[]> objs = bookingRepository.findByBookingDateMonth(year, month);
+		Double totalBookingPrice = 0.0;
+		if(objs == null)
+		{
+			return totalBookingPrice;
+		}
+		else 
+		{
+			List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
+			for (Object[] item : objs) {
+				BookingDTO _booking = bookingConverter.toDTO(item);
+				if(_booking != null)
+				{
+					 Booking bookingEntity = bookingRepository.findOne(_booking.getBooking_Id());
+					 BookingDTO bookingDTO = bookingConverter.toBookingDTO(bookingEntity);
+					 bookingDTOs.add(bookingDTO);
+				}
+			}
+			
+			for (int i = 0; i < bookingDTOs.size(); i++) {
+				totalBookingPrice += bookingDTOs.get(i).getTotalPrice();
+			}
+			return totalBookingPrice;
 		}
 		
 	}

@@ -88,12 +88,12 @@ public class BookingAPI {
 	}
 	
 	@GetMapping("/bookinginyear")
-	public ResponseEntity<List<BookingDTO>> getBookingInYear() {
-		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		bookingDTOs = bookingService.getBookingPriceInYear();
-		if(bookingDTOs!=null)
+	public ResponseEntity<Double> getBookingInYear() {
+		
+		Double price = bookingService.getBookingPriceInYear();
+		if(price != 0.0)
 		{
-			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
+			return new ResponseEntity<Double>(price, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -102,12 +102,11 @@ public class BookingAPI {
 	}
 	
 	@GetMapping("/bookinginmonthyear")
-	public ResponseEntity<List<BookingDTO>> getBookingInMonthAndYear() {
-		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
-		bookingDTOs = bookingService.getBookingPriceInYearAndMonth();
-		if(bookingDTOs!=null)
+	public ResponseEntity<Double> getBookingInMonthAndYear() {
+		Double price = bookingService.getBookingPriceInYearAndMonth();
+		if(price != 0.0)
 		{
-			return new ResponseEntity<List<BookingDTO>>(bookingDTOs, HttpStatus.OK);
+			return new ResponseEntity<Double>(price, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
