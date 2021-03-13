@@ -83,35 +83,12 @@
                                         </div>
                                     </td>
                                     <td class="total">
-                                        <div class="row">
+                                        <div class="row" style="padding: 0 15px;">
                                             <!-- <div class="col-sm-12"> -->
                                             <h5 style="text-align: left;">Booking Information</h5>
                                             <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><b>Booking Date</b></td>
-                                                        <td>2000-01-01 00:00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Phone:</b></td>
-                                                        <td>011111</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Email:</b></td>
-                                                        <td>thuana@gmail.com</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Payment Method:</b></td>
-                                                        <td>ONLINE</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Number of Ticket:</b></td>
-                                                        <td>1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Total Booking Price:</b></td>
-                                                        <td>2000</td>
-                                                    </tr>
+                                                <tbody id="bookingTotalData">
+
                                                 </tbody>
                                             </table>
                                             <!-- </div> -->

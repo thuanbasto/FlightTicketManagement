@@ -7,9 +7,16 @@ $('#printInvoice').click(function() {
     }
 });
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
 
+let booking_Id = $('#url').val().split("=")[$('#url').val().split("=").length - 1];
 $.ajax({
-    url: '/FlightTicketManagement/api/bookings/2',
+    url: '/FlightTicketManagement/api/bookings/' + booking_Id,
     type: 'get',
     async: false,
     contentType: 'application/json; charset=utf-8',
@@ -18,6 +25,8 @@ $.ajax({
         console.log(result);
         let htmlTicket = ''
         let htmlContact = ''
+        let htmlBookingTotal = ''
+
         htmlContact = `<div class="col invoice-to">
             <div class="text-gray-light">INVOICE TO:</div>
             <h2 class="to">${result.tickets[0].customer.firstName} ${result.tickets[0].customer.lastName}</h2>
@@ -28,15 +37,18 @@ $.ajax({
         <div class="col invoice-details">
             <h1 class="invoice-id">INVOICE #${result.booking_Id}</h1>
             <div class="date">Date of Invoice: ${result.bookingDate}</div>
-            <div class="date">Due Date: 30/10/2018</div>
         </div>`;
 
 
+
+
+        let total_bookingPrice = 0;
 
         result.tickets.forEach(element => {
             // console.log(element)
             let total_signedLuggaPrice = 0;
             let total_taxPrice = 0;
+
             element.signedluggage.signedluggagePrices.forEach(e => {
                 total_signedLuggaPrice += e.price
             });
@@ -48,14 +60,16 @@ $.ajax({
 
             });
 
+            let total_Price = element.flight.flight_Price + total_taxPrice + total_signedLuggaPrice;
+            total_bookingPrice += total_Price;
 
             htmlTicket += `
                 <div class="row">
                     <div class="col-sm-4" style="padding-left: 40px;">
-                        <h6>Flight Price: ${element.flight.flight_Price}</h6>
-                        <h6>Tax: ${total_taxPrice}</h6>
-                        <h6>Signed Luggage: ${total_signedLuggaPrice}</h6>
-                        <h6><b>Total Price:</b> ${element.ticket_PriceTotal}</h6>
+                        <h6>Flight Price: ${formatVND(element.flight.flight_Price)}</h6>
+                        <h6>Tax: ${formatVND(total_taxPrice)}</h6>
+                        <h6>Signed Luggage: ${formatVND(total_signedLuggaPrice)}</h6>
+                        <h6><b>Total Price:</b> ${formatVND(total_Price)}</h6>
                     </div>
                     <div class="col-sm-8">
                         <h5>Customer Information</h5>
@@ -76,9 +90,35 @@ $.ajax({
             <hr>`;
         });
 
+        htmlBookingTotal = `<tr>
+        <td><b>Booking Date</b></td>
+        <td>${result.bookingDate}</td>
+        </tr>
+        <tr>
+            <td><b>Phone:</b></td>
+            <td>${result.phone}</td>
+        </tr>
+        <tr>
+            <td><b>Email:</b></td>
+            <td>${result.email}</td>
+        </tr>
+        <tr>
+            <td><b>Payment Method:</b></td>
+            <td>${result.paymentMethod}</td>
+        </tr>
+        <tr>
+            <td><b>Number of Ticket:</b></td>
+            <td>${result.numberOfTicket}</td>
+        </tr>
+        <tr>
+            <td><b>Total Booking Price:</b></td>
+            <td>${formatVND(total_bookingPrice)}</td>
+        </tr>`
+
         console.log()
         $('.contacts').html(htmlContact)
         $('#ticketData').html(htmlTicket)
+        $('#bookingTotalData').html(htmlBookingTotal)
     },
     failure: function(result) {
         console.log("FAILED");
