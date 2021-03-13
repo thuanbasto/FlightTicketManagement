@@ -30,14 +30,13 @@ loadCityList();
 //su kien nut Add thanh pho
 $('body').on('click', '#btnAdd', function() {
 	// check validate
-	if ($("#cityCode").val() == '' || $("#cityName").val() == '') {
-		alert('Khong duoc chua trong!');
-	} else {
 		$.ajax({
 			url: "/FlightTicketManagement/api/cities",
-			contentType: "application/json",
 			async: false,
 			type: "post",
+			contentType: "application/json; charset=utf-8",
+			async: false,
+			dataType: "json",
 			// du lieu truyen vao dang json 
 			data: JSON.stringify({ "city_Id": $("#cityCode").val(), "name": $("#cityName").val() }),
 			success: function(response) {
@@ -47,13 +46,20 @@ $('body').on('click', '#btnAdd', function() {
 				console.log(response);
 				loadCityList();
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			// error: function(response) {
+			// 	// $('.failedToast').toast('show');
+			// 	console.log(response);
+			// }
+			error: function(response) {
+				let errorHtml = ``;
+				response.responseJSON.errors.forEach(error => {
+					errorHtml += `<li>${error}</li>`
+				});
+				$('.failedToast').children('.toast-body').html(errorHtml)
 				$('.failedToast').toast('show');
-				console.log(textStatus, errorThrown);
+				console.log(response.responseJSON.errors);
 			}
 		});
-	}
-
 });
 
 
@@ -82,8 +88,14 @@ $('body').on('click', '#btnUpdate', function() {
 			loadCityList();
 			$("#inpCityName").val('');
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function(response, textStatus, errorThrown) {
+			let errorHtml = ``;
+			response.responseJSON.errors.forEach(error => {
+				errorHtml += `<li>${error}</li>`
+			});
+			$('.failedToast').children('.toast-body').html(errorHtml)
 			$('.failedToast').toast('show');
+			console.log(response.responseJSON.errors);
 			console.log(textStatus, errorThrown);
 		}
 	});

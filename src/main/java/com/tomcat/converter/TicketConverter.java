@@ -47,7 +47,9 @@ public class TicketConverter {
 		
 		if(ticket.getBooking() != null) {
 			BookingDTO bookingDTO = mapper.map(ticket.getBooking(), BookingDTO.class);
-			bookingDTO.getUser().setRoles(null);
+			if(bookingDTO.getUser() != null) {
+				bookingDTO.getUser().setRoles(null);
+			}
 			bookingDTO.setTickets(null);
 			ticketDTO.setBooking(bookingDTO); 
 		}
