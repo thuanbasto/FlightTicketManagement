@@ -23,7 +23,7 @@ public class Signedluggage implements Serializable {
 	private double weight;
 
 	//bi-directional many-to-one association to SignedluggagePrice
-	@OneToMany(mappedBy="signedluggage")
+	@OneToMany(mappedBy="signedluggage" , cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<SignedluggagePrice> signedluggagePrices;
 
 	//bi-directional many-to-one association to Ticket

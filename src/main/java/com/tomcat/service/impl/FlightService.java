@@ -2,9 +2,7 @@ package com.tomcat.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,25 +57,29 @@ public class FlightService implements IFlightService{
 	public List<FlightDTO> getFlights(String from, String to, Date departureDate, String number) {
 		List<Object[]> objs = flightRepository.searchFlight(from, to, departureDate, number);
 		if (objs.size() == 0) return null;
-		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
-		objs.forEach(flight -> {
-			FlightDTO flightDTO = flightConverter.toDTO(flight);
-			
-			if (flightDTOs.containsKey((flightDTO).getFlight_Id())) {
-				FlightDTO flightInMap = flightDTOs.get(flightDTO.getFlight_Id());
-				if (flightInMap.getTravelClass_Id() != flightDTO.getTravelClass_Id()) {
-					List<Integer> listOfTravelClass_Id = flightInMap.getListOfTravelClass_Id();
-					listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
-					
-					flightInMap.setListOfTravelClass_Id(listOfTravelClass_Id);
-					flightDTOs.put(flightDTO.getFlight_Id(),flightInMap);
-				}
-			} else {
-				flightDTOs.put(flightDTO.getFlight_Id(),flightDTO);
-			}
-		});
+		List<FlightDTO> flightDTOs = new ArrayList<FlightDTO>();
+		objs.forEach(flight -> flightDTOs.add(flightConverter.toDTO(flight)));
 		
-		return new ArrayList<FlightDTO>(flightDTOs.values());
+		return flightDTOs;
+//		Map<Integer, FlightDTO> flightDTOs = new HashMap<Integer, FlightDTO>();
+//		objs.forEach(flight -> {
+//			FlightDTO flightDTO = flightConverter.toDTO(flight);
+//			
+//			if (flightDTOs.containsKey((flightDTO).getFlight_Id())) {
+//				FlightDTO flightInMap = flightDTOs.get(flightDTO.getFlight_Id());
+//				if (flightInMap.getTravelClass_Id() != flightDTO.getTravelClass_Id()) {
+//					List<Integer> listOfTravelClass_Id = flightInMap.getListOfTravelClass_Id();
+//					listOfTravelClass_Id.add(flightDTO.getTravelClass_Id());
+//					
+//					flightInMap.setListOfTravelClass_Id(listOfTravelClass_Id);
+//					flightDTOs.put(flightDTO.getFlight_Id(),flightInMap);
+//				}
+//			} else {
+//				flightDTOs.put(flightDTO.getFlight_Id(),flightDTO);
+//			}
+//		});
+		
+//		return new ArrayList<FlightDTO>(flightDTOs.values());
 	}
 
 }

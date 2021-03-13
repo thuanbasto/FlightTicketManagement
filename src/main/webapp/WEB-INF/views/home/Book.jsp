@@ -61,7 +61,7 @@
                                                 <div class="form-group">
                                                     <select id="from" name="from" class="form-control">
 
-                                        </select>
+                                            </select>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -108,7 +108,7 @@
 
                                     <!-- <div class="search"> -->
                                     <div class="form-group mb-4">
-                                        <button id="search_btn" class="btn float-right" style="background-image: linear-gradient(to right top, #eca9ff, #c4b1ff, #95b8ff, #5fbeff, #00c1ff);border-color: white;">Search</button>
+                                        <button id="btnSearch" class="btn float-right" style="background-image: linear-gradient(to right top, #eca9ff, #c4b1ff, #95b8ff, #5fbeff, #00c1ff);border-color: white;">Search</button>
                                     </div>
                                     <!-- </div> -->
 

@@ -3,19 +3,30 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class SignedluggagePriceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer price_Id;
-
+	
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+07:00")
 	private Date modifiedDate;
 
 	private double price;
 	
 	private Integer signedLuggage_Id;
 
-//	private SignedluggageDTO signedluggage;
+	//private SignedluggageDTO signedluggage;
 
 	public SignedluggagePriceDTO() {
 	}
