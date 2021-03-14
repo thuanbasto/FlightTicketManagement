@@ -5,9 +5,18 @@ $('#btnSearch').on('click', function(e) {
     if ($("#from").val() == 0 || $("#to").val() == 0 || $("#departureDate").val() == "" || $("#adult").val() == 0) {
         alert("Please fill full field!")
     } else {
-        let number = parseInt($('#adult').val()) + parseInt($('#child').val())
+        let number = parseInt($('#adult').val());
             // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
         window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
+    }
+});
+
+$('.findBooking').on('click', function(e) {
+    e.preventDefault();
+    if ($("#email").val() == "" || $("#booking_Id").val() == "") {
+        alert("Please fill full field!")
+    } else {
+        window.location.href = `bill?${$('#findBookingForm').serialize()}`;
     }
 });
 

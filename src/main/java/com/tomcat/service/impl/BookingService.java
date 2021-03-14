@@ -109,6 +109,7 @@ public class BookingService implements IBookingService {
 			ticketRepository.save(ticket);
 		});
 
+		bookingDTO.setBooking_Id(booking.getBooking_Id());
 	}
 
 	@Override

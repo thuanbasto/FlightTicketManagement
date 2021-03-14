@@ -73,7 +73,7 @@ public class MailUtils {
         		+ "<h4>Payment Method: " + bookingDTO.getPaymentMethod() + "</h4>"
 				+ "<h4>Total Booking Price: " + bookingDTO.getTotalPrice() + "</h4>"
                 
-                + "<h4>Click to view booking: " + "<a href=\"http://localhost:8080/FlightTicketManagement/find-reservation?code=" + bookingDTO.getBooking_Id()+"\">Click here</a></h4>"
+                + "<h4>Click to view booking: " + "<a href=\"http://localhost:8080/FlightTicketManagement/bill??email=" + bookingDTO.getEmail() + "&booking_Id=" + bookingDTO.getBooking_Id() + "\">Click here</a></h4>"
                 +  "<table border ='1' style=\"border: 1px solid black;  width: 100%;\n"
                 + "  border-collapse: collapse; \"><tr>"
                 + "<td><b>Code </b></td>"

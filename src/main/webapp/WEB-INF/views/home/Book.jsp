@@ -117,11 +117,33 @@
                             </form>
                         </div>
 
-                        <div id="menu1" class="tab-pane fade">
-                            <h3>Menu 1</h3>
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                        </div>
+                        <!-- manage booking  -->
+						<div id="menu1" class="tab-pane fade">
+							<div class="row">
+								<div class="col-lg-7">
+									<h2>Find Your booking</h2>
+                                    <form id="findBookingForm"
+										action="${pageContext.request.contextPath}/find-reservation"
+										method="post" style="margin: 20px">
+										<div class="form-group">
+                                            <label for="email"><b>Email</b></label>
+                                            <input class="form-control" name="email" id="email" placeholder="Enter your email"><br>
+                                            <label for="code"><b>Booking Number</b></label> 
+                                            <input class="form-control" name="booking_Id" id="booking_Id" placeholder="Enter booking number">
+										</div>
+										<button type="submit" class="findBooking btn btn-primary">Find booking</button>
+									</form>
+								</div>
+								<div class="col-lg-5">
+									<div style="margin-top: 100px">
+										<b>You can do any of the following and more:</b><br> 
+										<i class="fas fa-check"  style="color: green;"></i>
+										<br> <i class="fas fa-check" style="color: green;"></i>
+										Print Booking
+									</div>
+								</div>
+							</div>
+						</div>
                     </div>
                 </div>
             </div>

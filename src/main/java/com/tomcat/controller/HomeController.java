@@ -2,7 +2,6 @@ package com.tomcat.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tomcat.dto.CityDTO;
 import com.tomcat.service.ICityService;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.IUserService;
@@ -31,10 +29,9 @@ public class HomeController {
 	@Autowired
 	ICityService cityService;
 	
-	@GetMapping(value= {"/home","/"})
-	public String homePage(HttpServletRequest request) {
-		request.setAttribute("listCity", cityService.getList());
-		return "Home";
+	@GetMapping(value= {"/book","/home","/"})
+	public String bookingPage(HttpServletRequest request) {
+		return "Book";
 	}
 	
 	@GetMapping("/signin")
@@ -66,16 +63,6 @@ public class HomeController {
 		return "Signin";
 	}
 	
-	@GetMapping(value= {"/book"})
-	public String bookingPage(HttpServletRequest request) {
-		Set<CityDTO> citis = cityService.getCityDTOList();
-		request.setAttribute("citis", citis);
-		return "Book";
-	}
-	
-	
-	
-	
 	@GetMapping(value= {"/accountadmin"})
 	public String generateAccountAdmin(HttpServletRequest request) {
 		if(userService.generateAccountAdmin()) request.setAttribute("generated", 1);
@@ -100,8 +87,8 @@ public class HomeController {
 	@GetMapping(value= {"/bill"})
 	public String Bill(HttpServletRequest request,
 			@RequestParam(name="email",required=true) String email,
-			@RequestParam(name="bookingId",required=true) String bookingId){
-		String url = "email=" + email + "&bookingId=" + bookingId  ;
+			@RequestParam(name="booking_Id",required=true) String booking_Id){
+		String url = "email=" + email + "&booking_Id=" + booking_Id  ;
 		request.setAttribute("url", url);
 		return "Bill";
 	}

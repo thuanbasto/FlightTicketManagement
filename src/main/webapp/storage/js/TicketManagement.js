@@ -16,11 +16,7 @@ function loadTicketList() {
                 var bookingCode = value.booking.booking_Id;
                 var flight = value.flight.fromAirport.name + " - " + value.flight.toAirport.name;
                 var departureDate = value.flight.departureDate;
-                var signedLuggage = value.signedluggage.name;
-                var taxs = "";
-                value.taxs.forEach(e => {
-                    taxs += " - " + e.taxName
-                });
+                var signedLuggage = value.signedluggage != null ? value.signedluggage.name : "";
                 var seat = value.seat.seat_Id;
                 var price = value.ticket_PriceTotal;
 
@@ -33,8 +29,6 @@ function loadTicketList() {
                     <td>${flight}</td>
                     <td>${departureDate}</td>
                     <td>${seat}</td>
-                    <td>${signedLuggage}</td>
-                    <td>${taxs}</td>
                     <td>${price}</td>
                     <td>
                         <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
@@ -208,7 +202,7 @@ $('#tbodyData').on('click', '#btnEdit', function () {
             $("#inpBookingClass").val(response.booking.booking_Id)
             $("#inpFlightClass").val(response.flight.flight_Id)
             $("#inpSeatClass").val(response.seat.seat_Id)
-            $("#inpLuggageClass").val(response.signedluggage.signedLuggage_Id)
+            $("#inpLuggageClass").val(response.signedluggage != null ? response.signedluggage.signedLuggage_Id : "")
             response.taxs.forEach(tax => {
                 $("#form-check-tax input").each(function () {
                     if ($(this).val() == tax.tax_Id) {

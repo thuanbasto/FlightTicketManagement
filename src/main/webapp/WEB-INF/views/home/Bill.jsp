@@ -4,13 +4,14 @@
 
         <link rel="stylesheet" href='<c:url value="/storage/css/Bill.css"></c:url>'>
         <c:url value="/storage/js/Bill.js" var="jsUrl" />
+        <c:url value="/book" var="homeUrl" />
+        <c:url value="/storage/img/logo.png" var="iconUrl" />
         <input hidden value="${url}" id="url" name="url" />
-        <!--Author      : @arboshiki-->
-        <div id="invoice">
 
+        <div id="invoice">
             <div class="toolbar hidden-print">
                 <div class="text-right">
-                    <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+                        <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
                     <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
                 </div>
                 <hr>
@@ -20,35 +21,24 @@
                     <header>
                         <div class="row">
                             <div class="col">
-                                <a target="_blank" href="https://lobianijs.com">
-                                    <img src="http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png" data-holder-rendered="true" />
+                                <a target="_blank" href="${homeUrl}">
+                                    <img src="${iconUrl}" width="120px" height="100px" data-holder-rendered="true" />
                                 </a>
                             </div>
                             <div class="col company-details">
                                 <h2 class="name">
-                                    <a target="_blank" href="https://lobianijs.com">
-                            Arboshiki
-                            </a>
+                                    <a target="_blank" href="${homeUrl}">
+                                        Tomcat
+                                    </a>
                                 </h2>
-                                <div>455 Foggy Heights, AZ 85004, US</div>
-                                <div>(123) 456-789</div>
-                                <div>company@example.com</div>
+                                <div>455 ABC, XYZ, VN</div>
+                                <div>077 5461 753</div>
+                                <div>tomcatflight7@gmail.com</div>
                             </div>
                         </div>
                     </header>
                     <main>
                         <div class="row contacts">
-                            <!-- <div class="col invoice-to">
-                                <div class="text-gray-light">INVOICE TO:</div>
-                                <h2 class="to">John Doe</h2>
-                                <div class="address">796 Silver Harbour, TX 79273, US</div>
-                                <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
-                            </div>
-                            <div class="col invoice-details">
-                                <h1 class="invoice-id">INVOICE 3-2-1</h1>
-                                <div class="date">Date of Invoice: 01/10/2018</div>
-                                <div class="date">Due Date: 30/10/2018</div>
-                            </div> -->
                         </div>
                         <table border="0" cellspacing="0" cellpadding="0">
                             <thead>
@@ -60,24 +50,8 @@
                             </thead>
                             <tbody id="tbodyDatas">
                                 <tr>
-                                    <td class="no">${element.ticket_Id}</td>
+                                    <td class="no"></td>
                                     <td>
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td><b>Danang International Airport</b></td>
-                                                    <td><b>Noi Bai</b></td>
-                                                    <td><b>4-atom 1</b></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>2021-03-10 00:00:00</b></td>
-                                                    <td><b>2021-03-10 12:00:00</b></td>
-                                                    <td><b>A001 - Pho thong 123</b></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <hr>
-
                                         <div id="ticketData">
 
                                         </div>

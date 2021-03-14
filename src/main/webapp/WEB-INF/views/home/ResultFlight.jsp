@@ -15,6 +15,26 @@
                 overflow-y: auto;
             }
         </style>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="modalPaymentSuccess">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width:400px; height:300px;">
+                    <!-- Modal Header -->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title text-success">Payment success</h4>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body text-center">
+                        <h3 class="text-primary">Send email with booking information for you</h3>
+                        <h3>Thank you, waiting 3 seconds to redirect to bill page</h3>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+
         <div class="container mt-5">
             <h1 id="testt"></h1>
             <table class="table table-hover">
@@ -113,6 +133,5 @@
 
 
                 <input hidden value="${url}" id="url" name="url" />
-
 
         <script src="${jsUrl}"></script>

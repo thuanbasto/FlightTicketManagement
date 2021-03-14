@@ -34,80 +34,73 @@ $.ajax({
         htmlContact = `<div class="col invoice-to">
             <div class="text-gray-light">INVOICE TO:</div>
             <h2 class="to">${result.tickets[0].customer.firstName} ${result.tickets[0].customer.lastName}</h2>
-            <div class="address">Adress: ${result.tickets[0].customer.address}</div>
             <div class="phoneNumber">Phone Number: ${result.phone}</div>
             <div class="email">Email:<a href="#"> ${result.email}</a></div>
         </div>
         <div class="col invoice-details">
-            <h1 class="invoice-id">INVOICE #${result.booking_Id}</h1>
+            <h1 class="invoice-id">Booking ID #${result.booking_Id}</h1>
             <div class="date">Date of Invoice: ${result.bookingDate}</div>
         </div>`;
 
-
-
-
         let total_bookingPrice = 0;
+        let total_taxPrice = 0;
+        
+        result.tickets.forEach(ticket => {
+            let taxPrice = 0;
+            let signedLuggaPrice = 0; 
 
-        result.tickets.forEach(element => {
-            // console.log(element)
-            // let total_signedLuggaPrice = 0; truoc khi merge main
-            // let total_taxPrice = 0;
+            if (ticket.signedluggage != null) signedLuggaPrice = ticket.signedluggage.signedluggagePrices[0].price;
 
-            // element.signedluggage.signedluggagePrices.forEach(e => {
-            //     total_signedLuggaPrice += e.price
-            // });
+            ticket.taxs.forEach(tax=>{
+                if(tax.taxPrices != null)
+                    taxPrice += tax.taxPrices[0].price
+            })
 
-            // element.taxs.forEach(tax => {
-            //     tax.taxPrices.forEach(taxPrice => {
-            //         total_taxPrice += taxPrice.price
-            //     });
-
-            // }); truoc khi merge main
-
-            let total_signedLuggaPrice = element.signedluggage.signedluggagePrices;
-            let total_taxPrice = 0;
-
-            element.taxs.forEach(tax => {
-                total_taxPrice += tax.taxPrices
-            });
-
-            let total_Price = element.flight.flight_Price + total_taxPrice + total_signedLuggaPrice;
-            total_bookingPrice += total_Price;
+            total_bookingPrice += taxPrice + signedLuggaPrice + ticket.flight.flight_Price + ticket.seat.travelClass.travelClassPrices[0].price;
 
 
-            // load ticket infomation
-
-            htmlTicket += `
-                <div class="row">
-                    <div class="col-sm-4" style="padding-left: 40px;">
-                        <h6>Flight Price: ${formatVND(element.flight.flight_Price)}</h6>
-                        <h6>Tax: ${formatVND(total_taxPrice)}</h6>
-                        <h6>Signed Luggage: ${formatVND(total_signedLuggaPrice)}</h6>
-                        <h6><b>Total Price:</b> ${formatVND(total_Price)}</h6>
-                    </div>
-                    <div class="col-sm-8">
-                        <h5>Customer Information</h5>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>Mr/Mrs: ${element.customer.firstName} ${element.customer.lastName}</td>
-                                    <td>Address: ${element.customer.address}</td>
-                                </tr>
-                                <tr>
-                                    <td>Birthday: ${element.customer.birthDay}</td>
-                                    <td>Identity Number: ${element.customer.identityNumber}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            htmlTicket = htmlTicket + `
+            <h3>Ticket #${ticket.ticket_Id}</h3>
+            <table class="table">
+                <tr>
+                    <td><b>From: </b>${ticket.flight.fromAirport.name}</td>
+                    <td><b>To: </b>${ticket.flight.toAirport.name}</td>
+                    <td><b>Flight Code: </b>${ticket.flight.flight_Id} - ${ticket.flight.airplane.name}</td> 
+                </tr>
+                <tr>
+                    <td><b>Arrival Date: </b>${ticket.flight.arrivalDate}</td>
+                    <td><b>Departure Date: </b>${ticket.flight.departureDate}</td>
+                    <td><b>Seat: </b>${ticket.seat.seat_Id} - ${ticket.seat.travelClass.name}</td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-sm-6" style="padding-left: 40px;">
+                    <h6><b>Flight Price:</b> ${formatVND(ticket.flight.flight_Price)}</h6>
+                    <h6><b>Tax:</b> ${formatVND(taxPrice)}</h6>
+                    <h6><b>Signed Luggage:</b> ${ticket.signedluggage != null ? formatVND(ticket.signedluggage.signedluggagePrices[0].price) : formatVND(0)}</h6>
+                    <h6><b>Travel Class Price:</b> ${formatVND(ticket.seat.travelClass.travelClassPrices[0].price)}</h6>
+                    <h6><b>Total Price:</b> ${ticket.ticket_PriceTotal}</h6>
                 </div>
-            <hr>`;
+                <div class="col-sm-6">
+                    <h5>Customer Information</h5>
+                    <table class="table">
+                        <tr>
+                            <td><b>Mr/Mrs: </b> ${ticket.customer.firstName} ${ticket.customer.lastName}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Birthday: </b>${ticket.customer.birthDay}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            `
         });
 
         // load booking total
-        htmlBookingTotal = `<tr>
-        <td><b>Booking Date</b></td>
-        <td>${result.bookingDate}</td>
+        htmlBookingTotal = `
+        <tr>
+            <td><b>Booking Date</b></td>
+            <td>${result.bookingDate}</td>
         </tr>
         <tr>
             <td><b>Phone:</b></td>
@@ -130,7 +123,6 @@ $.ajax({
             <td>${formatVND(total_bookingPrice)}</td>
         </tr>`
 
-        console.log()
         $('.contacts').html(htmlContact)
         $('#ticketData').html(htmlTicket)
         $('#bookingTotalData').html(htmlBookingTotal)

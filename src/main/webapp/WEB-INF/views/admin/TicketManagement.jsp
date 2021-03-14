@@ -26,8 +26,6 @@
 						<th>Flight</th>
 						<th>Departure Date</th>
 						<th>Seat Code</th>
-						<th>Signed luggage</th>
-						<th>Taxs Name</th>
 						<th>Price (VND)</th>
 						<th>Action</th>
 					</tr>
