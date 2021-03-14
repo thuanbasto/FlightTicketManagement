@@ -34,7 +34,8 @@ function loadTicketList() {
                     <td>${price}</td>
                     <td>
                         <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
-                        <button id="btnDelete" data-id=${id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        <button id="btnDelete" data-id=${id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>&nbsp
+                        <button id="btnDetail" data-id=${id} type="button" class="btn btn-success" data-toggle="modal" data-target="#deltailModal"><i class="fas fa-eye"></i></button>
                     </td>
                 </tr>`;
             });
@@ -168,6 +169,77 @@ loadLuggageClassList();
 loadTaxesClassList();
 loadTicketList();
 
+$('#tbodyData').on('click', '#btnDetail', function () {
+
+    // fill input with value
+    ticketList.forEach(ticket => {
+        if (ticket.ticket_Id == $(this).data("id")) {
+            var htmlStrHeaderDetail = ``;
+            var htmlStrBodyDetail = ``;
+            var htmlStrFooterDetail = ``;
+
+            htmlStrHeaderDetail += `
+            <h4 class="modal-title" id="myModalLabel"><i class="text-muted fa fa-plane">
+            </i><strong>${ticket.ticket_Id}</strong> - Ticket Detail 
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="text-danger fa fa-times"></i></button>`
+
+            htmlStrBodyDetail += `
+            <table class="pull-left col-md-10 ">
+            <tbody>
+                <tr class="spaceUnder">
+                    <td class="h6"><strong>Full Name</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.customer.firstName + " " + ticket.customer.lastName}</td>
+                    <td> </td>
+                    <td class="h6"><strong>Departure Date</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.flight.departureDate}</td>
+                </tr>
+
+                <tr class="spaceUnder">
+                    <td class="h6"><strong>From</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.flight.fromAirport.name}</td>
+                    <td> </td>
+                    <td class="h6"><strong>Seat</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.flight.departureDate}</td>
+                </tr>
+
+                <tr class="spaceUnder">
+                    <td class="h6"><strong>To</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.flight.toAirport.name}</td>
+                    <td> </td>
+                    <td class="h6"><strong>Flight</strong></td>
+                    <td> </td>
+                    <td class="h5">${ticket.flight.airplane.name}</td>
+                </tr>
+
+            </tbody>
+        </table>`
+
+            htmlStrFooterDetail += `
+            <div class="text-left pull-right col-md-3">Price Total: <br />
+            <span class="h3 text-muted"><strong>${ticket.ticket_PriceTotal} VND</strong></span>
+            </div>
+            <div class="text-center col-md-12">
+            <button type="button" class="btn btn-primary">Print Ticket</button>
+            </div>
+            `
+
+            $("#detail-modal-header").html(htmlStrHeaderDetail);
+            $("#detail-modal-body").html(htmlStrBodyDetail);
+            $("#detail-modal-footer").html(htmlStrFooterDetail);
+
+        }
+    })
+
+
+});
+
 $('#tbodyData').on('click', '#btnEdit', function () {
 
     // fill input with value
@@ -200,29 +272,11 @@ $('#tbodyData').on('click', '#btnEdit', function () {
     action = "update";
 
 
-    $(".modal-title").html("Edit Ticket");
+    // $(".modal-title").html("Edit Ticket");
 
-    $("#btnUpdate").html("Update");
+    // $("#btnUpdate").html("Update");
 });
 
-
-$('#btnAdd').on('click', function () {
-    $("#inpTicket_Id").val("");
-    $("#inpCustomerClass").val("");
-    $("#inpBookingClass").val("")
-    $("#inpFlightClass").val("");
-    $("#inpSeatClass").val("");
-    $("#inpLuggageClass").val("");
-    $("#form-check-tax input").each(function () {
-        $(this).prop('checked', false);
-    })
-    action = "add";
-
-
-    $(".modal-title").html("Add seat");
-
-    $("#btnUpdate").html("Add");
-});
 
 $('body').on('click', '#btnUpdate', function () {
 
@@ -236,18 +290,6 @@ $('body').on('click', '#btnUpdate', function () {
             taxs_Id.push(tax_Id)
         }
     })
-
-    console.log(taxs_Id);
-
-    let ticketForAdd = {
-        ticket_PriceTotal: 0,
-        customer_Id: $("#inpCustomerClass").val(),
-        booking_Id: $("#inpBookingClass").val(),
-        flight_Id: $("#inpFlightClass").val(),
-        seat_Id: $("#inpSeatClass").val(),
-        signedLuggage_Id: $("#inpLuggageClass").val(),
-        tax_Id: taxs_Id
-    };
 
     let ticketForUpdate = {
         ticket_Id: parseInt($("#inpTicket_Id").val()),

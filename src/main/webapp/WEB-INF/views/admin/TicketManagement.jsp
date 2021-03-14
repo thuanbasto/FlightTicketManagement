@@ -3,7 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:url value="/storage/js/TicketManagement.js" var="jsUrl" />
+<c:url value="/storage/css/Ticket.css" var="cssUrl" />
+<c:url value="./ticket-print" var="jspUrl" />
 
+<link rel="stylesheet" href='${cssUrl}'>
 <div class="row mt-3 mb-4">
 	<div class="col-lg-4">
 		<button id="btnAdd" class="btn btn-success" data-toggle="modal" data-target="#updateTaxModal" hidden>Add
@@ -26,7 +29,6 @@
 						<th>Departure Date</th>
 						<th>Seat Code</th>
 						<th>Signed luggage</th>
-						<!-- <th>Taxs Name</th> -->
 						<th>Price (VND)</th>
 						<th>Action</th>
 					</tr>
@@ -38,7 +40,7 @@
 		</div>
 	</div>
 </div>
-<!-- The Modal -->
+<!-- The Modal for Update -->
 <div class="modal fade" id="updateTaxModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -53,7 +55,8 @@
 			<div class="modal-body">
 				<div>
 					<div class="seat_Id form-group">
-						<label>ID</label> <input class="form-control" type="text" id="inpTicket_Id" disabled>
+						<label><b>ID</b></label>
+						<input class="form-control" type="text" id="inpTicket_Id" disabled>
 					</div>
 
 					<div class="customer_Id form-group">
@@ -63,7 +66,6 @@
 
 					<div class="customer_Id form-group">
 						<label><b>Customer</b></label><br />
-						<!-- <select class="browser-default custom-select" id="inpCustomerClass" required></select> -->
 						<label>First Name</label>
 						<input class="form-control" type="text" id="inpFirstName" placeholder="First Name">
 						<label>Last Name</label>
@@ -87,18 +89,39 @@
 							<label><b>Signed luggage</b></label>
 							<select class="browser-default custom-select" id="inpLuggageClass" required></select>
 						</div>
-
-						<!-- <div class="tax form-group">
-						<label>taxes</label>						
-						<div id="form-check-tax">					
-						</div>					
-					</div> -->
 					</div>
 					<button id="btnUpdate" type="button" class="btn btn-success mt-1 float-right">Update</button>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- the modal for detail -->
+<div class="modal" id="deltailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width: 50%; margin: 1.75rem auto">
+		<div class="modal-content">
+
+			<div class="modal-header" id="detail-modal-header">
+				
+			</div>
+
+			<div class="modal-body" id="detail-modal-body">
+
+			</div>	
+
+			<div class="modal-footer" id="detail-modal-footer">
+
+			</div>
+
+			<!-- <a target="_blank" href='${jspUrl}' class="btn btn-primary">Print Ticket</a> -->
+
+
+			
+			</div>
+		</div>
+	</div>
+
 
 
 	<script src="${jsUrl}"></script>
