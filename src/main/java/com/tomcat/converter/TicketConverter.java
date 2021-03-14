@@ -90,27 +90,29 @@ public class TicketConverter {
 		seatDTO.setTickets(null);
 		ticketDTO.setSeat(seatDTO); // set seat dto
 
-		SignedluggageDTO signedluggageDTO = mapper.map(ticket.getSignedluggage(), SignedluggageDTO.class);
-		List<SignedluggagePriceDTO> signedluggagePriceDTOs = signedluggageDTO.getSignedluggagePrices();
-		// signed luggage price
-		if (!signedluggagePriceDTOs.isEmpty() && ticket.getBooking() !=null) {
-			signedluggagePriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
-			Optional<SignedluggagePriceDTO> signedluggagePriceDTO = signedluggagePriceDTOs.stream()
-					.filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0)
-					.findFirst();
-			if (signedluggagePriceDTO.isPresent()) {
-				SignedluggagePriceDTO _signedluggagePriceDTO = signedluggagePriceDTO.get();
-				signedLuggagePrice = _signedluggagePriceDTO.getPrice();
-				signedluggageDTO.setSignedluggagePrices(Arrays.asList(_signedluggagePriceDTO));
-			} else {
+		if (ticket.getSignedluggage() != null) {
+			SignedluggageDTO signedluggageDTO = mapper.map(ticket.getSignedluggage(), SignedluggageDTO.class);
+			List<SignedluggagePriceDTO> signedluggagePriceDTOs = signedluggageDTO.getSignedluggagePrices();
+			// signed luggage price
+			if (!signedluggagePriceDTOs.isEmpty() && ticket.getBooking() !=null) {
+				signedluggagePriceDTOs.sort((obj1, obj2) -> obj1.getModifiedDate().compareTo(obj2.getModifiedDate()) * -1);
+				Optional<SignedluggagePriceDTO> signedluggagePriceDTO = signedluggagePriceDTOs.stream()
+						.filter(price -> ticket.getBooking().getBookingDate().compareTo(price.getModifiedDate()) > 0)
+						.findFirst();
+				if (signedluggagePriceDTO.isPresent()) {
+					SignedluggagePriceDTO _signedluggagePriceDTO = signedluggagePriceDTO.get();
+					signedLuggagePrice = _signedluggagePriceDTO.getPrice();
+					signedluggageDTO.setSignedluggagePrices(Arrays.asList(_signedluggagePriceDTO));
+				} else {
+					signedluggageDTO.setSignedluggagePrices(null);
+				}
+			}else {
 				signedluggageDTO.setSignedluggagePrices(null);
 			}
-		}else {
-			signedluggageDTO.setSignedluggagePrices(null);
+			signedluggageDTO.setTickets(null);
+			ticketDTO.setSignedluggage(signedluggageDTO); // set signed luggage dto
 		}
-		signedluggageDTO.setTickets(null);
-		ticketDTO.setSignedluggage(signedluggageDTO); // set signed luggage dto
-
+		
 		FlightDTO flightDTO = flightConverter.toFlightDTO(ticket.getFlight());
 		flightDTO.setTickets(null);
 		ticketDTO.setFlight(flightDTO); // set flight dto

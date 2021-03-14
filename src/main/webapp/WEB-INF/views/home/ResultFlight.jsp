@@ -118,5 +118,4 @@
         <input hidden value="${url}" id="url" name="url" />
 
 
-        <script src="${jsUrl}">
-        </script>
+        <script src="${jsUrl}"></script>

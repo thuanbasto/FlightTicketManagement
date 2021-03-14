@@ -16,7 +16,6 @@ import com.tomcat.dto.BookingDTO;
 import com.tomcat.entity.Booking;
 import com.tomcat.entity.Customer;
 import com.tomcat.entity.Tax;
-import com.tomcat.entity.TaxPrice;
 import com.tomcat.entity.Ticket;
 import com.tomcat.entity.User;
 import com.tomcat.repository.BookingRepository;
@@ -194,6 +193,4 @@ public class BookingService implements IBookingService {
 		
 	}
 	
-	
-
 }

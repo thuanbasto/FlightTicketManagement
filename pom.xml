@@ -152,10 +152,11 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 		<dependency>
-			<groupId>org.hibernate.validator</groupId>
+			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
+			<version>5.1.3.Final</version>
 		</dependency>
+		
 		<!-- mail  -->
 		<dependency>
             <groupId>com.sun.mail</groupId>
