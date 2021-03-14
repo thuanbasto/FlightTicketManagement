@@ -2,11 +2,11 @@ $('#ftab').trigger('click');
 
 $('#btnSearch').on('click', function(e) {
     e.preventDefault();
-    if ($("#from").val() == 0 || $("#to").val() == 0 || $("#departureDate").val() == "" || $("#adult").val() == 0){
+    if ($("#from").val() == 0 || $("#to").val() == 0 || $("#departureDate").val() == "" || $("#adult").val() == 0) {
         alert("Please fill full field!")
     } else {
         let number = parseInt($('#adult').val()) + parseInt($('#child').val())
-        // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
+            // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
         window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
     }
 });
@@ -22,7 +22,7 @@ function loadCities() {
         success: function(response) {
             var htmlStr = `<option value="0">Select city</option>`;
             // lap qua ket qua tra ve & tao html theo mong muon
-            $.each(response,function(index,value){
+            $.each(response, function(index, value) {
                 var airport_Id = value.airport_Id;
                 var cityName = value.city.name;
 

@@ -12,13 +12,13 @@
                 <h1>Please select a seat</h1>
             </div>
 
-            <div class="exit exit--front fuselage">
+            <div class="business business--front fuselage">
 
             </div>
             <ol class="cabin fuselage">
                 
             </ol>
-            <div class="exit exit--back fuselage">
+            <div class="business business--back fuselage">
 
             </div>
         </div>
