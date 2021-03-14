@@ -9,7 +9,7 @@
             .modal-dialog {
                 overflow-y: initial !important
             }
-
+            
             .modal-body {
                 height: 400px;
                 overflow-y: auto;
@@ -32,12 +32,11 @@
                 </tbody>
             </table>
             <div class="text-center notFound">
-                                            
+
             </div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-lg"
-                    style="overflow-y: scroll; max-height:60%; max-width: 80%; margin-top: 50px; margin-bottom:50px;">
+                <div class="modal-dialog modal-lg" style="overflow-y: scroll; max-height:60%; max-width: 80%; margin-top: 50px; margin-bottom:50px;">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
@@ -105,17 +104,15 @@
                         <div class="modal-footer">
                             <button type="button" hidden class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
                             <button type="button" hidden class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
-                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button> 
+                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button>
                             <button type="button" class="btn btn-secondary" id="btnCheckPrev">Prev</button>
                             <button type="button" class="btn btn-success" id="btnCheckNext">Next</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <input hidden value="${url}" id="url" name="url" />
+                <input hidden value="${url}" id="url" name="url" />
 
 
         <script src="${jsUrl}"></script>
