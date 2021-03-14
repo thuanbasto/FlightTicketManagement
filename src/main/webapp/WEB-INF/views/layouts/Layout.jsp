@@ -10,6 +10,7 @@
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<title>Flight Ticket</title>
 	<link rel="stylesheet" href="<c:url value="/storage/vendor/bootstrap/css/bootstrap.min.css"/>">
+	<link href='<c:url value="/storage/vendor/fontawesome-free/css/all.min.css "/>' rel="stylesheet" type="text/css">
 	<script src="<c:url value="/storage/vendor/jquery/jquery.min.js"/>"></script>
 	<script src="<c:url value="/storage/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
 </head>
