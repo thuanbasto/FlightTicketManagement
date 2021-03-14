@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.BookingDTO;
 import com.tomcat.service.IBookingService;
+import com.tomcat.utils.MailUtils;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +29,9 @@ public class BookingAPI {
 	
 	@Autowired
 	private IBookingService bookingService;
+	
+	@Autowired
+	MailUtils mailUtils;
 	
 	@GetMapping("/bookings")
 	public ResponseEntity<List<BookingDTO>> getBookings(@RequestParam(name="fromDate",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate,
@@ -62,6 +66,8 @@ public class BookingAPI {
 	@PostMapping(value = "/bookings", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO bookingDTO) {
 		bookingService.save(bookingDTO);
+		
+		mailUtils.sendEmail(bookingService.getBooking(bookingDTO.getBooking_Id()));
 		return new ResponseEntity<BookingDTO>(bookingDTO, HttpStatus.OK);
 	}
 

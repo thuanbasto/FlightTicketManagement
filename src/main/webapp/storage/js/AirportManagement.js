@@ -3,10 +3,10 @@ function loadCityList() {
 	$.ajax({
 		url: "/FlightTicketManagement/api/cities",
 		async: false,
-		success: function(response) {
+		success: function (response) {
 			var htmlStr = ``;
 			// lap qua ket qua tra ve & tao html theo mong muon
-			$(response).find("item").each(function() {
+			$(response).find("item").each(function () {
 				var cityId = $(this).find("city_Id").text();
 				var cityName = $(this).find("name").text();
 				htmlStr = htmlStr + `<option value=${cityId}>${cityName}</option>`;
@@ -15,7 +15,7 @@ function loadCityList() {
 			$("#loadCity").html(htmlStr);
 			$("#loadCityMD").html(htmlStr);
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (jqXHR, textStatus, errorThrown) {
 			console.log(textStatus, errorThrown);
 		}
 	});
@@ -26,10 +26,10 @@ function loadAirportList() {
 	$.ajax({
 		url: "/FlightTicketManagement/api/airports",
 		async: false,
-		success: function(response) {
+		success: function (response) {
 			var htmlStr = ``;
 			// lap qua ket qua tra ve & tao html theo mong muon
-			$(response).find("item").each(function() {
+			$(response).find("item").each(function () {
 				var airportId = $(this).find("airport_Id").text();
 				var airportName = $(this).find("name:first").text(); //:frist phan tu name(airport) dau tien
 				var cityId = $(this).find("city").find("city_Id").text();
@@ -45,7 +45,7 @@ function loadAirportList() {
 			$("#tbodyData").html(htmlStr);
 
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (jqXHR, textStatus, errorThrown) {
 			console.log(textStatus, errorThrown);
 		}
 	});
@@ -53,37 +53,36 @@ function loadAirportList() {
 loadAirportList();
 
 //su kien nut Add san bay
-$('body').on('click', '#btnAdd', function() {
-	// check validate
-	if ($("#airportCode").val() == '' || $("#airportName").val() == '') {
-		alert('Khong duoc chua trong!');
-	} else {
-		$.ajax({
-			url: "/FlightTicketManagement/api/airports",
-			contentType: "application/json",
-			async: false,
-			type: "post",
-			// du lieu truyen vao dang json 
-			data: JSON.stringify({
-				"airport_Id": $("#airportCode").val(),
-				"name": $("#airportName").val(),
-				"city": {
-					"city_Id": $("#loadCity").val()
-				}
-			}),
-			success: function(response) {
-				$("#airportCode").val("");
-				$("#airportName").val("");
-				$('.successToast').toast('show');
-				console.log(response);
-				loadAirportList();
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				$('.failedToast').toast('show');
-				console.log(textStatus, errorThrown);
+$('body').on('click', '#btnAdd', function () {
+	$.ajax({
+		url: "/FlightTicketManagement/api/airports",
+		type: "post",
+		contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
+		// du lieu truyen vao dang json 
+		data: JSON.stringify({
+			"airport_Id": $("#airportCode").val(),
+			"name": $("#airportName").val(),
+			"city": {
+				"city_Id": $("#loadCity").val()
 			}
-		});
-	}
+		}),
+		success: function (response) {
+			$("#airportCode").val("");
+			$("#airportName").val("");
+			$('.successToast').toast('show');
+			console.log(response);
+			loadAirportList();
+		},
+		error: function (response, textStatus, errorThrown) {
+			let errorHtml = ``;
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
+			$('.failedToast').children('.toast-body').html(errorHtml)
+			$('.failedToast').toast('show');
+			console.log(textStatus, errorThrown);
+		}
+	});
 
 });
 
@@ -92,14 +91,14 @@ var airportID;
 var CITYID;
 
 //su kien nut Edit san bay
-$('#tbodyData').on('click', '#btnEdit', function() {
+$('#tbodyData').on('click', '#btnEdit', function () {
 	AirportID = $(this).data('id'); // id san bay muon edit
 	CITYID = $(this).data('ctid'); // id thanh pho muon edit
 	$('#inpAirportID').val($(this).data('id')); // Lay ma san bay hien thi len inpAirportID
 	var airportName = $(this).closest('tr').children('td').eq(2).text(); // Lay ten san bay hien thi len inpAirportName
 	$("#inpAirportName").val(airportName);
 	//Hien thi thanh pho dang chon
-	$("#loadCityMD option").each(function() {
+	$("#loadCityMD option").each(function () {
 		if ($(this).val() == CITYID) {
 			$(this).attr("selected", "selected");
 		}
@@ -108,12 +107,13 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 });
 
 //su kien nut Update san bay
-$('body').on('click', '#btnUpdate', function() {
+$('body').on('click', '#btnUpdate', function () {
 	$.ajax({
 		url: "/FlightTicketManagement/api/airports/" + AirportID,
-		contentType: "application/json",
-		async: false,
 		type: "put",
+		contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
 		data: JSON.stringify({
 			"airport_Id": AirportID,
 			"name": $("#inpAirportName").val(),
@@ -121,20 +121,23 @@ $('body').on('click', '#btnUpdate', function() {
 				"city_Id": $("#loadCityMD").val()
 			}
 		}),
-		success: function(response) {
+		success: function (response) {
 			$('.close').click();
 			loadAirportList();
 			$('.successToast').toast('show');
 			$("#inpAirportName").val('');
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (response, textStatus, errorThrown) {
+			let errorHtml = ``;
+			Object.entries(response.responseJSON).forEach(([key, value])=> errorHtml += `<li>${value}</li>`)
+			$('.failedToast').children('.toast-body').html(errorHtml)
 			$('.failedToast').toast('show');
 			console.log(textStatus, errorThrown);
 		}
 	});
 });
 
-$('#updateAirportModal').on("keyup", function(event) {
+$('#updateAirportModal').on("keyup", function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
 		$('#btnUpdate').click();
@@ -142,7 +145,7 @@ $('#updateAirportModal').on("keyup", function(event) {
 });
 
 //su kien nut Delete san bay
-$('#tbodyData').on('click', '#btnDelete', function() {
+$('#tbodyData').on('click', '#btnDelete', function () {
 	if (confirm(`You want to delete ${$(this).data('id')} Airport?`)) {
 		// get class name cua the <tr> muon xoa   
 		var rawstrClass = $(this).closest('tr').attr('class');
@@ -156,12 +159,12 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 			contentType: "application/json",
 			async: false,
 			type: "delete",
-			success: function(response) {
+			success: function (response) {
 				$('.successToast').toast('show');
 				//xoa the <tr>
 				$("tr").remove(strClass);
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}

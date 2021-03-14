@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +42,8 @@ public class AirportAPI {
 		return new ResponseEntity<>(airportDTO, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/airports", method = RequestMethod.POST)
-	public ResponseEntity<AirportDTO> addAirport(@RequestBody AirportDTO airportDTO) {
+	@RequestMapping(value = "/airports", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<AirportDTO> addAirport(@Valid @RequestBody AirportDTO airportDTO) {
 		AirportDTO _airportDTO = airportService.get(airportDTO.getAirport_Id());
 		if(_airportDTO.getAirport_Id() == null) {
 			airportService.save(airportDTO);
@@ -62,7 +65,7 @@ public class AirportAPI {
 	}
 
 	@RequestMapping(value = "/airports/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<AirportDTO> updateAirport(@RequestBody AirportDTO airportDTO,
+	public ResponseEntity<AirportDTO> updateAirport(@Valid @RequestBody AirportDTO airportDTO,
 			@PathVariable String id) {
 		AirportDTO _airportDTO = airportService.get(id);
 		if(_airportDTO.getAirport_Id() != null) {

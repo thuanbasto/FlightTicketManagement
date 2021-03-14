@@ -34,8 +34,8 @@
         </div>
     </div>
 
-    <div style="position: fixed; top: 50%; right: 50%; transform: translate(40%,-50%); z-index: 2;">
-        <div class="toast hide failedToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+    <div style="position: fixed; top: 20%; right: 50%; transform: translate(40%,-50%); z-index: 7000;">
+        <div class="toast hide failedToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
             <div class="toast-header">
                 <strong class="mr-auto">Notice</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
