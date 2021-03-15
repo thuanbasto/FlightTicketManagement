@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ public class TravelClassPriceAPI {
 		else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/travelclassprices")
 	public ResponseEntity<TravelClassPriceDTO> addTravelclassPrice(@RequestBody TravelClassPriceDTO travelclassPriceDTO){
 		travelClassPriceService.save(travelclassPriceDTO);
@@ -52,6 +54,7 @@ public class TravelClassPriceAPI {
 		 */
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/travelclassprices/{id}")
 	public ResponseEntity<TravelClassPriceDTO> updateTravelclassPrice(@RequestBody TravelClassPriceDTO travelclassPriceDTO, @PathVariable("id") String id){
 		TravelClassPriceDTO _travelclassPriceDTO = travelClassPriceService.getTravelClassPrice(id);
@@ -69,6 +72,7 @@ public class TravelClassPriceAPI {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/travelclassprices/{id}")
 	public ResponseEntity<HttpStatus> deleteTravelclassPrice(@PathVariable String id) {
 		try {

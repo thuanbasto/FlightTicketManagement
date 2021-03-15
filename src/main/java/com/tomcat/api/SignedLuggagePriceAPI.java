@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.SignedluggagePriceDTO;
@@ -22,8 +26,7 @@ public class SignedLuggagePriceAPI {
 	@Autowired
 	ISignedLuggagePriceServices signedLuggagePriceServices;
 
-	@RequestMapping(value = "/signedluggageprice", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/signedluggageprice", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<SignedluggagePriceDTO>> getLuggagePrices() {
 		List<SignedluggagePriceDTO> signedluggagePriceDTOs = signedLuggagePriceServices.getList();
 		if (signedluggagePriceDTOs.isEmpty()) {
@@ -32,8 +35,7 @@ public class SignedLuggagePriceAPI {
 		return new ResponseEntity<>(signedluggagePriceDTOs, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggageprice/{id}", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/signedluggageprice/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggagePriceDTO> getLuggagePrice(@PathVariable("id") Integer id) {
 		SignedluggagePriceDTO signedluggagePriceDTO = signedLuggagePriceServices.findById(id);
 		if (signedluggagePriceDTO.getPrice_Id() == null) {
@@ -42,8 +44,8 @@ public class SignedLuggagePriceAPI {
 		return new ResponseEntity<>(signedluggagePriceDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggageprice", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping(value = "/signedluggageprice", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggagePriceDTO> createLuggagePrice(
 			@RequestBody SignedluggagePriceDTO signedluggagePriceDTO) {
 		signedluggagePriceDTO = signedLuggagePriceServices.save(signedluggagePriceDTO);
@@ -51,8 +53,8 @@ public class SignedLuggagePriceAPI {
 
 	}
 
-	@RequestMapping(value = "/signedluggageprice/{id}", method = RequestMethod.PUT, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value = "/signedluggageprice/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggagePriceDTO> updateLuggagePrice(@RequestBody SignedluggagePriceDTO signedluggagePriceDTO, @PathVariable("id") Integer id) {
 		
 		SignedluggagePriceDTO _signedluggagePriceDTO = signedLuggagePriceServices.findById(id);
@@ -65,7 +67,8 @@ public class SignedLuggagePriceAPI {
 
 	}
 
-	@RequestMapping(value = "/signedluggageprice/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping(value = "/signedluggageprice/{id}")
 	public ResponseEntity<String> deleteLuggage(@PathVariable("id") Integer id) {
 
 		try {

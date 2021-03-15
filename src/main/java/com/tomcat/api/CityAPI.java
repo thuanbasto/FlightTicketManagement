@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.CityDTO;
@@ -24,7 +28,7 @@ public class CityAPI {
 	@Autowired
 	private ICityService cityService;
 	
-	@RequestMapping(value = "/cities", method = RequestMethod.GET)
+	@GetMapping(value = "/cities")
 	public ResponseEntity<List<CityDTO>> getCities(){
 		List<CityDTO> cityDTOs = cityService.getList();
 		if(cityDTOs.isEmpty()) {
@@ -33,7 +37,7 @@ public class CityAPI {
 		return new ResponseEntity<>(cityDTOs, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/cities/{id}")
 	public ResponseEntity<CityDTO> getCity(@PathVariable("id") String id){
 		CityDTO cityDTO = cityService.get(id);
 		if(cityDTO.getCity_Id() == null) {
@@ -42,13 +46,15 @@ public class CityAPI {
 		return new ResponseEntity<>(cityDTO, HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/cities", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping(value = "/cities", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CityDTO> addCity(@Valid @RequestBody CityDTO cityDTO){
 			cityService.save(cityDTO);
 			return new ResponseEntity<CityDTO>(cityDTO, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping(value = "/cities/{id}")
 	public ResponseEntity<HttpStatus> deleteCity(@PathVariable String id){
 		try{
 			cityService.delete(id);
@@ -58,7 +64,8 @@ public class CityAPI {
 		}
 	}
 	
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value = "/cities/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CityDTO> updateCity(@Valid @RequestBody CityDTO cityDTO) {
 		CityDTO _cityDTO = cityService.get(cityDTO.getCity_Id());
 		if(_cityDTO.getCity_Id() != null) {

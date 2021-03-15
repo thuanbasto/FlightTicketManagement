@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.SignedluggageDTO;
@@ -24,8 +28,7 @@ public class SignedLuggageAPI {
 	@Autowired
 	ISignedluggageService signedLuggageService;
 
-	@RequestMapping(value = "/signedluggage", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/signedluggage", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<SignedluggageDTO>> getLuggages() {
 		List<SignedluggageDTO> signedluggageDTOs = signedLuggageService.getList();
 		if (signedluggageDTOs.isEmpty()) {
@@ -34,8 +37,7 @@ public class SignedLuggageAPI {
 		return new ResponseEntity<>(signedluggageDTOs, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/signedluggage/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggageDTO> getLuggage(@PathVariable("id") Integer id) {
 		SignedluggageDTO signedluggageDTO = signedLuggageService.findById(id);
 		if (signedluggageDTO.getSignedLuggage_Id() == 0) {
@@ -44,15 +46,15 @@ public class SignedLuggageAPI {
 		return new ResponseEntity<>(signedluggageDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggage", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping(value = "/signedluggage", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggageDTO> addLuggage(@RequestBody SignedluggageDTO signedluggageDTO) {
 		signedluggageDTO = signedLuggageService.save(signedluggageDTO);
 		return new ResponseEntity<>(signedluggageDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.PUT, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value = "/signedluggage/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<SignedluggageDTO> updateLuggage(@RequestBody SignedluggageDTO signedluggageDTO,@PathVariable("id") Integer id) {
 		
 		SignedluggageDTO _signedluggageDTO = signedLuggageService.findById(id);
@@ -66,7 +68,8 @@ public class SignedLuggageAPI {
 
 	}
 
-	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping(value = "/signedluggage/{id}")
 	public ResponseEntity<String> deleteLuggage(@PathVariable("id") Integer id) {
 		try {
 			signedLuggageService.delete(id);
