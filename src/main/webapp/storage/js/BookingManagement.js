@@ -58,7 +58,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 				tr.remove();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// $('.failedToast').toast('show');
+				// $('.failedToast').children('.toast-body').html('Unsuccessful')
 				console.log(textStatus, errorThrown);
 			}
 		});
@@ -76,8 +76,9 @@ $('#tbodyData').on('click', '#btnEdit', function() {
         dataType: "json",
 		success: function(response) {
 			var htmlStr = ``;
-			let totalTaxPrice = 0;
+			
 			response.tickets.forEach(function(value) {
+				let totalTaxPrice = 0;
 				value.taxs.forEach(tax=>{
 					if(tax.taxPrices != null)
 						totalTaxPrice += tax.taxPrices[0].price
@@ -100,8 +101,14 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 					<div class="col-sm-4" style="padding-left: 40px;">
 						<h6><b>Flight Price:</b> ${value.flight.flight_Price}</h6>
 						<h6><b>Tax:</b> ${totalTaxPrice}</h6>
-						<h6><b>Signed Luggage:</b> ${value.signedluggage.signedluggagePrices[0].price}</h6>
-						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices[0].price}</h6>
+						<h6><b>Signed Luggage:</b> ${!value.signedluggage
+														? '' 
+														: value.signedluggage.signedluggagePrices
+														? value.signedluggage.signedluggagePrices[0].price : ''}</h6>
+
+														
+						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices  
+														? value.seat.travelClass.travelClassPrices[0].price : ''}</h6>
 						<h6><b>Total Price:</b> ${value.ticket_PriceTotal}</h6>
 					</div>
 					<div class="col-sm-8">

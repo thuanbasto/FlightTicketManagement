@@ -3,11 +3,15 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class SeatDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String seat_Id;
 
+	@NotNull(message = "Please select a travle class")
 	private TravelClassDTO travelClass;
 
 	private List<TicketDTO> tickets;

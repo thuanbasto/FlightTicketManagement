@@ -52,7 +52,7 @@ $('body').on('click', '#btnAdd', function() {
 				loadAirplaneList();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				$('.failedToast').toast('show');
+				$('.failedToast').children('.toast-body').html('Unsuccessful')
 				console.log(textStatus, errorThrown);
 			}
 		});
@@ -89,7 +89,7 @@ $('body').on('click', '#btnUpdate', function() {
 			$("#inpAirplaneName").val('');
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-		$('.failedToast').toast('show');
+		$('.failedToast').children('.toast-body').html('Unsuccessful')
 			console.log(textStatus, errorThrown);
 		}
 	});
@@ -123,7 +123,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 				$("tr").remove(strClass);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-			$('.failedToast').toast('show');
+			$('.failedToast').children('.toast-body').html('Unsuccessful')
 				console.log(textStatus, errorThrown);
 			}
 		});

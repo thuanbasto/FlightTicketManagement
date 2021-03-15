@@ -1,3 +1,4 @@
+var airportList = []
 //func load ddl thanh pho
 function loadCityList() {
 	$.ajax({
@@ -7,10 +8,12 @@ function loadCityList() {
 			var htmlStr = ``;
 			// lap qua ket qua tra ve & tao html theo mong muon
 			$(response).find("item").each(function () {
+				airportList.push($(this).responseJSON)
 				var cityId = $(this).find("city_Id").text();
 				var cityName = $(this).find("name").text();
 				htmlStr = htmlStr + `<option value=${cityId}>${cityName}</option>`;
 			});
+			console.log(airportList)
 			//hien thi len
 			$("#loadCity").html(htmlStr);
 			$("#loadCityMD").html(htmlStr);
@@ -51,6 +54,21 @@ function loadAirportList() {
 	});
 }
 loadAirportList();
+
+function checkAirportExists(airportList, cityName){
+	for (var element of cityList) {
+		if (element.name == cityName) {
+			if (element.city_Id != cityID) {
+				htmlStr = `${cityName} has already exists`
+				$('.failedToast').children('.toast-body').html(htmlStr)
+			    $('.failedToast').toast('show');
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+}
 
 //su kien nut Add san bay
 $('body').on('click', '#btnAdd', function () {
@@ -165,7 +183,7 @@ $('#tbodyData').on('click', '#btnDelete', function () {
 				$("tr").remove(strClass);
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
-				$('.failedToast').toast('show');
+				$('.failedToast').children('.toast-body').html('Unsuccessful')
 				console.log(textStatus, errorThrown);
 			}
 		});

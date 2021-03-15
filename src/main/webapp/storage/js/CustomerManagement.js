@@ -110,7 +110,7 @@ $('body').on('click', '#btnUpdate', function() {
                 loadCustomerList();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').toast('show');
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 console.log(textStatus, errorThrown);
             }
         });
@@ -129,7 +129,7 @@ $('body').on('click', '#btnUpdate', function() {
                 loadCustomerList();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').toast('show');
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 console.log(textStatus, errorThrown);
             }
         });
@@ -150,7 +150,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
                 $('.successToast').toast('show');
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').toast('show');
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 console.log(textStatus, errorThrown);
             }
         });
