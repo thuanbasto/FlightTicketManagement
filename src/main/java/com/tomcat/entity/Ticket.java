@@ -28,8 +28,6 @@ public class Ticket implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer ticket_Id;
 
-	private double ticket_PriceTotal;
-
 	//bi-directional many-to-one association to Booking
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Booking_Id")
@@ -77,14 +75,6 @@ public class Ticket implements Serializable {
 
 	public void setTicket_Id(Integer ticket_Id) {
 		this.ticket_Id = ticket_Id;
-	}
-
-	public double getTicket_PriceTotal() {
-		return this.ticket_PriceTotal;
-	}
-
-	public void setTicket_PriceTotal(double ticket_PriceTotal) {
-		this.ticket_PriceTotal = ticket_PriceTotal;
 	}
 
 	public Booking getBooking() {

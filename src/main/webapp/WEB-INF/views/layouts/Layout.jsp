@@ -10,6 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
                 <title>Flight Ticket</title>
+                <link rel="icon" href="<c:url value="/storage/img/icon.jpg"/>" type="image/jpg">
                 <link rel="stylesheet" href="<c:url value="/storage/vendor/bootstrap/css/bootstrap.min.css "/>">
                 <script src="<c:url value="/storage/vendor/jquery/jquery.min.js "/>"></script>
                 <script src="<c:url value="/storage/vendor/bootstrap/js/bootstrap.min.js "/>"></script>
