@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +46,8 @@ public class AirplaneAPI {
 		return ResponseEntity.ok(airplaneDTO);
 	}
 	
-	@PostMapping("/airplanes")
-	public ResponseEntity<AirplaneDTO> addAirplane(@RequestBody AirplaneDTO airplaneDTO){
+	@PostMapping(value = "/airplanes", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AirplaneDTO> addAirplane(@Valid @RequestBody AirplaneDTO airplaneDTO){
 		AirplaneDTO _airplanedDTO = airplaneService.getAirplane(airplaneDTO.getAirplane_Id());
 		if(_airplanedDTO.getAirplane_Id() == null) {
 			airplaneService.save(airplaneDTO);
@@ -54,9 +57,9 @@ public class AirplaneAPI {
 	}
 	
 
-	@PutMapping("/airplanes/{id}")
-	public ResponseEntity<AirplaneDTO> updateAirplane(@PathVariable("id") String id,
-			@RequestBody AirplaneDTO airplaneDTO){
+	@PutMapping(value = "/airplanes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AirplaneDTO> updateAirplane( @PathVariable("id") String id,
+			@Valid	@RequestBody AirplaneDTO airplaneDTO){
 		AirplaneDTO _airplaneDTO = airplaneService.getAirplane(id);
 		if(_airplaneDTO.getAirplane_Id() == null) {
 			return ResponseEntity.notFound().build();

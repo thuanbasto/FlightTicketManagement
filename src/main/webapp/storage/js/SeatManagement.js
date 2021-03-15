@@ -148,6 +148,7 @@ $('body').on('click', '#btnUpdate', function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 $('.failedToast').children('.toast-body').html('Unsuccessful')
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });
@@ -198,6 +199,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 $('.failedToast').children('.toast-body').html('Unsuccessful')
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });

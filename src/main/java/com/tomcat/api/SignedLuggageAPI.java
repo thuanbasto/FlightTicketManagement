@@ -2,6 +2,8 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,14 +48,14 @@ public class SignedLuggageAPI {
 
 	@RequestMapping(value = "/signedluggage", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<SignedluggageDTO> addLuggage(@RequestBody SignedluggageDTO signedluggageDTO) {
+	public ResponseEntity<SignedluggageDTO> addLuggage(@Valid @RequestBody SignedluggageDTO signedluggageDTO) {
 		signedluggageDTO = signedLuggageService.save(signedluggageDTO);
 		return new ResponseEntity<>(signedluggageDTO, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/signedluggage/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<SignedluggageDTO> updateLuggage(@RequestBody SignedluggageDTO signedluggageDTO,@PathVariable("id") Integer id) {
+	public ResponseEntity<SignedluggageDTO> updateLuggage(@Valid @RequestBody SignedluggageDTO signedluggageDTO,@PathVariable("id") Integer id) {
 		
 		SignedluggageDTO _signedluggageDTO = signedLuggageService.findById(id);
 

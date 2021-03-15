@@ -104,8 +104,11 @@ $('body').on('click', '#btnUpdate', function() {
                     addNewPrice(tax);
                 }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $('.failedToast').children('.toast-body').html('Unsuccessful')
+                error: function(response, textStatus, errorThrown) {
+                    let errorHtml = ``;
+                    Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                    $('.failedToast').children('.toast-body').html(errorHtml)
+                    $('.failedToast').toast('show');
                     console.log(textStatus, errorThrown);
                 }
         });
@@ -124,8 +127,11 @@ $('body').on('click', '#btnUpdate', function() {
                 tax.taxPrices[0].tax_Id = $(response)[0].tax_Id;
                 addNewPrice(tax)
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').children('.toast-body').html('Unsuccessful')
+            error: function(response, textStatus, errorThrown) {
+                let errorHtml = ``;
+                Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                $('.failedToast').children('.toast-body').html(errorHtml)
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });
@@ -166,6 +172,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 $('.failedToast').children('.toast-body').html('Unsuccessful')
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });

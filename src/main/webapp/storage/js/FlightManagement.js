@@ -56,7 +56,8 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 				tr.remove();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// $('.failedToast').children('.toast-body').html('Unsuccessful')
+				$('.failedToast').children('.toast-body').html('Unsuccessful')
+				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
 		});
@@ -240,6 +241,7 @@ $('body').on('click', '#btnUpdate', function() {
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$('.failedToast').children('.toast-body').html('Unsuccessful')
+				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
 		});
@@ -259,6 +261,7 @@ $('body').on('click', '#btnUpdate', function() {
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$('.failedToast').children('.toast-body').html('Unsuccessful')
+				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
 		});

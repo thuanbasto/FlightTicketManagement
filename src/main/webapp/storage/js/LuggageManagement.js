@@ -115,8 +115,11 @@ $('body').on('click', '#btnUpdate', function() {
                     addNewPrice(luggage);
                 }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $('.failedToast').children('.toast-body').html('Unsuccessful')
+                error: function(response, textStatus, errorThrown) {
+                    let errorHtml = ``;
+                    Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                    $('.failedToast').children('.toast-body').html(errorHtml)
+                    $('.failedToast').toast('show');
                     console.log(textStatus, errorThrown);
                 }
         });
@@ -135,8 +138,11 @@ $('body').on('click', '#btnUpdate', function() {
                 luggage.signedluggagePrices[0].signedLuggage_Id = $(response)[0].signedLuggage_Id;;
                 addNewPrice(luggage)
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').children('.toast-body').html('Unsuccessful')
+            error: function(response, textStatus, errorThrown) {
+                let errorHtml = ``;
+                Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                $('.failedToast').children('.toast-body').html(errorHtml)
+                $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });

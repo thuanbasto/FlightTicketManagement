@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,14 +45,14 @@ public class TravelClassAPI {
 		else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping("/travelclasses")
-	public ResponseEntity<TravelClassDTO> addTravelClass(@RequestBody TravelClassDTO travelClassDTO){
+	@PostMapping(value = "/travelclasses", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<TravelClassDTO> addTravelClass(@Valid @RequestBody TravelClassDTO travelClassDTO){
 		travelClassDTO = travelClassService.save(travelClassDTO);
 		return new ResponseEntity<>(travelClassDTO,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/travelclasses/{id}")
-	public ResponseEntity<TravelClassDTO> updateTravelClass(@RequestBody TravelClassDTO travelClassDTO, @PathVariable("id") String id){
+	@PutMapping(value = "/travelclasses/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<TravelClassDTO> updateTravelClass(@Valid @RequestBody TravelClassDTO travelClassDTO, @PathVariable("id") String id){
 		TravelClassDTO _travelClassDTO = travelClassService.getTravelClass(id);
 		if(_travelClassDTO != null) {
 			travelClassService.save(travelClassDTO);
