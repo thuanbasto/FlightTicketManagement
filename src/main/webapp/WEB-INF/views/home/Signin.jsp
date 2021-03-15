@@ -3,7 +3,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
         <c:url value="/signin" var="url" />
-        <c:url value="/storage/img/undraw_profile.svg" var="imgUrl"></c:url>
+        <c:url value="/storage/img/login.png" var="imgUrl"></c:url>
 
         <style>
             body,
@@ -29,7 +29,9 @@
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                    <img src="${imgUrl}" width="400" height="350">
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="p-5">
                                         <div class="text-center">
@@ -43,22 +45,15 @@
                                                 <input class="form-control form-control-user" name="password" type="password" placeholder="Password" required />
                                             </div>
                                             <p style="color: red">${msg}</p>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <div class="custom-control custom-checkbox small">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck"> <label class="custom-control-label" for="customCheck">Remember
 												Me</label>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <button class="btn btn-primary btn-user btn-block" id="submit" type="submit" class="btn btn-primary">Sign in</button>
                                         </form>
                                         <hr>
-                                        <div class="text-center">
-                                            <a class="small" href="forgot-password.html">Forgot
-										Password?</a>
-                                        </div>
-                                        <div class="text-center">
-                                            <a class="small" href="register.html">Create an Account!</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -17,7 +17,7 @@ function loadTicketList() {
                 var bookingCode = value.booking.booking_Id;
                 var flight = value.flight.fromAirport.name + " - " + value.flight.toAirport.name;
                 var departureDate = value.flight.departureDate;
-                var signedLuggage = value.signedluggage.name;
+                var signedLuggage = value.signedluggage != null ? value.signedluggage.name : "";
                 var seat = value.seat.seat_Id;
                 var price = value.ticket_PriceTotal;
 
@@ -30,7 +30,6 @@ function loadTicketList() {
                     <td>${flight}</td>
                     <td>${departureDate}</td>
                     <td>${seat}</td>
-                    <td>${signedLuggage}</td>
                     <td>${price}</td>
                     <td>
                         <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
@@ -205,7 +204,7 @@ $('#tbodyData').on('click', '#btnDetail', function () {
                     <td> </td>
                     <td class="h6"><strong>Seat</strong></td>
                     <td> </td>
-                    <td class="h5">${ticket.flight.departureDate}</td>
+                    <td class="h5">${ticket.seat.seat_Id}</td>
                 </tr>
 
                 <tr class="spaceUnder">
@@ -226,7 +225,7 @@ $('#tbodyData').on('click', '#btnDetail', function () {
             <span class="h3 text-muted"><strong>${ticket.ticket_PriceTotal} VND</strong></span>
             </div>
             <div class="text-center col-md-12">
-            <button type="button" class="btn btn-primary">Print Ticket</button>
+            <a target="_blank" href='./ticket-print?ticket_Id=${ticket.ticket_Id}' class="btn btn-primary">Print Ticket</a>           
             </div>
             `
 
@@ -248,16 +247,13 @@ $('#tbodyData').on('click', '#btnEdit', function () {
             $("#form-check-tax input").each(function () {
                 $(this).prop('checked', false);
             })
-            $("#inpTicket_Id").val(ticket.ticket_Id);
-            $("#inpFirstName").val(ticket.customer.firstName)
-            $("#inpLastName").val(ticket.customer.lastName)
-            $("#inpAddress").val(ticket.customer.address)
-            $("#inpBirthday").val(ticket.customer.birthDay)
-            $("#inpBookingClass").val(ticket.booking.booking_Id)
-            $("#inpFlightClass").val(ticket.flight.flight_Id)
-            $("#inpSeatClass").val(ticket.seat.seat_Id)
-            $("#inpLuggageClass").val(ticket.signedluggage.signedLuggage_Id)
-            ticket.taxs.forEach(tax => {
+            $("#inpTicket_Id").val(response.ticket_Id);
+            $("#inpCustomerClass").val(response.customer.customer_Id)
+            $("#inpBookingClass").val(response.booking.booking_Id)
+            $("#inpFlightClass").val(response.flight.flight_Id)
+            $("#inpSeatClass").val(response.seat.seat_Id)
+            $("#inpLuggageClass").val(response.signedluggage != null ? response.signedluggage.signedLuggage_Id : "")
+            response.taxs.forEach(tax => {
                 $("#form-check-tax input").each(function () {
                     if ($(this).val() == tax.tax_Id) {
                         $(this).prop('checked', true);

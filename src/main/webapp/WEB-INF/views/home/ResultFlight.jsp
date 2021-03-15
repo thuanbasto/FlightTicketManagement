@@ -9,12 +9,32 @@
             .modal-dialog {
                 overflow-y: initial !important
             }
-
+            
             .modal-body {
                 height: 400px;
                 overflow-y: auto;
             }
         </style>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="modalPaymentSuccess">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width:400px; height:300px;">
+                    <!-- Modal Header -->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title text-success">Payment success</h4>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body text-center">
+                        <h3 class="text-primary">Send email with booking information for you</h3>
+                        <h3>Thank you, waiting 3 seconds to redirect to bill page</h3>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+
         <div class="container mt-5">
             <h1 id="testt"></h1>
             <table class="table table-hover">
@@ -32,12 +52,11 @@
                 </tbody>
             </table>
             <div class="text-center notFound">
-                                            
+
             </div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-lg"
-                    style="overflow-y: scroll; max-height:60%; max-width: 80%; margin-top: 50px; margin-bottom:50px;">
+                <div class="modal-dialog modal-lg" style="overflow-y: scroll; max-height:60%; max-width: 80%; margin-top: 50px; margin-bottom:50px;">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
@@ -105,18 +124,14 @@
                         <div class="modal-footer">
                             <button type="button" hidden class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
                             <button type="button" hidden class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
-                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button> 
+                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button>
                             <button type="button" class="btn btn-secondary" id="btnCheckPrev">Prev</button>
                             <button type="button" class="btn btn-success" id="btnCheckNext">Next</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <input hidden value="${url}" id="url" name="url" />
+                <input hidden value="${url}" id="url" name="url" />
 
-
-        <script src="${jsUrl}">
-        </script>
+        <script src="${jsUrl}"></script>

@@ -19,4 +19,9 @@ public interface IBookingService {
 	
 	public void delete(Integer id);
 	
+	public Double getBookingPriceInYear();
+	
+	public Double getBookingPriceInYearAndMonth();
+	
+	
 }

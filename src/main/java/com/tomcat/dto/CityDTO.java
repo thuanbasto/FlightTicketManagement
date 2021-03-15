@@ -3,11 +3,16 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class CityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "City ID must not be empty")
 	private String city_Id;
 
+	@NotEmpty(message = "City Name must not be empty")
 	private String name;
 
 //	@JsonIgnore

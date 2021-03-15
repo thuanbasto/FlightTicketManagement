@@ -2,13 +2,20 @@ package com.tomcat.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
 public class AirportDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Airport Code must not be empty")
 	private String airport_Id;
 
+	@NotEmpty(message = "Airport Name must not be empty")
 	private String name;
 
+//	@NotEmpty(message = "Please select a City")
 	private CityDTO city;
 
 	public AirportDTO() {

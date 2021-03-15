@@ -25,17 +25,19 @@ loadSearchResults();
 getUser();
 
 function getUser() {
-    $.ajax({
-        url: "/FlightTicketManagement/api/users/" + $(".username").data("username"),
-        async: false,
-        type: "get",
-        dataType: "JSON",
-        success: function(response) {
-            user = response;
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-        }
-    })
+    if ($(".username").data("username") != undefined) {
+        $.ajax({
+            url: "/FlightTicketManagement/api/users/" + $(".username").data("username"),
+            async: false,
+            type: "get",
+            dataType: "JSON",
+            success: function(response) {
+                user = response;
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            }
+        })
+    }
 }
 
 function loadSignedLuggages() {
@@ -226,12 +228,12 @@ $('body').on('click', '#choose', function() {
     
     let htmlFlightData =
     `<tr>
-        <td><b>From:</b> ${flight.fromAirport.city.name} (${flight.fromAirport.city.city_Id})</td>
+        <td><b>From:</b> ${flight.fromAirport.city.name}</td>
         <td><b>Departure:</b> ${flight.departureDate}</td>
         <td><b>From airport</b> ${flight.fromAirport.name} (${flight.fromAirport.airport_Id})</td>
     </tr>
     <tr>
-        <td><b>To:</b> ${flight.toAirport.city.name} (${flight.toAirport.city.city_Id})</td>
+        <td><b>To:</b> ${flight.toAirport.city.name}</td>
         <td><b>Arrival:</b> ${flight.arrivalDate}</td>
         <td><b>To airport:</b> ${flight.toAirport.name} (${flight.toAirport.airport_Id})</td>
     </tr>
@@ -481,6 +483,7 @@ function loadPay() {
         if (chosenFlight.flight_Id == booking.flight_Id){
             booking.phone = $("#phone").val();
             booking.email = $("#email").val();
+            booking.paymentMethod = "ONLINE";
         }
     })
 
@@ -506,8 +509,8 @@ function loadPay() {
         <h3>Ticket #${count++}</h3>
         <table class="table">
             <tr>
-                <td><b>From:</b> ${ticket.flight.fromAirport.name}</td>
-                <td><b>To:</b> ${ticket.flight.toAirport.name}</td>
+                <td><b>From:</b> ${ticket.flight.fromAirport.name} (${ticket.flight.fromAirport.airport_Id})</td>
+                <td><b>To:</b> ${ticket.flight.toAirport.name} (${ticket.flight.toAirport.airport_Id})</td>
                 <td><b>Flight name:</b> ${ticket.flight.airplane.name}</td> 
             </tr>
             <tr>
@@ -564,6 +567,7 @@ function loadPay() {
 }
 
 $("#btnPay").on("click", function () {
+    $('#myModal').modal('hide');
     bookingList.forEach(booking => {
         if (chosenFlight.flight_Id == booking.flight_Id){
             // if not select signed luggage , delete it
@@ -582,11 +586,16 @@ $("#btnPay").on("click", function () {
                 method: "POST",
                 dataType: "JSON",
                 data: JSON.stringify(booking),
-                success: function(response) {
-                    console.log(response);
+                success: function(booking) {
+                    $("#modalPaymentSuccess").modal();
+                    setTimeout(() => {
+                        window.location.href = `bill?email=${booking.email}&booking_Id=${booking.booking_Id}`;
+                    }, 3000);
+                    console.log(booking);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
+                    $('.failedToast').children('.toast-body').html("Booking not success!")
+			        $('.failedToast').toast('show');
                 }
             })
         }

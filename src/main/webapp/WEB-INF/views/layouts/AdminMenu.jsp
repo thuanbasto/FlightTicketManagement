@@ -41,19 +41,19 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Booking:</h6>
                             <a class="collapse-item" href="booking-management" style="color: cornflowerblue">Booking</a>
+                            <a class="collapse-item" href="ticket-management" style="color: cornflowerblue">Ticket</a>
                             <h6 class="collapse-header">Price:</h6>
                             <a class="collapse-item" href="tax-management" style="color: cornflowerblue">Tax</a>
-                            <a class="collapse-item" href="ticket-management" style="color: cornflowerblue">Tiket</a>
                             <a class="collapse-item" href="luggage-management" style="color: cornflowerblue">Signed Lugguage</a>
                             <a class="collapse-item" href="flight-management" style="color: cornflowerblue">Flight</a>
                             <a class="collapse-item" href="travelclass-management" style="color: cornflowerblue">Travel Class</a>
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Location:</h6>
                             <a class="collapse-item" href="city-management" style="color: cornflowerblue">City</a>
-                            <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
+                            <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
                             <h6 class="collapse-header">Air plane:</h6>
                             <a class="collapse-item" href="seat-management" style="color: cornflowerblue">Seat</a>
-                            <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
+                            <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
                             <h6 class="collapse-header">User and customer:</h6>
                             <a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
                             <a class="collapse-item" href="customer-management" style="color: cornflowerblue">Customer</a>

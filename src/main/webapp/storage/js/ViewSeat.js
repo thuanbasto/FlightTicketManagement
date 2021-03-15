@@ -1,15 +1,3 @@
-/*$('body').load('seatMap.html', function(sss) {
-	let disableSeat = ['1E', '1D', '1B', '5A', '5B', '5C']
-	let strSelector = '';
-	for (i in disableSeat) {
-		strSelector += '#' + disableSeat[i] + ','
-	}
-	strSelector = strSelector.slice(0, strSelector.length - 1);
-	console.log(strSelector)
-	$(strSelector).attr('disabled', 'disabled');
-
-});*/
-
 var chosenSeatList ;
 function check_existSeat(seat_Id) {
 	for (i in chosenSeatList) {

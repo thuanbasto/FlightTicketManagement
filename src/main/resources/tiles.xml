@@ -9,6 +9,7 @@
 			value="/WEB-INF/views/layouts/Header.jsp" />
 		<put-attribute name="body" value="" />
 	</definition>
+	
 	<definition name="admin-difinition"
 		template="/WEB-INF/views/layouts/AdminLayout.jsp">
 		<put-attribute name="header"
@@ -49,9 +50,21 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/home/GenerateAccountAdmin.jsp" />
 	</definition>
+	
 	<definition name="ResultFlight" extends="home-difinition">
 		<put-attribute name="body" value="/WEB-INF/views/home/ResultFlight.jsp" />
 	</definition> 
+
+	<definition name="Bill" extends="home-difinition">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/home/Bill.jsp" />
+	</definition> 
+	
+	<definition name="TicketPrint" extends="home-difinition">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/home/TicketPrint.jsp" />
+	</definition> 
+	
 	<!-- staff-difinition -->
 
 	<!-- admin-difinition -->

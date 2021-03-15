@@ -4,7 +4,6 @@
 
 <c:url value="/storage/js/TicketManagement.js" var="jsUrl" />
 <c:url value="/storage/css/Ticket.css" var="cssUrl" />
-<c:url value="./ticket-print" var="jspUrl" />
 
 <link rel="stylesheet" href='${cssUrl}'>
 <div class="row mt-3 mb-4">
@@ -28,7 +27,6 @@
 						<th>Flight</th>
 						<th>Departure Date</th>
 						<th>Seat Code</th>
-						<th>Signed luggage</th>
 						<th>Price (VND)</th>
 						<th>Action</th>
 					</tr>
@@ -113,10 +111,6 @@
 			<div class="modal-footer" id="detail-modal-footer">
 
 			</div>
-
-			<!-- <a target="_blank" href='${jspUrl}' class="btn btn-primary">Print Ticket</a> -->
-
-
 			
 			</div>
 		</div>

@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tomcat.dto.RoleDTO;
+import com.tomcat.dto.TicketDTO;
 import com.tomcat.dto.UserDTO;
 import com.tomcat.service.IRoleService;
 import com.tomcat.service.ITaxService;
+import com.tomcat.service.ITicketService;
 import com.tomcat.service.IUserService;
 import com.tomcat.validator.UserValidator;
 
@@ -38,6 +41,9 @@ public class AdminController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ITicketService ticketService;
 	
 	@GetMapping("/signup")
 	public String signupPage(@ModelAttribute("userDTO") UserDTO userDTO) {
@@ -126,5 +132,13 @@ public class AdminController {
 	@GetMapping(value= {"/booking-management"})
 	public String bookingManagement() {
 		return "Booking";
+	}
+	
+	@GetMapping(value= {"/ticket-print"})
+	public String Bill(HttpServletRequest request,
+			@RequestParam(name="ticket_Id",required=true) Integer ticket_Id){
+		TicketDTO ticketDTO = ticketService.getTicket(ticket_Id);		
+		request.setAttribute("ticketDTO", ticketDTO);
+		return "TicketPrint";
 	}
 }
