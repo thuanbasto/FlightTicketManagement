@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,12 +46,14 @@ public class CustomerAPI {
 		
 	}
 	
+	@PreAuthorize("hasAnyRole('STAFF','ADMIN')")
 	@PostMapping("/customers")
 	public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customerDTO){
 		customerService.save(customerDTO);
 		return new ResponseEntity<>(customerDTO,HttpStatus.CREATED);
 	}
 	
+	@PreAuthorize("hasAnyRole('STAFF','ADMIN')")
 	@PutMapping("/customers/{id}")
 	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO, @PathVariable("id") Integer id){
 		CustomerDTO _customerDTO = customerService.findbyid(id);
@@ -64,6 +67,7 @@ public class CustomerAPI {
 		
 	}
 	
+	@PreAuthorize("hasAnyRole('STAFF','ADMIN')")
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<HttpStatus> deleteTax(@PathVariable int id) {
 		try {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,12 +43,14 @@ public class TaxAPI {
 		return new ResponseEntity<>(taxDTO, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/taxes")
 	public ResponseEntity<TaxDTO> addTax(@RequestBody TaxDTO taxDTO) {
 		taxDTO = taxService.save(taxDTO);
 		return new ResponseEntity<>(taxDTO, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping(value = "/taxes/{id}")
 	public ResponseEntity<HttpStatus> deleteTax(@PathVariable("id") String id) {
 		try {
@@ -58,6 +61,7 @@ public class TaxAPI {
 		}
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping(value = "/taxes/{id}")
 	public ResponseEntity<TaxDTO> updateTax(@RequestBody TaxDTO taxDTO,@PathVariable("id") String id) {
 		TaxDTO _taxDTO = taxService.getTax(id);

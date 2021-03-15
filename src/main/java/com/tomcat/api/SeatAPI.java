@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,7 @@ public class SeatAPI {
 		return new ResponseEntity<>(seatDTO, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/seats")
 	public ResponseEntity<SeatDTO> addSeat(@RequestBody SeatDTO seatDTO){
 		SeatDTO _seatDTO = seatService.getSeat(seatDTO.getSeat_Id());
@@ -57,12 +59,14 @@ public class SeatAPI {
 		return new ResponseEntity<>(seatDTO, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping(value = "/seats/{id}")
 	public ResponseEntity<HttpStatus> deleteSeat(@PathVariable String id){
 		seatService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping(value = "/seats/{id}")
 	public ResponseEntity<SeatDTO> updateSeat(@RequestBody SeatDTO seatDTO, @PathVariable("id") String id) {
 		SeatDTO _seatDTO = seatService.getSeat(id);

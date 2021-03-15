@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class UserAPI {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/users")
 	public ResponseEntity<List<UserDTO>> getUsers(){
 		List<UserDTO> userDTOs = userService.getUsers();
@@ -36,6 +38,7 @@ public class UserAPI {
 		return new ResponseEntity<>(userDTOs,HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasAnyRole('STAFF','ADMIN')")
 	@GetMapping(value = "/users/{idOrUsername}")
 	public ResponseEntity<UserDTO> getUser(@PathVariable("idOrUsername") String input){
 		UserDTO userDTO = userService.getUser(input);
@@ -44,6 +47,7 @@ public class UserAPI {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/users")
 	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
 		UserDTO _userDTO = userService.getUser(userDTO.getUsername());
@@ -53,12 +57,14 @@ public class UserAPI {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping(value = "/users/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable String id){
 		userService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping(value = "/users/{id}")
 	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable("id") String id) {
 		UserDTO _userDTO = userService.getUser(id);

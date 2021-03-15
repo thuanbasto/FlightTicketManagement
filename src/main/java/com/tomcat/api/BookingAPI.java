@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +64,7 @@ public class BookingAPI {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
 	@PostMapping(value = "/bookings", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO bookingDTO) {
 		bookingService.save(bookingDTO);
@@ -71,6 +73,7 @@ public class BookingAPI {
 		return new ResponseEntity<BookingDTO>(bookingDTO, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
 	@PutMapping("/bookings/{id}")
 	public ResponseEntity<BookingDTO> updateFlight(@RequestBody BookingDTO bookingDTO, @PathVariable("id") String id) {
 		BookingDTO _bookingDTO = bookingService.getBooking(Integer.valueOf(id));
@@ -82,6 +85,7 @@ public class BookingAPI {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
 	@DeleteMapping("/bookings/{id}")
 	public ResponseEntity<HttpStatus> deleteBooking(@PathVariable("id") String id) {
 		BookingDTO _bookingDTO = bookingService.getBooking(Integer.valueOf(id));
@@ -93,6 +97,7 @@ public class BookingAPI {
 		}
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/bookinginyear")
 	public ResponseEntity<Double> getBookingInYear() {
 		
@@ -107,6 +112,7 @@ public class BookingAPI {
 			
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/bookinginmonthyear")
 	public ResponseEntity<Double> getBookingInMonthAndYear() {
 		Double price = bookingService.getBookingPriceInYearAndMonth();

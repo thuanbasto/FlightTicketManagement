@@ -2,9 +2,12 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,8 +46,10 @@ public class AirplaneAPI {
 		return ResponseEntity.ok(airplaneDTO);
 	}
 	
+	
 	@PostMapping("/airplanes")
-	public ResponseEntity<AirplaneDTO> addAirplane(@RequestBody AirplaneDTO airplaneDTO){
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<AirplaneDTO> addAirplane(@Valid @RequestBody AirplaneDTO airplaneDTO){
 		AirplaneDTO _airplanedDTO = airplaneService.getAirplane(airplaneDTO.getAirplane_Id());
 		if(_airplanedDTO.getAirplane_Id() == null) {
 			airplaneService.save(airplaneDTO);
@@ -53,7 +58,7 @@ public class AirplaneAPI {
 		return ResponseEntity.noContent().build();
 	}
 	
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/airplanes/{id}")
 	public ResponseEntity<AirplaneDTO> updateAirplane(@PathVariable("id") String id,
 			@RequestBody AirplaneDTO airplaneDTO){
@@ -66,6 +71,7 @@ public class AirplaneAPI {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/airplanes/{id}")
 	public ResponseEntity<HttpStatus> deleteAirplane(@PathVariable("id") String id) {
 		AirplaneDTO airplaneDTO = airplaneService.getAirplane(id);

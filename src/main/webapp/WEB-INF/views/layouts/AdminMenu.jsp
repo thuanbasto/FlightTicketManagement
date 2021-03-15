@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -42,30 +43,35 @@
                             <h6 class="collapse-header">Booking:</h6>
                             <a class="collapse-item" href="booking-management" style="color: cornflowerblue">Booking</a>
                             <a class="collapse-item" href="ticket-management" style="color: cornflowerblue">Ticket</a>
-                            <h6 class="collapse-header">Price:</h6>
-                            <a class="collapse-item" href="tax-management" style="color: cornflowerblue">Tax</a>
-                            <a class="collapse-item" href="luggage-management" style="color: cornflowerblue">Signed Lugguage</a>
-                            <a class="collapse-item" href="flight-management" style="color: cornflowerblue">Flight</a>
-                            <a class="collapse-item" href="travelclass-management" style="color: cornflowerblue">Travel Class</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Location:</h6>
-                            <a class="collapse-item" href="city-management" style="color: cornflowerblue">City</a>
-                            <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
-                            <h6 class="collapse-header">Air plane:</h6>
-                            <a class="collapse-item" href="seat-management" style="color: cornflowerblue">Seat</a>
-                            <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
+                            <security:authorize access="hasAuthority('ROLE_ADMIN')">
+                            	<h6 class="collapse-header">Price:</h6>
+                            	<a class="collapse-item" href="tax-management" style="color: cornflowerblue">Tax</a>
+                            	<a class="collapse-item" href="luggage-management" style="color: cornflowerblue">Signed Lugguage</a>
+                            	<a class="collapse-item" href="flight-management" style="color: cornflowerblue">Flight</a>
+                            	<a class="collapse-item" href="travelclass-management" style="color: cornflowerblue">Travel Class</a>
+	                            <div class="collapse-divider"></div>
+	                            <h6 class="collapse-header">Location:</h6>
+	                            <a class="collapse-item" href="city-management" style="color: cornflowerblue">City</a>
+	                            <a class="collapse-item" href="airport-management" style="color: cornflowerblue">Airport</a>
+	                            <h6 class="collapse-header">Air plane:</h6>
+	                            <a class="collapse-item" href="seat-management" style="color: cornflowerblue">Seat</a>
+	                            <a class="collapse-item" href="airplane-management" style="color: cornflowerblue">Airplane</a>                          
+                            </security:authorize>
                             <h6 class="collapse-header">User and customer:</h6>
-                            <a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
+                            <security:authorize access="hasAuthority('ROLE_ADMIN')">
+                            	<a class="collapse-item" href="user-management" style="color: cornflowerblue">User</a>
+                            </security:authorize>
                             <a class="collapse-item" href="customer-management" style="color: cornflowerblue">Customer</a>
                         </div>
                     </div>
                 </li>
 
-                
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="revenue"> <i class="fas fa-fw fa-table"></i> <span>Revenue</span></a>
-                </li>
+                <security:authorize access="hasAuthority('ROLE_ADMIN')">
+	                <!-- Nav Item - Tables -->
+	                <li class="nav-item">
+	                    <a class="nav-link" href="revenue"> <i class="fas fa-fw fa-table"></i> <span>Revenue</span></a>
+	                </li>
+                </security:authorize>
                 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">

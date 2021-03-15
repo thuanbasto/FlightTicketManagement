@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,12 +48,14 @@ public class FlightAPI {
 		}
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/flights")
 	public ResponseEntity<FlightDTO> addFlight(@RequestBody FlightDTO flightDTO) {
 		flightService.save(flightDTO);
 		return new ResponseEntity<FlightDTO>(flightDTO, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/flights/{id}")
 	public ResponseEntity<FlightDTO> updateFlight(@RequestBody FlightDTO flightDTO, @PathVariable("id") String id) {
 		FlightDTO _flightDTO = flightService.getFlight(Integer.valueOf(id));
@@ -64,6 +67,7 @@ public class FlightAPI {
 		}
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/flights/{id}")
 	public ResponseEntity<HttpStatus> deleteFlight(@PathVariable("id") String id) {
 		FlightDTO _flightDTO = flightService.getFlight(Integer.valueOf(id));

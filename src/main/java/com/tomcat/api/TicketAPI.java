@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tomcat.dto.TicketDTO;
@@ -22,7 +26,7 @@ public class TicketAPI {
 	@Autowired
 	ITicketService ticketService;
 
-	@RequestMapping(value = "/tickets", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/tickets", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<TicketDTO>> getTickets() {
 		List<TicketDTO> ticketDTOs = ticketService.getList();
 		if (ticketDTOs.isEmpty()) {
@@ -31,7 +35,7 @@ public class TicketAPI {
 		return new ResponseEntity<>(ticketDTOs, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/tickets/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> getTicket(@PathVariable("id") Integer id) {
 		TicketDTO ticketDTO = ticketService.getTicket(id);
 		if (ticketDTO.getTicket_Id() == null) {
@@ -42,15 +46,16 @@ public class TicketAPI {
 		}
 	}
 
-	@RequestMapping(value = "/tickets", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
+	@PostMapping(value = "/tickets", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> addticket(@RequestBody TicketDTO ticketDTO) {
-
 		ticketService.save(ticketDTO);
-
 		return new ResponseEntity<>(ticketDTO, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
+	@PutMapping(value = "/tickets/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<TicketDTO> updateticket(@RequestBody TicketDTO ticketDTO, @PathVariable Integer id) {
 		TicketDTO _ticketDTO = ticketService.getTicket(id);
 		if (_ticketDTO.getTicket_Id() != null) {
@@ -61,14 +66,14 @@ public class TicketAPI {
 		}
 	}
 
-	@RequestMapping(value = "/tickets/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAnyRole('STAFF','ANONYMOUS')")
+	@DeleteMapping(value = "/tickets/{id}")
 	public ResponseEntity<String> deleteTicket(@PathVariable("id") Integer id) {
-
 		try {
 			ticketService.delete(id);
 			return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Không thành công", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Khï¿½ng thï¿½nh cï¿½ng", HttpStatus.NOT_FOUND);
 		}
 
 	}
