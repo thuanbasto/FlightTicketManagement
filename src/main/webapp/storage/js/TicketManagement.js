@@ -92,26 +92,67 @@ function loadFlightClassList() {
 }
 
 
+
+
+
 var seatList = [];
 
-function loadSeatClassList() {
+function loadSeats() {
     $.ajax({
         url: "/FlightTicketManagement/api/seats",
-        method: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            $.each(response, function (index, value) {
-                seatList.push(value);
-                seat = value.seat_Id + " - " + value.travelClass.name
-                $("#inpSeatClass").append(`<option value='${value.seat_Id}'>${seat}</option>`)
+        async: false,
+        type: "get",
+        dataType: "JSON",
+        success: function(response) {
+            $.each(response, function(index, ticket) {
+                seatList.push(ticket);
             });
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
         }
-    });
+    })
+    console.log(seatList);
 }
+
+var emptySeatList = [];
+var bookedSeatList = [];
+
+function loadBookedSeat(id) {
+    emptySeatList = [];
+    bookedSeatList = [];
+    $.ajax({
+        url: "/FlightTicketManagement/api/seats/flights/" + id,
+        async: false,
+        type: "get",
+        dataType: "JSON",
+        success: function(response) {
+            $.each(response, function(index, ticket) {
+                bookedSeatList.push(ticket);
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    })
+    seatList.forEach(seat => {
+        // check seat is booked ?
+        let booked = false;
+        for (let i = 0; i < bookedSeatList.length; i++){
+            if (seat.seat_Id == bookedSeatList[i].seat_Id) {
+                booked = true;
+                break;
+            }
+        }
+        if(booked == false){
+            emptySeatList.push(seat);
+        }      
+    })
+    console.log(bookedSeatList);
+    console.log(emptySeatList);
+
+}
+
 
 var luggageList = [];
 
@@ -160,12 +201,10 @@ function loadTaxesClassList() {
 }
 
 
-
-loadBookingClassList();
+loadSeats();
 loadFlightClassList();
-loadSeatClassList();
+loadBookingClassList()
 loadLuggageClassList();
-loadTaxesClassList();
 loadTicketList();
 
 $('#tbodyData').on('click', '#btnDetail', function () {
@@ -217,6 +256,12 @@ $('#tbodyData').on('click', '#btnDetail', function () {
                     <td class="h5">${ticket.flight.airplane.name}</td>
                 </tr>
 
+                <tr class="spaceUnder">
+                <td class="h6"><strong>Lugguage</strong></td>
+                <td> </td>
+                <td class="h5">${ticket.signedluggage.name}</td>
+            </tr>
+
             </tbody>
         </table>`
 
@@ -239,27 +284,28 @@ $('#tbodyData').on('click', '#btnDetail', function () {
 
 });
 
-$('#tbodyData').on('click', '#btnEdit', function () {
-
-    // fill input with value
+$('#tbodyData').on('click', '#btnEdit', function () {   
+    
     ticketList.forEach(ticket => {
         if (ticket.ticket_Id == $(this).data("id")) {
-            $("#form-check-tax input").each(function () {
-                $(this).prop('checked', false);
-            })
-            $("#inpTicket_Id").val(response.ticket_Id);
-            $("#inpCustomerClass").val(response.customer.customer_Id)
-            $("#inpBookingClass").val(response.booking.booking_Id)
-            $("#inpFlightClass").val(response.flight.flight_Id)
-            $("#inpSeatClass").val(response.seat.seat_Id)
-            $("#inpLuggageClass").val(response.signedluggage != null ? response.signedluggage.signedLuggage_Id : "")
-            response.taxs.forEach(tax => {
-                $("#form-check-tax input").each(function () {
-                    if ($(this).val() == tax.tax_Id) {
-                        $(this).prop('checked', true);
-                    }
-                })
-            })
+
+            $("#inpSeatClass").val("")
+            $("#inpSeatClass").html("")
+            loadBookedSeat(ticket.flight.flight_Id);
+            for (let i = 0; i < emptySeatList.length; i++) {
+                $("#inpSeatClass").append(`<option value='${emptySeatList[i].seat_Id}'>${emptySeatList[i].seat_Id}</option>`)
+            }         
+            $("#inpSeatClass").append(`<option value='${ticket.seat.seat_Id}'>${ticket.seat.seat_Id}</option>`)
+            $("#inpSeatClass").val(ticket.seat.seat_Id)
+            $("#inpTicket_Id").val(ticket.ticket_Id);
+            $("#inpFirstName").val(ticket.customer.firstName);
+            $("#inpLastName").val(ticket.customer.lastName);
+            $("#inpAddress").val(ticket.customer.address);
+            $("#inpBirthday").val(ticket.customer.birthDay);
+            $("#inpCustomerClass").val(ticket.customer.customer_Id)
+            $("#inpBookingClass").val(ticket.booking.booking_Id)
+            $("#inpFlightClass").val(ticket.flight.flight_Id)
+            $("#inpLuggageClass").val(ticket.signedluggage != null ? ticket.signedluggage.signedLuggage_Id : "")
         }
     })
 
@@ -267,10 +313,6 @@ $('#tbodyData').on('click', '#btnEdit', function () {
 
     action = "update";
 
-
-    // $(".modal-title").html("Edit Ticket");
-
-    // $("#btnUpdate").html("Update");
 });
 
 
@@ -278,14 +320,6 @@ $('body').on('click', '#btnUpdate', function () {
 
     let taxs_Id = []
 
-    $("#form-check-tax input").each(function () {
-        if ($(this).is(":checked")) {
-            var tax_Id = {
-                "tax_Id": parseInt($(this).val())
-            }
-            taxs_Id.push(tax_Id)
-        }
-    })
 
     let ticketForUpdate = {
         ticket_Id: parseInt($("#inpTicket_Id").val()),
@@ -346,7 +380,7 @@ $('body').on('click', '#btnUpdate', function () {
             success: function (response) {
                 $('.close').click();
                 $('.successToast').toast('show');
-                ticketList = []; // 
+                ticketList = []; 
                 loadTicketList();
             },
             error: function (jqXHR, textStatus, errorThrown) {

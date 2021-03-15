@@ -483,7 +483,10 @@ function loadPay() {
         if (chosenFlight.flight_Id == booking.flight_Id){
             booking.phone = $("#phone").val();
             booking.email = $("#email").val();
-            booking.paymentMethod = "ONLINE";
+            if (user.user_Id != undefined)
+                booking.paymentMethod = "Online";
+            else 
+                booking.paymentMethod = "Offline";
         }
     })
 

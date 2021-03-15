@@ -41,7 +41,6 @@ public class TicketConverter {
 		TicketDTO ticketDTO = new TicketDTO();
 
 		ticketDTO.setTicket_Id(ticket.getTicket_Id());
-		ticketDTO.setTicket_PriceTotal(ticket.getTicket_PriceTotal());
 		
 		if(ticket.getBooking() != null) {
 			BookingDTO bookingDTO = mapper.map(ticket.getBooking(), BookingDTO.class);
