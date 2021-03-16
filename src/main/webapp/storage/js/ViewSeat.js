@@ -28,7 +28,7 @@ $("body").on("click", "input[type=checkbox]", function() {
 		alert('Seat is selected!')
 	}
 	$(this).prop('checked', true);
-
+	$("#seatInfo").css("height", "")
 	loadSeatInfo()
 });
 

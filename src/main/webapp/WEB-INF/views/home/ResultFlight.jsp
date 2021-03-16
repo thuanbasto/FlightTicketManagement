@@ -24,7 +24,7 @@
                     <div class="modal-header text-center">
                         <h4 class="modal-title text-success">Payment success</h4>
                     </div>
-                    
+
                     <!-- Modal body -->
                     <div class="modal-body text-center">
                         <h3 class="text-primary">Send email with booking information for you</h3>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
 
         <div class="container mt-5">
@@ -104,12 +104,13 @@
                                                 <jsp:include page="ViewSeat.jsp" />
                                             </div>
                                             <div class="col-5 mx-auto">
-                                                <div class="col-10 mx-auto" style="margin-top: 261px; margin-bottom: 50px;">
+                                                <div class="col-10 mx-auto" style="margin-top: 200px; margin-bottom: 50px;">
+                                                    <div id="travelClassPriceData"></div>
                                                     <select class="form-control" id="customerListDDL" style="text-align-last: center;">
           
                                                     </select>
                                                 </div>
-                                                <div id="seatInfo" style="height:100px">
+                                                <div id="seatInfo" style="height:100px;border: 1px solid #ced4da;padding: 8px;border-radius: 5px;">
                                                 </div>
                                             </div>
                                         </div>
@@ -124,7 +125,7 @@
                         <div class="modal-footer">
                             <button type="button" hidden class="btn btn-secondary" id="btnPrev" href="#demo" data-slide="prev">Prev</button>
                             <button type="button" hidden class="btn btn-success" id="btnNext" href="#demo" data-slide="next">Next</button>
-                            <button type="button" class="btn btn-primary" id="btnPay">Pay</button>
+                            <button type="button" class="btn btn-primary" id="btnPay">Checkout</button>
                             <button type="button" class="btn btn-secondary" id="btnCheckPrev">Prev</button>
                             <button type="button" class="btn btn-success" id="btnCheckNext">Next</button>
                         </div>
@@ -134,4 +135,4 @@
 
                 <input hidden value="${url}" id="url" name="url" />
 
-        <script src="${jsUrl}"></script>
+                <script src="${jsUrl}"></script>
