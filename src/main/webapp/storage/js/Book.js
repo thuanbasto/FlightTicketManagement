@@ -6,7 +6,7 @@ $('#btnSearch').on('click', function(e) {
         alert("Please fill full field!")
     } else {
         let number = parseInt($('#adult').val());
-            // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
+        // console.log('?' + $('#flightSearchForm').serialize() + `&number=${number}`);
         window.location.href = `searchFlight?${$('#flightSearchForm').serialize()}&number=${number}`;
     }
 });
@@ -91,9 +91,9 @@ $('ul[data-tag="channelList"] > li').click(function() {
     chieu_ve = $(this).data('id');
 
     if ($(this).data('id') == 'oneway') {
-        $('#ngayden').hide();
+        // $('#ngayden').hide();
     } else {
-        $('#ngayden').show();
+        // $('#ngayden').show();
     }
     // console.log($(this).val());
 
