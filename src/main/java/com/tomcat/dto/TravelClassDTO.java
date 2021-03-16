@@ -3,11 +3,16 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
 public class TravelClassDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer travelClass_Id;
 
+	@NotEmpty(message = "Travle class name must not be empty")
 	private String name;
 
 	private Integer quantity;

@@ -5,12 +5,15 @@ import java.util.List;
 
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class AirplaneDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String airplane_Id;
 
+	@NotEmpty(message = "Airplane name must not be null or empty")
 	private String name;
 
 	private List<FlightDTO> flights;

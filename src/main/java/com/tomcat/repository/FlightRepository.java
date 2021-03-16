@@ -22,7 +22,8 @@ public interface FlightRepository extends JpaRepository<Flight, Integer>{
 			" FROM flight" + 
 			" where From_Airport_Id = ?1" + 
 			" and To_Airport_Id = ?2" + 
-			" and DepartureDate >= ?3" + 
+			" and date(DepartureDate) = ?3" + 
+			" and DepartureDate >= now()" +
 			" and ((select count(1) - (select count(1) from ticket,seat where ticket.seat_Id = seat.seat_Id" + 
 			" and ticket.Flight_Id = flight.Flight_Id ) from seat) >= ?4)"
 			,nativeQuery=true)

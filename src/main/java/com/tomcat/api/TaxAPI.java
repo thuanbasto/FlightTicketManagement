@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,8 +47,8 @@ public class TaxAPI {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping(value = "/taxes")
-	public ResponseEntity<TaxDTO> addTax(@RequestBody TaxDTO taxDTO) {
+	@PostMapping(value = "/taxes", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<TaxDTO> addTax(@Valid @RequestBody TaxDTO taxDTO) {
 		taxDTO = taxService.save(taxDTO);
 		return new ResponseEntity<>(taxDTO, HttpStatus.CREATED);
 	}
@@ -63,7 +66,7 @@ public class TaxAPI {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping(value = "/taxes/{id}")
-	public ResponseEntity<TaxDTO> updateTax(@RequestBody TaxDTO taxDTO,@PathVariable("id") String id) {
+	public ResponseEntity<TaxDTO> updateTax(@Valid @RequestBody TaxDTO taxDTO,@PathVariable("id") String id) {
 		TaxDTO _taxDTO = taxService.getTax(id);
 		if (_taxDTO != null) {
 			taxService.save(taxDTO);

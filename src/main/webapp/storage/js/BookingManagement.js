@@ -6,9 +6,9 @@ function loadBookings() {
 	$.ajax({
 		url: "/FlightTicketManagement/api/bookings",
 		async: false,
-		success: function(response) {
+		success: function (response) {
 			var htmlStr = ``;
-			$(response).find("item").each(function() {
+			$(response).find("item").each(function () {
 				var bookingId = $(this).find("booking_Id").text();
 				var bookingDate = $(this).find("bookingDate").text();
 				var email = $(this).find("email").first().text();
@@ -16,7 +16,7 @@ function loadBookings() {
 				var numberOfTicket = $(this).find("numberOfTicket").text();
 				var ticketSeller = $(this).find("user").find("username").text();
 				var phone = $(this).find("phone").first().text();
-				
+
 				console.log(email + paymentMethod + numberOfTicket + ticketSeller + phone)
 
 				htmlStr = htmlStr + `
@@ -34,7 +34,9 @@ function loadBookings() {
 			});
 			$("#tbodyData").html(htmlStr);
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (jqXHR, textStatus, errorThrown) {
+			$('.failedToast').children('.toast-body').html('Unsuccessful')
+			$('.failedToast').toast('show');
 			console.log(textStatus, errorThrown);
 		}
 
@@ -45,7 +47,7 @@ loadBookings();
 
 // delete booking
 
-$('#tbodyData').on('click', '#btnDelete', function() {
+$('#tbodyData').on('click', '#btnDelete', function () {
 	// console.log($(this).data('id'));
 	if (confirm(`You want to delete booking with id = ${$(this).data('id')}?`)) {
 		let tr = $(this).closest('tr');
@@ -54,11 +56,12 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 			url: "/FlightTicketManagement/api/bookings/" + $(this).data('id'),
 			contentType: "application/json",
 			async: false,
-			success: function(resp) {
+			success: function (resp) {
 				tr.remove();
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				// $('.failedToast').toast('show');
+			error: function (jqXHR, textStatus, errorThrown) {
+				$('.failedToast').children('.toast-body').html('Unsuccessful')
+				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
 		});
@@ -66,20 +69,21 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 });
 
 // show edit form
-$('#tbodyData').on('click', '#btnEdit', function() {
+$('#tbodyData').on('click', '#btnEdit', function () {
 
 	$.ajax({
 		url: "/FlightTicketManagement/api/bookings/" + $(this).data('id'),
 		ethod: "GET",
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        dataType: "json",
-		success: function(response) {
+		contentType: "application/json; charset=utf-8",
+		async: false,
+		dataType: "json",
+		success: function (response) {
 			var htmlStr = ``;
-			let totalTaxPrice = 0;
-			response.tickets.forEach(function(value) {
-				value.taxs.forEach(tax=>{
-					if(tax.taxPrices != null)
+
+			response.tickets.forEach(function (value) {
+				let totalTaxPrice = 0;
+				value.taxs.forEach(tax => {
+					if (tax.taxPrices != null)
 						totalTaxPrice += tax.taxPrices[0].price
 				})
 				htmlStr = htmlStr + `
@@ -100,8 +104,14 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 					<div class="col-sm-4" style="padding-left: 40px;">
 						<h6><b>Flight Price:</b> ${value.flight.flight_Price}</h6>
 						<h6><b>Tax:</b> ${totalTaxPrice}</h6>
-						<h6><b>Signed Luggage:</b> ${value.signedluggage.signedluggagePrices[0].price}</h6>
-						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices[0].price}</h6>
+						<h6><b>Signed Luggage:</b> ${!value.signedluggage
+						? ''
+						: value.signedluggage.signedluggagePrices
+							? value.signedluggage.signedluggagePrices[0].price : ''}</h6>
+
+														
+						<h6><b>Travel Class Price:</b> ${value.seat.travelClass.travelClassPrices
+						? value.seat.travelClass.travelClassPrices[0].price : ''}</h6>
 						<h6><b>Total Price:</b> ${value.ticket_PriceTotal}</h6>
 					</div>
 					<div class="col-sm-8">
@@ -113,7 +123,7 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 							</tr>
 							<tr>
 								<td><b>Birthday: </b>${value.customer.birthDay}</td>
-								<td><b>Identity Number: </b>${value.customer.identityNumber !=null ? value.customer.identityNumber : ""}</td>
+								<td><b>Identity Number: </b>${value.customer.identityNumber != null ? value.customer.identityNumber : ""}</td>
 							</tr>
 						</table>
 					</div>
@@ -156,13 +166,13 @@ $('#tbodyData').on('click', '#btnEdit', function() {
 			`
 			$("#booking-detail-body").html(htmlStr);
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (jqXHR, textStatus, errorThrown) {
 			console.log(textStatus, errorThrown);
 		}
 	});
 });
 
-$('#viewFlightModal').on("keyup", function(event) {
+$('#viewFlightModal').on("keyup", function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
 		$('#btnUpdate').click();

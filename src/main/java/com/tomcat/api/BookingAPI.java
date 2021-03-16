@@ -68,8 +68,8 @@ public class BookingAPI {
 	@PostMapping(value = "/bookings", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO bookingDTO) {
 		bookingService.save(bookingDTO);
-		if (bookingDTO.getBooking_Id() != null)
-			mailUtils.sendEmail(bookingService.getBooking(bookingDTO.getBooking_Id()));
+//		if (bookingDTO.getBooking_Id() != null)
+//			mailUtils.sendEmail(bookingService.getBooking(bookingDTO.getBooking_Id()));
 		return new ResponseEntity<BookingDTO>(bookingDTO, HttpStatus.OK);
 	}
 

@@ -3,13 +3,20 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class SignedluggageDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer signedLuggage_Id;
 
+	@NotEmpty(message = "Signed luggage name must not be empty")
 	private String name;
 
+	@NotNull	(message = "weight must not be empty or null")
 	private double weight;
 
 	private List<SignedluggagePriceDTO> signedluggagePrices;

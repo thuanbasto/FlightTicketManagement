@@ -363,7 +363,8 @@ $('body').on('click', '#btnUpdate', function () {
                 ticketList = [];
                 loadTicketList();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -383,7 +384,8 @@ $('body').on('click', '#btnUpdate', function () {
                 ticketList = []; 
                 loadTicketList();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -403,7 +405,8 @@ $('#tbodyData').on('click', '#btnDelete', function () {
                 tr.remove();
                 $('.successToast').toast('show');
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }

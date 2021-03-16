@@ -3,11 +3,14 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class TaxDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer tax_Id;
 
+	@NotEmpty(message = "Tax name must not be null or empty")
 	private String taxName;
 
 	private List<TaxPriceDTO> taxPrices;

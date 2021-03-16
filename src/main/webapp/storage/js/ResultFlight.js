@@ -497,10 +497,13 @@ function loadPay() {
         if (chosenFlight.flight_Id == booking.flight_Id) {
             booking.phone = $("#phone").val();
             booking.email = $("#email").val();
-            if (user.user_Id != undefined)
-                booking.paymentMethod = "Online";
-            else
+            if (user.user_Id != undefined) {
                 booking.paymentMethod = "Offline";
+                let userOfBooking = {user_Id : user.user_Id}
+                booking.user = userOfBooking;
+            }
+            else 
+                booking.paymentMethod = "Online";
         }
     })
 

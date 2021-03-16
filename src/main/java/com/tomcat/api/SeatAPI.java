@@ -2,8 +2,11 @@ package com.tomcat.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,8 +53,8 @@ public class SeatAPI {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping(value = "/seats")
-	public ResponseEntity<SeatDTO> addSeat(@RequestBody SeatDTO seatDTO){
+	@PostMapping(value = "/seats",produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<SeatDTO> addSeat(@Valid @RequestBody SeatDTO seatDTO){
 		SeatDTO _seatDTO = seatService.getSeat(seatDTO.getSeat_Id());
 		if(_seatDTO != null) 
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

@@ -51,7 +51,10 @@ $('body').on('click', '#btnAdd', function() {
 				console.log(response);
 				loadAirplaneList();
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function(response, textStatus, errorThrown) {
+				let errorHtml = ``;
+				Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+				$('.failedToast').children('.toast-body').html(errorHtml)
 				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
@@ -88,8 +91,11 @@ $('body').on('click', '#btnUpdate', function() {
 			loadAirplaneList();
 			$("#inpAirplaneName").val('');
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
-		$('.failedToast').toast('show');
+		error: function(response, textStatus, errorThrown) {
+			let errorHtml = ``;
+			Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+			$('.failedToast').children('.toast-body').html(errorHtml)
+			$('.failedToast').toast('show');
 			console.log(textStatus, errorThrown);
 		}
 	});
@@ -123,6 +129,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
 				$("tr").remove(strClass);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
+			$('.failedToast').children('.toast-body').html('Unsuccessful')
 			$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}

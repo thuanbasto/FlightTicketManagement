@@ -20,7 +20,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <div style="position: fixed; top: 50%; right: 50%; transform: translate(40%,-50%); z-index: 2;">
+    <div style="position: fixed; top: 20%; right: 50%; transform: translate(40%,-50%); z-index: 2;">
         <div class="toast hide successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
                 <strong class="mr-auto">Notice</strong>

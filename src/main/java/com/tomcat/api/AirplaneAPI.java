@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,7 +48,7 @@ public class AirplaneAPI {
 	}
 	
 	
-	@PostMapping("/airplanes")
+	@PostMapping(value="/airplanes", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<AirplaneDTO> addAirplane(@Valid @RequestBody AirplaneDTO airplaneDTO){
 		AirplaneDTO _airplanedDTO = airplaneService.getAirplane(airplaneDTO.getAirplane_Id());
@@ -59,9 +60,9 @@ public class AirplaneAPI {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/airplanes/{id}")
+	@PutMapping(value="/airplanes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AirplaneDTO> updateAirplane(@PathVariable("id") String id,
-			@RequestBody AirplaneDTO airplaneDTO){
+			@Valid @RequestBody AirplaneDTO airplaneDTO){
 		AirplaneDTO _airplaneDTO = airplaneService.getAirplane(id);
 		if(_airplaneDTO.getAirplane_Id() == null) {
 			return ResponseEntity.notFound().build();
