@@ -3,8 +3,8 @@ package com.tomcat.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 public class CityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

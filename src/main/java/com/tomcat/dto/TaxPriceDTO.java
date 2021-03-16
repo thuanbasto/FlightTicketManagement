@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

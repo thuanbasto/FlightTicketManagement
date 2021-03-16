@@ -106,7 +106,10 @@ $('body').on('click', '#btnUpdate', function() {
                     addNewPrice(travelClass);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function(response, textStatus, errorThrown) {
+                let errorHtml = ``;
+                Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                $('.failedToast').children('.toast-body').html(errorHtml)
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -126,7 +129,10 @@ $('body').on('click', '#btnUpdate', function() {
                 travelClass.travelClassPrices[0].travelClass_Id = $(response)[0].travelClass_Id;
                 addNewPrice(travelClass)
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function(response, textStatus, errorThrown) {
+                let errorHtml = ``;
+                Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                $('.failedToast').children('.toast-body').html(errorHtml)
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -148,6 +154,8 @@ function addNewPrice(travelClass) {
             loadTravelClassList();
         },
         error: function(jqXHR, textStatus, errorThrown) {
+            $('.failedToast').children('.toast-body').html('Unsuccessful')
+            $('.failedToast').toast('show');
             console.log(textStatus, errorThrown);
         }
     });
@@ -167,6 +175,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
                 $('.successToast').toast('show');
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }

@@ -57,6 +57,20 @@ function loadTravelClassList() {
 loadSeatList();
 loadTravelClassList()
 
+// check seat exists (id)
+function checkCityExists(seatList, seatId){
+	for (var element of seatList) {
+		if (element.seat_Id.toLowerCase() == seatId.toLowerCase()) {
+				htmlStr = `${seatId} has already exists`
+				$('.failedToast').children('.toast-body').html(htmlStr)
+			    $('.failedToast').toast('show');
+				return true;
+		}else{
+            return false;
+        }
+	}
+}
+
 // edit seat
 $('#tbodyData').on('click', '#btnEdit', function() {
     // make empty input
@@ -101,12 +115,20 @@ $('#btnAdd').on('click', function() {
 
 // update and add seat
 $('body').on('click', '#btnUpdate', function() {
-    let seat = {
-        seat_Id : $("#inpSeat_Id").val(),
-        travelClass : {
-            travelClass_Id : $("#inpTravelClass").val(),
-        }
-    };
+    let seat
+    if($("#inpTravelClass").val() != null){
+         seat = {
+            seat_Id : $("#inpSeat_Id").val(),
+            travelClass : {
+                travelClass_Id : $("#inpTravelClass").val(),
+            }
+        };
+    }else{
+         seat = {
+            seat_Id : $("#inpSeat_Id").val()
+        };
+    }
+    
 
     console.log(seat);
 
@@ -125,15 +147,22 @@ $('body').on('click', '#btnUpdate', function() {
                 loadSeatList();
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
         });
     } else if (action == "add"){
+
+        if(checkCityExists(seatList,seat.seat_Id)){
+            console.log("Abcdef")
+            return;
+        }
+
         $.ajax({
             method: "POST",
             url: "/FlightTicketManagement/api/seats",
-            contentType: "application/json",
+            contentType: "application/json; charset=utf-8",
             async: false,
             data: JSON.stringify(seat),
             dataType: "json",
@@ -143,7 +172,11 @@ $('body').on('click', '#btnUpdate', function() {
                 seatList = []; // empty the old list to add a new one
                 loadSeatList();
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (response, textStatus, errorThrown) {
+                console.log(response)
+                let errorHtml = ``;
+                Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
+                $('.failedToast').children('.toast-body').html(errorHtml)
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }
@@ -165,6 +198,7 @@ $('#tbodyData').on('click', '#btnDelete', function() {
                 $('.successToast').toast('show');
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.failedToast').children('.toast-body').html('Unsuccessful')
                 $('.failedToast').toast('show');
                 console.log(textStatus, errorThrown);
             }

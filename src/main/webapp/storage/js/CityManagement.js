@@ -32,26 +32,18 @@ function loadCityList() {
 
 loadCityList();
 
-function checkCityExists(cityList, cityName){
-	for (var element of cityList) {
-		if (element.name.toLowerCase() == cityName.toLowerCase()) {
-			if (element.city_Id != cityID) {
-				htmlStr = `${cityName} has already exists`
-				$('.failedToast').children('.toast-body').html(htmlStr)
-			    $('.failedToast').toast('show');
-				return true;
-			}else{
-				return false;
-			}
-		}
-	}
-}
+
 
 //su kien nut Add thanh pho
 $('body').on('click', '#btnAdd', function () {
 
+	//check id
+	if(checkCityIDExists(cityList,  $("#cityCode").val())){
+		return;
+	}
+
 	// check exists
-	if(checkCityExists(cityList,  $("#cityName").val())){
+	if (checkCityExists(cityList, $("#cityName").val())) {
 		return;
 	}
 
@@ -74,10 +66,11 @@ $('body').on('click', '#btnAdd', function () {
 			loadCityList();
 		},
 		// error: function(response) {
-		// 	// $('.failedToast').toast('show');
+		// 	// $('.failedToast').children('.toast-body').html('Unsuccessful')
 		// 	console.log(response);
 		// }
 		error: function (response) {
+			console.log(response)
 			let errorHtml = ``;
 			Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
 			console.log(response.responseJSON)
@@ -100,8 +93,12 @@ $('#tbodyData').on('click', '#btnEdit', function () {
 
 //su kien nut Update thanh pho
 $('body').on('click', '#btnUpdate', function () {
+	// check id
+	
+
+
 	// check name exists
-	if(checkCityExists(cityList,  $("#cityName").val())){
+	if (checkCityExists(cityList, $("#inpCityName").val())) {
 		return;
 	}
 	$.ajax({
@@ -119,6 +116,7 @@ $('body').on('click', '#btnUpdate', function () {
 			$("#inpCityName").val('');
 		},
 		error: function (response, textStatus, errorThrown) {
+			console.log(response)
 			let errorHtml = ``;
 			Object.entries(response.responseJSON).forEach(([key, value]) => errorHtml += `<li>${value}</li>`)
 			$('.failedToast').children('.toast-body').html(errorHtml)
@@ -159,11 +157,38 @@ $('#tbodyData').on('click', '#btnDelete', function () {
 				$("tr").remove(strClass);
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
+				$('.failedToast').children('.toast-body').html('Unsuccessful')
 				$('.failedToast').toast('show');
 				console.log(textStatus, errorThrown);
 			}
 		});
 	} else { }
-
-
 });
+
+function checkCityExists(cityList, cityName) {
+	for (var element of cityList) {
+		if (element.name.toLowerCase() == cityName.toLowerCase()) {
+			console.log(element)
+			if (element.city_Id != cityID) {
+				htmlStr = `${cityName} has already exists`
+				$('.failedToast').children('.toast-body').html(htmlStr)
+				$('.failedToast').toast('show');
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+}
+
+function checkCityIDExists(cityList, cityID) {
+	for (var element of cityList) {
+		if (element.city_Id.toLowerCase() == cityID.toLowerCase()) {
+			htmlStr = `City already exists with ID: ${cityID}`
+			$('.failedToast').children('.toast-body').html(htmlStr)
+			$('.failedToast').toast('show');
+			return true;
+		}
+	}
+	return false;
+}
