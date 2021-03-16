@@ -153,10 +153,18 @@ ol {
     font-weight: bold;
     line-height: 1.5rem;
     padding: 4px 0;
-    background: #bada55;
+    /* background: #bada55; */
     border-radius: 5px;
     animation-duration: 300ms;
     animation-fill-mode: both;
+}
+
+.seatBusiness label {
+    background: #FFD700;
+}
+
+.seatEconomy label {
+    background: #87ceeb;
 }
 
 .seat label:before {

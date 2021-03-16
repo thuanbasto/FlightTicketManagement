@@ -141,7 +141,7 @@ function loadBookedSeat(id) {
 
         if (count == 0) htmlCabin += `<li class="row row_ct"> <ol class="seats" type="A">`
 
-        htmlCabin += `<li class="seat">
+        htmlCabin += `<li class="seat ${seat.seat_Id[0] == "A" ? "seatBusiness" : "seatEconomy"}">
                         <input type="checkbox" ${booked == true ? "disabled" : ""} id="${seat.seat_Id}" />
                         <label for="${seat.seat_Id}">${seat.seat_Id}</label>
                     </li>`
@@ -284,7 +284,7 @@ $('body').on('click', '#choose', function() {
             })
         }
     })
-    
+
     $("#seatInfo").html(htmlSeatInfo);
 
     $('#tbodyModalData').html(htmlFlightData);
@@ -499,10 +499,9 @@ function loadPay() {
             booking.email = $("#email").val();
             if (user.user_Id != undefined) {
                 booking.paymentMethod = "Offline";
-                let userOfBooking = {user_Id : user.user_Id}
+                let userOfBooking = { user_Id: user.user_Id }
                 booking.user = userOfBooking;
-            }
-            else 
+            } else
                 booking.paymentMethod = "Online";
         }
     })

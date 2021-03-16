@@ -11,7 +11,7 @@
         <div id="invoice">
             <div class="toolbar hidden-print">
                 <div class="text-right">
-                        <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+                    <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
                     <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
                 </div>
                 <hr>
@@ -57,16 +57,18 @@
                                         </div>
                                     </td>
                                     <td class="total">
-                                        <div class="row" style="padding: 0 15px;">
-                                            <!-- <div class="col-sm-12"> -->
-                                            <h5 style="text-align: left;">Booking Information</h5>
-                                            <table class="table">
-                                                <tbody id="bookingTotalData">
+                                        <!-- <div class="row" style="padding: 0 15px;"> -->
+                                        <!-- <div class="col-sm-12"> -->
+                                        <h5 style="text-align: left;">Booking Information</h5>
+                                        <table class="table">
+                                            <thead>
+                                            </thead>
+                                            <tbody id="bookingTotalData">
 
-                                                </tbody>
-                                            </table>
-                                            <!-- </div> -->
-                                        </div>
+                                            </tbody>
+                                        </table>
+                                        <!-- </div> -->
+                                        <!-- </div> -->
                                     </td>
                                 </tr>
                             </tbody>
