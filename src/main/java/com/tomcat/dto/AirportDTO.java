@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
-
 public class AirportDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

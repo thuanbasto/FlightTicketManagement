@@ -135,10 +135,9 @@ public class AdminController {
 	}
 	
 	@GetMapping(value= {"/ticket-print"})
-	public String Bill(HttpServletRequest request,
-			@RequestParam(name="ticket_Id",required=true) Integer ticket_Id){
+	public String printTicket(HttpServletRequest request, @RequestParam(name="ticket_Id",required=true) Integer ticket_Id){
 		TicketDTO ticketDTO = ticketService.getTicket(ticket_Id);		
 		request.setAttribute("ticketDTO", ticketDTO);
 		return "TicketPrint";
-	}
+	}	
 }
