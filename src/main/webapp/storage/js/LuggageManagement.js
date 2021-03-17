@@ -27,7 +27,7 @@ function loadLuggageList() {
                 <td>${weight}</td>
                 <td>${price}</td>
                 <td>
-                    <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" ><i class="fas fa-edit" data-toggle="modal" data-target="#updateLuggageModal"></i></button>&nbsp
+                    <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateLuggageModal" ><i class="fas fa-edit"></i></button>&nbsp
                     <button id="btnDelete" data-id=${id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </td>
                 </tr>`;
@@ -124,6 +124,9 @@ $('body').on('click', '#btnUpdate', function() {
                 }
         });
     } else if (action == "add"){
+        if($("#inpPrice").val() == ""){
+            alert("Do not leave blank")
+        }else{
         $.ajax({
             method: "POST",
             url: "/FlightTicketManagement/api/signedluggage",
@@ -146,6 +149,7 @@ $('body').on('click', '#btnUpdate', function() {
                 console.log(textStatus, errorThrown);
             }
         });
+    }
     }
 });
 

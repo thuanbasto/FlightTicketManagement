@@ -17,7 +17,6 @@ function loadTicketList() {
                 var bookingCode = value.booking.booking_Id;
                 var flight = value.flight.fromAirport.name + " - " + value.flight.toAirport.name;
                 var departureDate = value.flight.departureDate;
-                var signedLuggage = value.signedluggage != null ? value.signedluggage.name : "";
                 var seat = value.seat.seat_Id;
                 var price = value.ticket_PriceTotal;
 
@@ -63,6 +62,7 @@ function loadBookingClassList() {
                 Customer = value.booking_Id + "-" + value.bookingDate
                 $("#inpBookingClass").append(`<option value='${value.booking_Id}'>${Customer}</option>`)
             });
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -161,6 +161,7 @@ function loadLuggageClassList() {
         url: "/FlightTicketManagement/api/signedluggage",
         method: "GET",
         success: function (response) {
+            $("#inpLuggageClass").append(`<option value='0'>${"None"}</option>`)
             $(response).each(function (key, value) {
                 luggageList.push(value);
                 luggage = value.signedLuggage_Id + " - " + value.name
@@ -259,7 +260,7 @@ $('#tbodyData').on('click', '#btnDetail', function () {
                 <tr class="spaceUnder">
                 <td class="h6"><strong>Lugguage</strong></td>
                 <td> </td>
-                <td class="h5">${ticket.signedluggage.name}</td>
+                <td class="h5">${ticket.signedluggage != null ? ticket.signedluggage.name : "None"}</td>
             </tr>
 
             </tbody>
@@ -305,21 +306,27 @@ $('#tbodyData').on('click', '#btnEdit', function () {
             $("#inpCustomerClass").val(ticket.customer.customer_Id)
             $("#inpBookingClass").val(ticket.booking.booking_Id)
             $("#inpFlightClass").val(ticket.flight.flight_Id)
-            $("#inpLuggageClass").val(ticket.signedluggage != null ? ticket.signedluggage.signedLuggage_Id : "")
+            $("#inpLuggageClass").val(ticket.signedluggage != null ? ticket.signedluggage.signedLuggage_Id : 0)
+            $("#inpIdCustomer").val(ticket.customer.customer_Id)
+            
         }
     })
 
-
-
-    action = "update";
 
 });
 
 
 $('body').on('click', '#btnUpdate', function () {
 
-    let taxs_Id = []
+    var signedluggage;
 
+    if($("#inpLuggageClass").val() != 0){
+        signedluggage = {
+            signedLuggage_Id: parseInt($("#inpLuggageClass").val())
+        }
+    }else{
+        signedluggage = null;
+    }
 
     let ticketForUpdate = {
         ticket_Id: parseInt($("#inpTicket_Id").val()),
@@ -328,8 +335,7 @@ $('body').on('click', '#btnUpdate', function () {
             booking_Id: parseInt($("#inpBookingClass").val())
         },
         customer: {
-            address: $("#inpAddress").val(),
-            birthDay: $("#inpBirthday").val(),
+            customer_Id : $("#inpIdCustomer").val(),
             firstName: $("#inpFirstName").val(),
             lastName: $("#inpLastName").val()
         },
@@ -339,17 +345,15 @@ $('body').on('click', '#btnUpdate', function () {
         seat: {
             seat_Id: $("#inpSeatClass").val()
         },
-        signedluggage: {
-            signedLuggage_Id: parseInt($("#inpLuggageClass").val())
-        },
+        signedluggage: signedluggage
 
-        taxs: taxs_Id
     };
 
     console.log(ticketForUpdate);
 
-
-    if (action == "update") {
+    if($("#inpFirstName").val() == '' || $("#inpLastName").val() == ''){
+        alert("Do not empty blank")
+    }else{
         $.ajax({
             method: "PUT",
             url: "/FlightTicketManagement/api/tickets/" + $("#inpTicket_Id").val(),
@@ -369,28 +373,8 @@ $('body').on('click', '#btnUpdate', function () {
                 console.log(textStatus, errorThrown);
             }
         });
-        console.log(ticketForUpdate);
-    } else if (action == "add") {
-        $.ajax({
-            method: "POST",
-            url: "/FlightTicketManagement/api/ticket",
-            contentType: "application/json",
-            async: false,
-            data: JSON.stringify(ticketForAdd),
-            dataType: "json",
-            success: function (response) {
-                $('.close').click();
-                $('.successToast').toast('show');
-                ticketList = []; 
-                loadTicketList();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $('.failedToast').children('.toast-body').html('Unsuccessful')
-                $('.failedToast').toast('show');
-                console.log(textStatus, errorThrown);
-            }
-        });
     }
+
 });
 
 $('#tbodyData').on('click', '#btnDelete', function () {

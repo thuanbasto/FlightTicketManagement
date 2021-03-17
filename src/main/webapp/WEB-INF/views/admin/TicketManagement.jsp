@@ -64,14 +64,15 @@
 
 					<div class="customer_Id form-group">
 						<label><b>Customer</b></label><br />
+						<input class="form-control" type="text" id="inpIdCustomer" placeholder="First Name" hidden>
 						<label>First Name</label>
 						<input class="form-control" type="text" id="inpFirstName" placeholder="First Name">
 						<label>Last Name</label>
 						<input class="form-control" type="text" id="inpLastName" placeholder="Last Name">
 						<label>Address</label>
-						<input class="form-control" type="text" id="inpAddress" placeholder="Address">
+						<input class="form-control" type="text" id="inpAddress" placeholder="Address" hidden>
 						<label>Birthday</label>
-						<input class="form-control" type="date" id="inpBirthday" placeholder="Birthday">
+						<input class="form-control" type="date" id="inpBirthday" placeholder="Birthday" hidden>
 						<label></label>
 						<div class="flight form-group">
 							<label><b>Flight</b></label>

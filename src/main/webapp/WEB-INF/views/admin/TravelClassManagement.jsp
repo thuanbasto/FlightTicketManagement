@@ -57,11 +57,11 @@
                     </div>
                     <div class="price form-group">
                         <label>Price (VND)</label>
-                        <input class="form-control" type="text" id="inpPrice">
+                        <input class="form-control" type="number" id="inpPrice">
                     </div>
                     <div class="quantity form-group">
                         <label>Quantity</label>
-                        <input class="form-control" type="text" id="inpQuantity">
+                        <input class="form-control" type="number" id="inpQuantity">
                     </div>
                 </div>
                 <button id="btnUpdate" type="button" class="btn btn-success mt-1 float-right">Update</button>
