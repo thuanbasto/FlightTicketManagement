@@ -55,12 +55,12 @@
 				<div>
 					<input class="form-control" type="hidden" id="inpFlight_Id" />
 					<div class="form-group">
-						<label>From Airport</label> <select
+						<label>From: </label> <select
 							class="form-control loadAirport" id="selFromAirport">
 						</select>
 					</div>
 					<div class="form-group">
-						<label>To Airport</label> <select class="form-control loadAirport"
+						<label>To: </label> <select class="form-control loadAirport"
 							id="selToAirport">
 						</select>
 						<div class="alert alert-danger" id="alertToAirport">
@@ -68,15 +68,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Arrival Date</label> <input class="form-control"
-							type="datetime-local" id="inpArrivalDate" required>
+						<label>Departure Date</label> <input class="form-control"
+						type="datetime-local" id="inpDepartureDate" required>
 					</div>
 					<div class="form-group">
-						<label>Departure Date</label> <input class="form-control"
-							type="datetime-local" id="inpDepartureDate" required>
-							<div class="alert alert-danger" id="alertDepartureDate">
-								The departure Date must be greater than the arrival Date!
-							</div>
+						<label>Arrival Date</label> <input class="form-control"
+							type="datetime-local" id="inpArrivalDate" required>
+						<div class="alert alert-danger" id="alertDepartureDate">
+							The arrival date must be greater than the departure date!
+						</div>
 					</div>
 					<div class="form-group">
 						<label>Flight Price</label> <input class="form-control"

@@ -244,28 +244,6 @@ $('body').on('click', '#choose', function() {
         <td><b>Flight Price:</b> ${formatVND(flight.flight_Price)}</td>
     </tr>`;
 
-    // let htmlTravelClass = `
-    //     <div class="row">
-    //         <div class="col-sm-4">
-    //             <b>Travel class</b>
-    //         </div>
-    //         <div class="col-sm-8">
-    //             <table class="table">
-    //                 <tbody>`;
-    // travelClassList.forEach(travelClass => {
-    //     htmlTravelClass += `
-    //         <tr>
-    //             <td>${travelClass.name}: ${formatVND(travelClass.travelClassPrices[0].price)}<td>
-    //         </tr>`
-    // })
-    // htmlTravelClass += 
-    //                 `</tbody>
-    //             </table>
-    //         </div>
-    //     </div>`
-
-    // htmlFlightData += htmlTravelClass;
-
     if (choose == false) {
         choose = true;
         loadCustomerField();
@@ -350,6 +328,13 @@ $("#btnCheckNext").on("click", function() {
 
     if (index == 2) {
         if ($("#email").val() != "" && $("#phone").val() != "") {
+            if (parseInt($("#phone").val()) != $("#phone").val()){
+                alert("Phone number can't be contain a letter!")
+                return;
+            } else if ($("#email").val().indexOf("@") == -1){
+                alert("Please input email again!")
+                return;
+            }
             let check = true;
             $(".firstName").each(function() {
                 if ($(this).val() == "" || $(this).val() == null) {

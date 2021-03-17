@@ -70,15 +70,13 @@ function loadAirportList() {
 	$.ajax({
 		url: "/FlightTicketManagement/api/airports",
 		async: false,
+		dataType: "JSON",
 		success: function(response) {
 			var htmlStr = ``;
-			// lap qua ket qua tra ve & tao html theo mong muon
-			$(response).find("item").each(function(value) {
-				airportList.push(value)
-				var airportId = $(this).find("airport_Id").text();
-				var airportName = $(this).find("name").first().text();
-				htmlStr = htmlStr + `<option value=${airportId}>${airportName}</option>`;
-			});
+			$.each(response, function(index, airport) {
+				airportList.push(airport)
+				htmlStr = htmlStr + `<option value=${airport.airport_Id}>${airport.city.name} (${airport.airport_Id})</option>`;
+            });
 			//hien thi len
 			$(".loadAirport").html(htmlStr);
 		},
@@ -99,8 +97,8 @@ function loadAirplaneList() {
 			// lap qua ket qua tra ve & tao html theo mong muon
 			$(response).find("item").each(function() {
 				var airplaneId = $(this).find("airplane_Id").text();
-				var airportName = $(this).find("name").text();
-				htmlStr = htmlStr + `<option value=${airplaneId}>${airportName}</option>`;
+				var airplaneName = $(this).find("name").text();
+				htmlStr = htmlStr + `<option value=${airplaneId}>${airplaneName}</option>`;
 			});
 			//hien thi len
 			$("#selAirplane").html(htmlStr);
@@ -202,7 +200,7 @@ $('body').on('click', '#btnUpdate', function() {
 	}else{
 		$("#alertToAirport").hide();
 	}
-	if(new Date($("#inpArrivalDate").val()) >= new Date($("#inpDepartureDate").val())){
+	if(new Date($("#inpArrivalDate").val()) <= new Date($("#inpDepartureDate").val())){
 		// alert("The departure Date must be greater than the arrival Date!");
 		$('#alertDepartureDate').show();
 		return;
