@@ -44,15 +44,15 @@ $.ajax({
 
         let total_bookingPrice = 0;
         let total_taxPrice = 0;
-        
+
         result.tickets.forEach(ticket => {
             let taxPrice = 0;
-            let signedLuggaPrice = 0; 
+            let signedLuggaPrice = 0;
 
             if (ticket.signedluggage != null) signedLuggaPrice = ticket.signedluggage.signedluggagePrices[0].price;
 
-            ticket.taxs.forEach(tax=>{
-                if(tax.taxPrices != null)
+            ticket.taxs.forEach(tax => {
+                if (tax.taxPrices != null)
                     taxPrice += tax.taxPrices[0].price
             })
 
@@ -79,7 +79,7 @@ $.ajax({
                     <h6><b>Tax:</b> ${formatVND(taxPrice)}</h6>
                     <h6><b>Signed Luggage:</b> ${ticket.signedluggage != null ? formatVND(ticket.signedluggage.signedluggagePrices[0].price) : formatVND(0)}</h6>
                     <h6><b>Travel Class Price:</b> ${formatVND(ticket.seat.travelClass.travelClassPrices[0].price)}</h6>
-                    <h6><b>Total Price:</b> ${ticket.ticket_PriceTotal}</h6>
+                    <h6><b>Total Price:</b> ${formatVND(ticket.ticket_PriceTotal)}</h6>
                 </div>
                 <div class="col-sm-6">
                     <h5>Customer Information</h5>
