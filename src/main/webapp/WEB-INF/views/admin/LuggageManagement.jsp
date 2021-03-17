@@ -42,7 +42,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit Luggage</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -62,12 +62,12 @@
                     
                     <div class="LuggageWeight form-group">
                         <label>Weight</label>
-                        <input class="form-control" type="text" id="inpLuggageWeight" >
+                        <input class="form-control" type="number" id="inpLuggageWeight" >
                     </div>
 
                     <div class="price form-group">
                         <label>Price (VND)</label>
-                        <input class="form-control" type="text" id="inpPrice">
+                        <input class="form-control" type="number" id="inpPrice">
                     </div>
 
                     
