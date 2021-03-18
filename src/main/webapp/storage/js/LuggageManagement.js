@@ -2,6 +2,13 @@ var luggageList = [];
 var action = ""; // check update or add
 var price = ""; // check update price by comparing prices
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
+
 function loadLuggageList() {
     $.ajax({
         url: "/FlightTicketManagement/api/signedluggage",
@@ -25,7 +32,7 @@ function loadLuggageList() {
                 <td>${id}</td>
                 <td>${name}</td>
                 <td>${weight}</td>
-                <td>${price}</td>
+                <td>${formatVND(price)}</td>
                 <td>
                     <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateLuggageModal" ><i class="fas fa-edit"></i></button>&nbsp
                     <button id="btnDelete" data-id=${id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -41,6 +48,7 @@ function loadLuggageList() {
         }
     });
 }
+
 loadLuggageList();
 
 // edit 

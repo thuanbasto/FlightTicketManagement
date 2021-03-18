@@ -2,6 +2,13 @@ var travelClassList = [];
 var action = "";
 var price = ""; // check update price by comparing prices
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
+
 // load data body of table
 function loadTravelClassList() {
     $.ajax({
@@ -19,7 +26,7 @@ function loadTravelClassList() {
                 `<tr class=${value.travelClass_Id}>
                     <td>${value.travelClass_Id}</td>
                     <td>${value.name}</td>
-                    <td>${value.travelClassPrices[0].price}</td>
+                    <td>${formatVND(value.travelClassPrices[0].price)}</td>
                     <td>${value.travelClassPrices[0].modifiedDate}</td>
                     <td>
                         <button id="btnEdit" data-id=${value.travelClass_Id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTravelClassModal"><i class="fas fa-edit"></i></button>&nbsp

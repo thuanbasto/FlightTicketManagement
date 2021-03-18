@@ -2,6 +2,12 @@ var action = "";
 var airplaneList = [];
 var airportList = [];
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
 
 // load flight func
 function loadFlights() {
@@ -24,7 +30,7 @@ function loadFlights() {
                 <td>${toAirport}</td>
                 <td>${arrivalDate}</td>
                 <td>${departureDate}</td>
-                <td>${price}</td>
+                <td>${formatVND(parseInt(price))}</td>
                 <td>${airplane}</td>
                 <td><button id="btnEdit" data-id=${flightId} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateFlightModal"><i class="fas fa-edit"></i></button>&nbsp
                 <button id="btnDelete" data-id=${flightId} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

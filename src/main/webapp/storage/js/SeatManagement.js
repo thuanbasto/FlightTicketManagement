@@ -2,6 +2,13 @@ var seatList = [];
 var travelClassList = [];
 var action = "";
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
+
 // load data body of table
 function loadSeatList() {
     $.ajax({
@@ -19,7 +26,7 @@ function loadSeatList() {
                 `<tr class=${value.seat_Id}>
                     <td>${value.seat_Id}</td>
                     <td>${value.travelClass.name}</td>
-                    <td>${value.travelClass.travelClassPrices[0].price}</td>
+                    <td>${formatVND(value.travelClass.travelClassPrices[0].price)}</td>
                     <td>
                         <button id="btnEdit" data-id=${value.seat_Id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateSeatModal"><i class="fas fa-edit"></i></button>&nbsp
                         <button id="btnDelete" data-id=${value.seat_Id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

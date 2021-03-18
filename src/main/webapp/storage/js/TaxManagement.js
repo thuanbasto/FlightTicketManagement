@@ -2,6 +2,13 @@ var taxList = [];
 var action = ""; // check update or add
 var price = ""; // check update price by comparing prices
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
+
 //func load tax
 function loadTaxList() {
     $.ajax({
@@ -19,7 +26,7 @@ function loadTaxList() {
                 `<tr class=${value.tax_Id}>
                     <td>${value.tax_Id}</td>
                     <td>${value.taxName}</td>
-                    <td>${value.taxPrices[0].price}</td>
+                    <td>${formatVND(value.taxPrices[0].price)}</td>
                     <td>${value.taxPrices[0].modifiedDate}</td>
                     <td>
                         <button id="btnEdit" data-id=${value.tax_Id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp

@@ -2,6 +2,13 @@ var ticketList = [];
 var action = "";
 var price = "";
 
+function formatVND(money) {
+    return (money).toLocaleString('vi', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
+
 function loadTicketList() {
     $.ajax({
         method: "GET",
@@ -29,7 +36,7 @@ function loadTicketList() {
                     <td>${flight}</td>
                     <td>${departureDate}</td>
                     <td>${seat}</td>
-                    <td>${price}</td>
+                    <td>${formatVND(price)}</td>
                     <td>
                         <button id="btnEdit" data-id=${id} type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTaxModal"><i class="fas fa-edit"></i></button>&nbsp
                         <button id="btnDelete" data-id=${id} type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>&nbsp
@@ -268,7 +275,7 @@ $('#tbodyData').on('click', '#btnDetail', function () {
 
             htmlStrFooterDetail += `
             <div class="text-left pull-right col-md-3">Price Total: <br />
-            <span class="h3 text-muted"><strong>${ticket.ticket_PriceTotal} VND</strong></span>
+            <span class="h3 text-muted"><strong>${formatVND(ticket.ticket_PriceTotal)} VND</strong></span>
             </div>
             <div class="text-center col-md-12">
             <a target="_blank" href='./ticket-print?ticket_Id=${ticket.ticket_Id}' class="btn btn-primary">Print Ticket</a>           
