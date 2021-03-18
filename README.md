@@ -1,7 +1,7 @@
 # Flight Ticket Management
 
 ---
-The website allows a customers to search for flights and book tickets easily 
+The website allows customers to search for flights and book tickets easily 
 
 ### Techstack
 
